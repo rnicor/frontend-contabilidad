@@ -1,0 +1,12 @@
+[
+  {
+  "nombre":"Sucursal",
+  "redirect": "/sucursal"
+},   {
+  "nombre":"Funcionarios",
+  "redirect": "/sucursal/funcionarios"
+},   {
+  "nombre":"Linea",
+  "redirect": "/sucursal/linea"
+}
+]

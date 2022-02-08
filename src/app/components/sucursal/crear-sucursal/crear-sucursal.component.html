@@ -1,0 +1,91 @@
+<div class="container">
+  <mat-toolbar>
+    <span>Crear Sucursal</span>
+  </mat-toolbar>
+  <mat-card style="margin-top: 10px;">
+    <form [formGroup]="form" (ngSubmit)="crearSucursal()">
+      <mat-grid-list cols="3" rowHeight="70px">
+        <mat-grid-tile [rowspan]="1" [colspan]="1">
+          <mat-form-field class="ancho">
+            <mat-label>Logtrans</mat-label>
+            <input matInput autocomplete="off" type="number" formControlName="logtrans_id">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="1" [colspan]="1">
+          <mat-form-field class="ancho">
+            <mat-label>Código</mat-label>
+            <input matInput autocomplete="off" type="number" formControlName="codigo">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="1" [colspan]="1">
+          <mat-form-field class="ancho">
+            <mat-label>Tipo</mat-label>
+            <input matInput autocomplete="off" formControlName="tipo">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="1" [colspan]="1">
+          <mat-form-field class="ancho">
+            <mat-label>Número</mat-label>
+            <input matInput autocomplete="off" type="number" formControlName="numero">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="1" [colspan]="1">
+          <mat-form-field class="ancho">
+            <mat-label>Nombre</mat-label>
+            <input matInput autocomplete="off" formControlName="nombre">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="1" [colspan]="1">
+          <mat-form-field class="ancho">
+            <mat-label>Dirección</mat-label>
+            <input matInput autocomplete="off" formControlName="direccion">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="1" [colspan]="1">
+          <mat-form-field class="ancho">
+            <mat-label>Teléfono</mat-label>
+            <input matInput autocomplete="off" formControlName="telefono">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="1" [colspan]="1">
+          <mat-form-field class="ancho">
+            <mat-label>Celular</mat-label>
+            <input matInput autocomplete="off" formControlName="celular">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="1" [colspan]="1">
+          <mat-form-field class="ancho">
+            <mat-label>Fax</mat-label>
+            <input matInput autocomplete="off" formControlName="fax">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="1" [colspan]="1">
+          <mat-form-field class="ancho">
+            <mat-label>Ciudad</mat-label>
+            <input matInput autocomplete="off" formControlName="ciudad">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="1" [colspan]="1">
+          <mat-form-field class="ancho">
+            <mat-label>Departamento</mat-label>
+            <input matInput autocomplete="off" formControlName="departamento">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="1" [colspan]="1">
+          <mat-form-field class="ancho">
+            <mat-label>País</mat-label>
+            <input matInput autocomplete="off" formControlName="pais">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="1" [colspan]="1">
+          <mat-slide-toggle formControlName="estado">Enable Wifi</mat-slide-toggle>
+        </mat-grid-tile>
+        <br><br>
+        <mat-grid-tile [rowspan]="1" [colspan]="1">
+          <button mat-raised-button routerLink="/sucursal" style="margin-right: 20px;">Volver</button>
+          <button mat-raised-button color="primary" type="submit">Aceptar</button>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+  </mat-card>
+</div>
