@@ -1,0 +1,54 @@
+import { FuseNavigationItem } from '@fuse/components/navigation';
+
+export const defaultNavigation: FuseNavigationItem[] = [];
+
+export const adminNavigation: FuseNavigationItem[] = [
+    {
+        id      : 'apps',
+        title   : 'Compras',
+        subtitle: 'Módulo de compras',
+        type    : 'group',
+        children: [
+            {
+                id   : 'apps.linea',
+                title: 'Linea',
+                type    : 'basic',
+                icon    : 'heroicons_outline:share',
+                link : '/ingreso/linea'
+            }
+        ]
+    }
+];
+export const encargadoNavigation: FuseNavigationItem[] = [];
+export const vendedorNavigation: FuseNavigationItem[] = [];
+export const almacenNavigation: FuseNavigationItem[] = [];
+
+
+
+export const compactNavigation: FuseNavigationItem[] = [
+    {
+        id   : 'example',
+        title: 'Example',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/example'
+    }
+];
+export const futuristicNavigation: FuseNavigationItem[] = [
+    {
+        id   : 'example',
+        title: 'Example',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/example'
+    }
+];
+export const horizontalNavigation: FuseNavigationItem[] = [
+    {
+        id   : 'example',
+        title: 'Example',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/example'
+    }
+];

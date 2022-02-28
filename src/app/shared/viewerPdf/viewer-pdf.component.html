@@ -1,0 +1,31 @@
+<div mat-dialog-title class="flex justify-between">
+    <h1>Reporte</h1>
+    <button class="mat-raised-button"(click)="close()"><mat-icon svgIcon="heroicons_outline:x"></mat-icon> Cerrar</button>
+</div>
+<div mat-dialog-content>
+    <div *ngIf="currentPdf" >
+        <ngx-extended-pdf-viewer
+            [src]="currentPdf"
+            useBrowserLocale="true"
+            [delayFirstView]="250"
+            height="80vh"
+            [showToolbar]="true"
+            [showSidebarButton]="true"
+            [showFindButton]="false"
+            [showPagingButtons]="true"
+            [showZoomButtons]="true"
+            [showPresentationModeButton]="false"
+            [showOpenFileButton]="false"
+            [showPrintButton]="true"
+            [showDownloadButton]="false"
+            [showBookmarkButton]="false"
+            [showSecondaryToolbarButton]="false"
+            [showRotateButton]="true"
+            [showHandToolButton]="false"
+            [showScrollingButton]="false"
+            [showSpreadButton]="false"
+            [showPropertiesButton]="false"
+            [useBrowserLocale]="true"
+        ></ngx-extended-pdf-viewer>
+    </div>
+</div>
