@@ -77,5 +77,17 @@ export const appRoutes: Route[] = [
         children   : [
             {path: 'linea', loadChildren: () => import('app/modules/ingreso/linea/linea.module').then(m => m.LineaModule)},
         ]
+    },
+    {
+        path       : 'contabilidad',
+        canActivate: [AuthGuard],
+        component  : LayoutComponent,
+        resolve    : {
+            initialData: InitialDataResolver,
+        },
+
+        children   : [
+            {path: 'plan-cuentas', loadChildren: () => import('app/modules/contabilidad/plan-cuentas/plan-cuentas.module').then(m => m.PlanCuentasModule)},
+        ]
     }
 ];

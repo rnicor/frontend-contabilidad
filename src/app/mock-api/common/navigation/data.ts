@@ -17,6 +17,22 @@ export const adminNavigation: FuseNavigationItem[] = [
                 link : '/ingreso/linea'
             }
         ]
+    },
+    {
+        id      : 'apps',
+        title   : 'Contabilidad',
+        subtitle: 'Módulo de contabilidad',
+        type    : 'group',
+        icon    : 'heroicons_outline:archive',
+        children: [
+            {
+                id   : 'apps.contabilidad.plan-cuentas',
+                title: 'Plan cuentas',
+                type : 'basic',
+                icon: 'heroicons_outline:document-text',
+                link : '/contabilidad/plan-cuentas'
+            }
+        ]
     }
 ];
 export const encargadoNavigation: FuseNavigationItem[] = [];
