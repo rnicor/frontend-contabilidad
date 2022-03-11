@@ -33,13 +33,27 @@ export const adminNavigation: FuseNavigationItem[] = [
                 link : '/contabilidad/plan-cuentas'
             }
         ]
+    },
+    {
+        id      : 'apps',
+        title   : 'Parametros',
+        subtitle: 'Módulo de parametricas',
+        type    : 'group',
+        icon    : 'heroicons_outline:archive',
+        children: [
+            {
+                id   : 'apps.parametros.tipo-comprobante',
+                title: 'Tipo comprobante',
+                type : 'basic',
+                icon: 'heroicons_outline:document-text',
+                link : '/parametros/tipo-comprobante'
+            }
+        ]
     }
 ];
 export const encargadoNavigation: FuseNavigationItem[] = [];
 export const vendedorNavigation: FuseNavigationItem[] = [];
 export const almacenNavigation: FuseNavigationItem[] = [];
-
-
 
 export const compactNavigation: FuseNavigationItem[] = [
     {

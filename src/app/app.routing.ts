@@ -89,5 +89,17 @@ export const appRoutes: Route[] = [
         children   : [
             {path: 'plan-cuentas', loadChildren: () => import('app/modules/contabilidad/plan-cuentas/plan-cuentas.module').then(m => m.PlanCuentasModule)},
         ]
+    },
+    {
+        path       : 'parametros',
+        canActivate: [AuthGuard],
+        component  : LayoutComponent,
+        resolve    : {
+            initialData: InitialDataResolver,
+        },
+
+        children   : [
+            {path: 'tipo-comprobante', loadChildren: () => import('app/modules/parametros/tipo-comprobante/tipo-comprobante.module').then(m => m.TipoComprobanteModule)},
+        ]
     }
 ];
