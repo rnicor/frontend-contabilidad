@@ -34,7 +34,7 @@
                 <input
                     matInput
                     [autocomplete]="'off'"
-                    [placeholder]="'Buscar linea'"
+                    [placeholder]="'Buscar cuenta'"
                     (keyup)="filtrar($event)">
             </mat-form-field>
             <!-- Add linea button -->
@@ -68,21 +68,21 @@
                     <th mat-header-cell *matHeaderCellDef> Nombre de la cuenta </th>
                     <td mat-cell *matCellDef="let item">
                         <div *ngIf="item.nivelCuenta === 'G'">
-                            {{item.nombre}} 
+                            {{item.nombre}}
                         </div>
                         <div *ngIf="item.nivelCuenta === 'SG'" [ngClass]="'pl-10'">
-                            {{item.nombre}} 
+                            {{item.nombre}}
                         </div>
                         <div *ngIf="item.nivelCuenta === 'R'" [ngClass]="'pl-20'">
-                            {{item.nombre}} 
+                            {{item.nombre}}
                         </div>
                         <div *ngIf="item.nivelCuenta === 'CC'" [ngClass]="'pl-30'">
-                            {{item.nombre}} 
+                            {{item.nombre}}
                         </div>
                         <div *ngIf="item.nivelCuenta === 'SC'" [ngClass]="'pl-40'">
-                            {{item.nombre}} 
+                            {{item.nombre}}
                         </div>
-                        
+
                     </td>
                     <th mat-header-cell *matFooterCellDef> Moneda </th>
                 </ng-container>

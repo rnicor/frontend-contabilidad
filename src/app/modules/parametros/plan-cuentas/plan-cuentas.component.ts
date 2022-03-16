@@ -209,7 +209,7 @@ export class PlanCuentasComponent implements OnInit, AfterViewInit {
         setTimeout(()=>{
             this.dataSourcePlanCuentaFachada.paginator = this.paginator;
             this.dataSourcePlanCuentaFachada.sort = this.sort;
-            this.paginator._intl.itemsPerPageLabel = 'plan por página';
+            this.paginator._intl.itemsPerPageLabel = 'Plan cuenta por página';
             this.paginator._intl.previousPageLabel = 'Página anterior';
             this.paginator._intl.nextPageLabel = 'Página siguiente';
             this.paginator._intl.firstPageLabel = 'Primera página';

@@ -20,33 +20,31 @@ export const adminNavigation: FuseNavigationItem[] = [
     },
     {
         id      : 'apps',
-        title   : 'Contabilidad',
-        subtitle: 'Módulo de contabilidad',
-        type    : 'group',
-        icon    : 'heroicons_outline:archive',
-        children: [
-            {
-                id   : 'apps.contabilidad.plan-cuentas',
-                title: 'Plan cuentas',
-                type : 'basic',
-                icon: 'heroicons_outline:document-text',
-                link : '/contabilidad/plan-cuentas'
-            }
-        ]
-    },
-    {
-        id      : 'apps',
         title   : 'Parametros',
         subtitle: 'Módulo de parametricas',
         type    : 'group',
         icon    : 'heroicons_outline:archive',
         children: [
             {
+                id   : 'apps.parametros.configuracion-codigo-fijo-contable',
+                title: 'Código fijo contable',
+                type : 'basic',
+                icon: 'heroicons_outline:document-text',
+                link : '/parametros/configuracion-codigo-fijo-contable'
+            },
+            {
                 id   : 'apps.parametros.tipo-comprobante',
                 title: 'Tipo comprobante',
                 type : 'basic',
                 icon: 'heroicons_outline:document-text',
                 link : '/parametros/tipo-comprobante'
+            },
+            {
+                id   : 'apps.parametros.plan-cuentas',
+                title: 'Plan cuentas',
+                type : 'basic',
+                icon: 'heroicons_outline:document-text',
+                link : '/parametros/plan-cuentas'
             }
         ]
     }
