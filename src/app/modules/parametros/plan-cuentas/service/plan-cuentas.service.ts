@@ -55,4 +55,11 @@ export class PlanCuentaService {
         );
     }
 
+    listarPlanCuentaPorCuenta(codigoCuenta: number): Observable<PlanCuentaFachada[]>{
+        return this.http.get(`${this.url}/listarPlanCuentaFachadaPorCodigo/${codigoCuenta}`, this.httpOptions).pipe(
+            map(response => response as PlanCuentaFachada[]),
+            catchError(e => throwError(e))
+        );
+    }
+
 }
