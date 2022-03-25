@@ -23,7 +23,15 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
+
 import {ConfiguracionCodigoFijoContableComponent} from './configuracion-codigo-fijo-contable.component';
+import {PlanCuentaModalComponent} from './modal/plan-cuenta-modal.component';
+
+
+
 
 registerLocaleData(localeES, 'es');
 
@@ -36,7 +44,7 @@ const configuracionCodigoFijoContableRoutes: Route[] = [
 
 @NgModule({
     declarations: [
-        ConfiguracionCodigoFijoContableComponent
+        ConfiguracionCodigoFijoContableComponent,PlanCuentaModalComponent
     ],
     imports: [
         CommonModule,
@@ -63,7 +71,10 @@ const configuracionCodigoFijoContableRoutes: Route[] = [
         MatFormFieldModule,
         MatDatepickerModule,
         MatMomentDateModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatTabsModule,
+        MatCardModule,
+        MatGridListModule,
     ],
     providers: [
         DatePipe,

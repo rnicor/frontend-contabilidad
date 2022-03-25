@@ -1,1 +1,513 @@
-<p>configuracion-codigo-fijo-contable works!</p>
+<div class="flex flex-col flex-auto min-w-0 bg-card dark:bg-transparent">
+    <ng-container>
+
+        <mat-tab-group animationDuration="0ms">
+            <form [formGroup]="formGroupCodigoFijoContable">
+
+                <!-- Primera pestana -->
+                <mat-tab label="Crédito, Débito e IT">
+
+                    <mat-card>
+                        <mat-card-title-group>
+                            <mat-card-title>
+                            </mat-card-title>
+                            <mat-card-subtitle>
+                                Tomar en cuenta
+                            </mat-card-subtitle>
+
+                        </mat-card-title-group>
+                        <mat-card-content>
+                            COMPROBANTES DE INGRESO c/factura, son afectadas las ctas: I.T. (gasto), DEBITO FISCAL
+                            (pasivo),
+                            I.T.(pasivo).
+                            <br/>
+                            COMPROBANTES DE EGRESO c/factura, es afectada la cta. CREDITO FISCAL (activo).
+                            <br/>
+                            COMPROBANTES DE EGRESO "sin" factura, son afectadas las ctas. CREDITO FISCAL (activo).
+                        </mat-card-content>
+                    </mat-card>
+
+
+                    <mat-grid-list cols="2" rowHeight="600px">
+                        <mat-grid-tile>
+                            <div class="flex-auto">
+
+                                <div class="text-lg font-extrabold tracking-tight leading-none">
+                                    Para comprobantes de EGRESO
+                                </div>
+
+                                <div>
+                                    Crédito Fiscal
+                                </div>
+
+                                <mat-grid-list cols="7" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta0'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta0'].value, '0', 'nombre0', 'codigoCuenta0')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre0'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input type="number" [formControlName]="'valorPorcentaje0'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <mat-checkbox
+                                            class="my-1"
+                                            [color]="'primary'"
+                                            formControlName="valorSeleccion0">
+                                            totalizar
+                                        </mat-checkbox>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+                                <div class="text-lg font-extrabold tracking-tight leading-none">
+                                    Para comprobantes de INGRESO
+                                </div>
+
+                                <br />
+                                <div>
+                                    Débito Fiscal
+                                </div>
+                                <mat-grid-list cols="7" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta1'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta1'].value, '1', 'nombre1', 'codigoCuenta1')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre1'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input type="number" [formControlName]="'valorPorcentaje1'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <mat-checkbox
+                                            class="my-1"
+                                            [color]="'primary'"
+                                            [disabled]="true"
+                                            formControlName="valorSeleccion1">
+                                            totalizar
+                                        </mat-checkbox>
+                                    </mat-grid-tile>
+
+                                </mat-grid-list>
+
+
+                                <br />
+                                <div>
+                                    Impuesto a las transacciones (Gasto)
+                                </div>
+                                <mat-grid-list cols="7" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta2'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta2'].value, '5', 'nombre2', 'codigoCuenta2')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre2'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input type="number" [formControlName]="'valorPorcentaje2'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <mat-checkbox
+                                            class="my-1"
+                                            [color]="'primary'"
+                                            [disabled]="true"
+                                            formControlName="valorSeleccion2">
+                                            totalizar
+                                        </mat-checkbox>
+                                    </mat-grid-tile>
+
+                                </mat-grid-list>
+
+                                <br />
+                                <div>
+                                    Impuesto a las transacciones (Pasivo)
+                                </div>
+                                <mat-grid-list cols="7" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta3'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta3'].value, '2', 'nombre3', 'codigoCuenta3')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre3'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input type="number" [formControlName]="'valorPorcentaje3'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <mat-checkbox
+                                            class="my-1"
+                                            [color]="'primary'"
+                                            [disabled]="true"
+                                            formControlName="valorSeleccion3">
+                                            totalizar
+                                        </mat-checkbox>
+                                    </mat-grid-tile>
+
+                                </mat-grid-list>
+
+                                <div class="text-lg font-extrabold tracking-tight leading-none">
+                                    Retención por alquileres
+                                </div>
+
+                                <br />
+                                <div>
+                                    Retención RC-IVA
+                                </div>
+
+                                <mat-grid-list cols="7" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta4'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta4'].value, '2', 'nombre4', 'codigoCuenta4')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre4'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input type="number" [formControlName]="'valorPorcentaje4'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+                                <br />
+                                <div>
+                                    Retención IT
+                                </div>
+
+                                <mat-grid-list cols="7" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta5'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta5'].value, '2', 'nombre5', 'codigoCuenta5')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre5'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input type="number" [formControlName]="'valorPorcentaje5'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+
+                            </div>
+
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+
+                            <div class="flex-auto">
+
+                                <div class="text-lg font-extrabold tracking-tight leading-none">
+                                    Retención por compras
+                                </div>
+
+                                <div>
+                                    Retención IU compras
+                                </div>
+                                <mat-grid-list cols="6" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta6'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta6'].value, '2', 'nombre6', 'codigoCuenta6')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre6'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input type="number" [formControlName]="'valorPorcentaje6'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+                                <div>
+                                    Retención IT compras
+                                </div>
+                                <mat-grid-list cols="6" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta7'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta7'].value, '2', 'nombre7', 'codigoCuenta7')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre7'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input type="number" [formControlName]="'valorPorcentaje7'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+
+                                <div class="text-lg font-extrabold tracking-tight leading-none">
+                                    Retención por servicios
+                                </div>
+
+                                <br />
+                                <div>
+                                    Retención IU servicios
+                                </div>
+                                <mat-grid-list cols="6" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta8'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta8'].value, '2', 'nombre8', 'codigoCuenta8')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre8'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input type="number" [formControlName]="'valorPorcentaje8'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+                                <br />
+                                <div>
+                                    Retención IT servicios
+                                </div>
+                                <mat-grid-list cols="6" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta9'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta9'].value, '2', 'nombre9', 'codigoCuenta9')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre9'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input type="number" [formControlName]="'valorPorcentaje9'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+
+
+                                <div class="text-lg font-extrabold tracking-tight leading-none">
+                                    Retención RC-IVA
+                                </div>
+
+                                <mat-grid-list cols="6" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta10'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta10'].value, '2', 'nombre10', 'codigoCuenta10')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre10'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input type="number" [formControlName]="'valorPorcentaje10'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+                                <div class="text-lg font-extrabold tracking-tight leading-none">
+                                    Beneficiarios del Exterior
+                                </div>
+
+                                <mat-grid-list cols="6" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta11'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta11'].value, '2', 'nombre11', 'codigoCuenta11')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre11'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input type="number" [formControlName]="'valorPorcentaje11'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+                            </div>
+
+                        </mat-grid-tile>
+
+                    </mat-grid-list>
+
+
+                </mat-tab>
+                <mat-tab label="Cierre de Gestión y Otros">
+                    <div class="flex-auto">
+                        Cierre de Gestión y Otros
+                    </div>
+                </mat-tab>
+                <mat-tab label="Proyecto">
+                    <div class="flex-auto">
+                        <mat-checkbox
+                            class="my-1"
+                            [color]="'primary'"
+                            formControlName="rpp">
+                            Reportes por proyecto
+                        </mat-checkbox>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Otros Códigos Fijos">
+                    <div class="flex-auto">
+                        Otros Códigos Fijos
+                    </div>
+                </mat-tab>
+                <mat-tab label="Pie de Página">
+                    <div class="flex-auto">
+                        Pie de Página
+                    </div>
+                </mat-tab>
+                <mat-tab label="Moneda y otras opciones">
+                    <div class="flex-auto">
+                        Moneda y otras opciones
+                    </div>
+                </mat-tab>
+
+
+            </form>
+        </mat-tab-group>
+        <div>
+            <button
+                class="ml-2"
+                mat-flat-button
+                [color]="'primary'"
+                [matTooltip]="'Save'"
+                (click)="guardarConfiguracionCodigo()">
+                Guardar
+            </button>
+        </div>
+    </ng-container>
+
+</div>
