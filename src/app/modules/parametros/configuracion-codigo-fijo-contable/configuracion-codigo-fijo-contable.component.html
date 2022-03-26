@@ -77,7 +77,7 @@
                                     Para comprobantes de INGRESO
                                 </div>
 
-                                <br />
+                                <br/>
                                 <div>
                                     Débito Fiscal
                                 </div>
@@ -117,7 +117,7 @@
                                 </mat-grid-list>
 
 
-                                <br />
+                                <br/>
                                 <div>
                                     Impuesto a las transacciones (Gasto)
                                 </div>
@@ -156,7 +156,7 @@
 
                                 </mat-grid-list>
 
-                                <br />
+                                <br/>
                                 <div>
                                     Impuesto a las transacciones (Pasivo)
                                 </div>
@@ -199,7 +199,7 @@
                                     Retención por alquileres
                                 </div>
 
-                                <br />
+                                <br/>
                                 <div>
                                     Retención RC-IVA
                                 </div>
@@ -232,7 +232,7 @@
                                     </mat-grid-tile>
                                 </mat-grid-list>
 
-                                <br />
+                                <br/>
                                 <div>
                                     Retención IT
                                 </div>
@@ -338,7 +338,7 @@
                                     Retención por servicios
                                 </div>
 
-                                <br />
+                                <br/>
                                 <div>
                                     Retención IU servicios
                                 </div>
@@ -367,7 +367,7 @@
                                     </mat-grid-tile>
                                 </mat-grid-list>
 
-                                <br />
+                                <br/>
                                 <div>
                                     Retención IT servicios
                                 </div>
@@ -395,7 +395,6 @@
                                         </mat-form-field>
                                     </mat-grid-tile>
                                 </mat-grid-list>
-
 
 
                                 <div class="text-lg font-extrabold tracking-tight leading-none">
@@ -465,11 +464,281 @@
 
                 </mat-tab>
                 <mat-tab label="Cierre de Gestión y Otros">
-                    <div class="flex-auto">
-                        Cierre de Gestión y Otros
-                    </div>
+                    <mat-grid-list cols="2" rowHeight="600px">
+                        <mat-grid-tile>
+                            <div class="flex-auto">
+                                <mat-card>
+                                    <mat-card-title-group>
+                                        <mat-card-title>
+                                        </mat-card-title>
+                                        <mat-card-subtitle>
+                                        </mat-card-subtitle>
+                                    </mat-card-title-group>
+                                    <mat-card-content>
+                                        El código RESULTADOS DE LA GESTIÓN permite reflejar la UTILIDAD ó PÉRDIDA del
+                                        período.
+                                        <br/>
+                                        El código RESULTADOS ACUMULADOS permite reflejar la UTILIDAD ó PÉRDIDA en el
+                                        siguiente período en el ASIENTO DE APERTURA.
+                                        <br/>
+                                        El código de AJUSTE POR INFLACIÓN Y TENENCIA DE BIENES Permite generar el
+                                        asiento de
+                                        AJUSTE.
+
+
+                                    </mat-card-content>
+                                </mat-card>
+
+                                <div class="text-lg font-extrabold tracking-tight leading-none">
+                                    Cuentas para cerrar la gestión
+                                </div>
+
+                                <div>
+                                    Resultados de la gestión
+                                </div>
+                                <mat-grid-list cols="5" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta12'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta12'].value, '12', 'nombre12', 'codigoCuenta12')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre12'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+                                <div>
+                                    Resultados acumulados
+                                </div>
+                                <mat-grid-list cols="5" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta13'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta13'].value, '13', 'nombre13', 'codigoCuenta13')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre13'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+                                <div class="text-lg font-extrabold tracking-tight leading-none">
+                                    Cuentas para el ajuste por la inflación y tenencia de bienes
+                                </div>
+
+                                <div>
+                                    Ajuste por inflación y tenencia de bienes (ingreso)
+                                </div>
+
+                                <mat-grid-list cols="5" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta14'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta14'].value, '14', 'nombre14', 'codigoCuenta14')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre14'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+                                <div>
+                                    Ajuste por inflación y tenencia de bienes (egreso)
+                                </div>
+                                <mat-grid-list cols="5" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta15'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta15'].value, '15', 'nombre15', 'codigoCuenta15')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre15'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+                            </div>
+
+
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="flex-auto">
+                                <mat-card>
+                                    <mat-card-title-group>
+                                        <mat-card-title>
+                                        </mat-card-title>
+                                        <mat-card-subtitle>
+                                        </mat-card-subtitle>
+                                    </mat-card-title-group>
+                                    <mat-card-content>
+                                        El rango de los códigos de CAJA (inicial y final) permite identificar los
+                                        códigos
+                                        referidos a "CAJA".
+                                        <br/>
+                                        El rango de los códigos de BANCOS (inicial y final) permite identificar los
+                                        códigos
+                                        referidos a "BANCOS".
+                                    </mat-card-content>
+                                </mat-card>
+                                <div class="text-lg font-extrabold tracking-tight leading-none">
+                                    Código de la cuenta COMPUESTA "CAJA" (Clave="C")
+                                </div>
+
+                                <mat-grid-list cols="5" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta16'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta16'].value, '16', 'nombre16', 'codigoCuenta16')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3" class="content-start">
+                                        <label>{{formGroupCodigoFijoContable.controls['nombre16'].value}}</label>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+                                <mat-grid-list cols="5" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta17'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta17'].value, '17', 'nombre17', 'codigoCuenta17')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3" class="content-start">
+                                        <label>{{formGroupCodigoFijoContable.controls['nombre17'].value}}</label>
+                                    </mat-grid-tile>
+
+                                </mat-grid-list>
+
+                                <div class="text-lg font-extrabold tracking-tight leading-none">
+                                    Código de la cuenta  COMPUESTA "BANCOS" (Clave="C")
+                                </div>
+
+                                <mat-grid-list cols="5" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta18'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta18'].value, '18', 'nombre18', 'codigoCuenta18')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3" class="content-start">
+                                        <label>{{formGroupCodigoFijoContable.controls['nombre18'].value}}</label>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+                                <mat-grid-list cols="5" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta19'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta19'].value, '19', 'nombre19', 'codigoCuenta19')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3" class="content-start">
+                                        <label>{{formGroupCodigoFijoContable.controls['nombre19'].value}}</label>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+                                <div class="text-lg font-extrabold tracking-tight leading-none">
+                                    Código del grupo "PASIVO"
+                                </div>
+
+                                <mat-grid-list cols="5" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta20'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta20'].value, '20', 'nombre20', 'codigoCuenta20')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3" class="content-start">
+                                        <label>{{formGroupCodigoFijoContable.controls['nombre20'].value}}</label>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+                                <mat-grid-list cols="5" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta21'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta21'].value, '21', 'nombre21', 'codigoCuenta21')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3" class="content-start">
+                                        <label>{{formGroupCodigoFijoContable.controls['nombre21'].value}}</label>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+                            </div>
+
+                        </mat-grid-tile>
+
+                    </mat-grid-list>
                 </mat-tab>
-                <mat-tab label="Proyecto">
+                <!--<mat-tab label="Proyecto">
                     <div class="flex-auto">
                         <mat-checkbox
                             class="my-1"
@@ -478,11 +747,127 @@
                             Reportes por proyecto
                         </mat-checkbox>
                     </div>
-                </mat-tab>
+                </mat-tab>-->
                 <mat-tab label="Otros Códigos Fijos">
-                    <div class="flex-auto">
-                        Otros Códigos Fijos
-                    </div>
+                    <mat-grid-list cols="2" rowHeight="250px">
+                        <mat-grid-tile>
+                            <div class="flex-auto">
+                                <mat-card>
+                                    <mat-card-title-group>
+                                        <mat-card-title>
+                                        </mat-card-title>
+                                        <mat-card-subtitle>
+                                        </mat-card-subtitle>
+                                    </mat-card-title-group>
+                                    <mat-card-content>
+                                        Diferencia de cambio (saldo positivo o negativo) en operaciones con moneda extranjera.
+                                    </mat-card-content>
+                                </mat-card>
+
+                                <div class="text-lg font-extrabold tracking-tight leading-none">
+                                    Cuentas de DIFERENCIA DE CAMBIO
+                                </div>
+
+                                <div>
+                                    Diferencia de cambio (INGRESO)
+                                </div>
+                                <mat-grid-list cols="5" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta22'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta22'].value, '22', 'nombre22', 'codigoCuenta22')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre22'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+                                <div>
+                                    Diferencia de cambio (EGRESO)
+                                </div>
+                                <mat-grid-list cols="5" rowHeight="50px">
+                                    <mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta23'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta23'].value, '23', 'nombre23', 'codigoCuenta23')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre23'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+
+                            </div>
+
+
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="flex-auto">
+                                <mat-card>
+                                    <mat-card-title-group>
+                                        <mat-card-title>
+                                        </mat-card-title>
+                                        <mat-card-subtitle>
+                                        </mat-card-subtitle>
+                                    </mat-card-title-group>
+                                    <mat-card-content>
+                                        Restricción de Cuentas Contables por usuarios.
+                                    </mat-card-content>
+                                </mat-card>
+                                <div class="text-lg font-extrabold tracking-tight leading-none">
+                                    Restricción de Cuentas Contables por Usuarios:
+                                </div>
+
+                                <mat-grid-list cols="5" rowHeight="50px">
+                                    <!--<mat-grid-tile>
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta24'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta24'].value, '24', 'nombre24', 'codigoCuenta24')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>-->
+
+                                    <mat-grid-tile [colspan]="3" class="content-start">
+                                        <label>{{formGroupCodigoFijoContable.controls['nombre24'].value}}</label>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile>
+                                        <mat-checkbox
+                                            class="my-1"
+                                            [color]="'primary'"
+                                            formControlName="valorSeleccion24">
+                                            totalizar
+                                        </mat-checkbox>
+                                    </mat-grid-tile>
+
+                                </mat-grid-list>
+
+                            </div>
+
+                        </mat-grid-tile>
+
+                    </mat-grid-list>
                 </mat-tab>
                 <mat-tab label="Pie de Página">
                     <div class="flex-auto">

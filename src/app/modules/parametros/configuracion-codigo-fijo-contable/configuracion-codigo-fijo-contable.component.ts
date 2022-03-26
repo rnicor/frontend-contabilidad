@@ -97,9 +97,6 @@ export class ConfiguracionCodigoFijoContableComponent implements OnInit {
                 this.formGroupCodigoFijoContable.controls['valorSeleccion6'].setValue(response[6].valorSeleccion);
                 this.formGroupCodigoFijoContable.controls['valorRadio6'].setValue(response[6].valorRadio);
 
-                console.log('hola');
-                console.log(this.formGroupCodigoFijoContable.controls['id6'].value);
-
                 //control 8
                 this.formGroupCodigoFijoContable.controls['id7'].setValue(response[7].id);
                 this.formGroupCodigoFijoContable.controls['numeroControl7'].setValue(response[7].numeroControl);
@@ -145,6 +142,122 @@ export class ConfiguracionCodigoFijoContableComponent implements OnInit {
                 this.formGroupCodigoFijoContable.controls['valorSeleccion11'].setValue(response[11].valorSeleccion);
                 this.formGroupCodigoFijoContable.controls['valorRadio11'].setValue(response[11].valorRadio);
 
+                //control 13
+                this.formGroupCodigoFijoContable.controls['id12'].setValue(response[12].id);
+                this.formGroupCodigoFijoContable.controls['numeroControl12'].setValue(response[12].numeroControl);
+                this.formGroupCodigoFijoContable.controls['codigoCuenta12'].setValue(response[12].codigoCuenta);
+                this.formGroupCodigoFijoContable.controls['nombre12'].setValue(response[12].nombre);
+                this.formGroupCodigoFijoContable.controls['valorPorcentaje12'].setValue(response[12].valorPorcentaje);
+                this.formGroupCodigoFijoContable.controls['valorSeleccion12'].setValue(response[12].valorSeleccion);
+                this.formGroupCodigoFijoContable.controls['valorRadio12'].setValue(response[12].valorRadio);
+
+                //control 14
+                this.formGroupCodigoFijoContable.controls['id13'].setValue(response[13].id);
+                this.formGroupCodigoFijoContable.controls['numeroControl13'].setValue(response[13].numeroControl);
+                this.formGroupCodigoFijoContable.controls['codigoCuenta13'].setValue(response[13].codigoCuenta);
+                this.formGroupCodigoFijoContable.controls['nombre13'].setValue(response[13].nombre);
+                this.formGroupCodigoFijoContable.controls['valorPorcentaje13'].setValue(response[13].valorPorcentaje);
+                this.formGroupCodigoFijoContable.controls['valorSeleccion13'].setValue(response[13].valorSeleccion);
+                this.formGroupCodigoFijoContable.controls['valorRadio13'].setValue(response[13].valorRadio);
+
+                //control 15
+                this.formGroupCodigoFijoContable.controls['id14'].setValue(response[14].id);
+                this.formGroupCodigoFijoContable.controls['numeroControl14'].setValue(response[14].numeroControl);
+                this.formGroupCodigoFijoContable.controls['codigoCuenta14'].setValue(response[14].codigoCuenta);
+                this.formGroupCodigoFijoContable.controls['nombre14'].setValue(response[14].nombre);
+                this.formGroupCodigoFijoContable.controls['valorPorcentaje14'].setValue(response[14].valorPorcentaje);
+                this.formGroupCodigoFijoContable.controls['valorSeleccion14'].setValue(response[14].valorSeleccion);
+                this.formGroupCodigoFijoContable.controls['valorRadio14'].setValue(response[14].valorRadio);
+
+                //control 16
+                this.formGroupCodigoFijoContable.controls['id15'].setValue(response[15].id);
+                this.formGroupCodigoFijoContable.controls['numeroControl15'].setValue(response[15].numeroControl);
+                this.formGroupCodigoFijoContable.controls['codigoCuenta15'].setValue(response[15].codigoCuenta);
+                this.formGroupCodigoFijoContable.controls['nombre15'].setValue(response[15].nombre);
+                this.formGroupCodigoFijoContable.controls['valorPorcentaje15'].setValue(response[15].valorPorcentaje);
+                this.formGroupCodigoFijoContable.controls['valorSeleccion15'].setValue(response[15].valorSeleccion);
+                this.formGroupCodigoFijoContable.controls['valorRadio15'].setValue(response[15].valorRadio);
+
+                //control 17
+                this.formGroupCodigoFijoContable.controls['id16'].setValue(response[16].id);
+                this.formGroupCodigoFijoContable.controls['numeroControl16'].setValue(response[16].numeroControl);
+                this.formGroupCodigoFijoContable.controls['codigoCuenta16'].setValue(response[16].codigoCuenta);
+                this.formGroupCodigoFijoContable.controls['nombre16'].setValue(response[16].nombre);
+                this.formGroupCodigoFijoContable.controls['valorPorcentaje16'].setValue(response[16].valorPorcentaje);
+                this.formGroupCodigoFijoContable.controls['valorSeleccion16'].setValue(response[16].valorSeleccion);
+                this.formGroupCodigoFijoContable.controls['valorRadio16'].setValue(response[16].valorRadio);
+
+                //control 18
+                this.formGroupCodigoFijoContable.controls['id17'].setValue(response[17].id);
+                this.formGroupCodigoFijoContable.controls['numeroControl17'].setValue(response[17].numeroControl);
+                this.formGroupCodigoFijoContable.controls['codigoCuenta17'].setValue(response[17].codigoCuenta);
+                this.formGroupCodigoFijoContable.controls['nombre17'].setValue(response[17].nombre);
+                this.formGroupCodigoFijoContable.controls['valorPorcentaje17'].setValue(response[17].valorPorcentaje);
+                this.formGroupCodigoFijoContable.controls['valorSeleccion17'].setValue(response[17].valorSeleccion);
+                this.formGroupCodigoFijoContable.controls['valorRadio17'].setValue(response[17].valorRadio);
+
+                //control 19
+                this.formGroupCodigoFijoContable.controls['id18'].setValue(response[18].id);
+                this.formGroupCodigoFijoContable.controls['numeroControl18'].setValue(response[18].numeroControl);
+                this.formGroupCodigoFijoContable.controls['codigoCuenta18'].setValue(response[18].codigoCuenta);
+                this.formGroupCodigoFijoContable.controls['nombre18'].setValue(response[18].nombre);
+                this.formGroupCodigoFijoContable.controls['valorPorcentaje18'].setValue(response[18].valorPorcentaje);
+                this.formGroupCodigoFijoContable.controls['valorSeleccion18'].setValue(response[18].valorSeleccion);
+                this.formGroupCodigoFijoContable.controls['valorRadio18'].setValue(response[18].valorRadio);
+
+                //control 20
+                this.formGroupCodigoFijoContable.controls['id19'].setValue(response[19].id);
+                this.formGroupCodigoFijoContable.controls['numeroControl19'].setValue(response[19].numeroControl);
+                this.formGroupCodigoFijoContable.controls['codigoCuenta19'].setValue(response[19].codigoCuenta);
+                this.formGroupCodigoFijoContable.controls['nombre19'].setValue(response[19].nombre);
+                this.formGroupCodigoFijoContable.controls['valorPorcentaje19'].setValue(response[19].valorPorcentaje);
+                this.formGroupCodigoFijoContable.controls['valorSeleccion19'].setValue(response[19].valorSeleccion);
+                this.formGroupCodigoFijoContable.controls['valorRadio19'].setValue(response[19].valorRadio);
+
+                //control 21
+                this.formGroupCodigoFijoContable.controls['id20'].setValue(response[20].id);
+                this.formGroupCodigoFijoContable.controls['numeroControl20'].setValue(response[20].numeroControl);
+                this.formGroupCodigoFijoContable.controls['codigoCuenta20'].setValue(response[20].codigoCuenta);
+                this.formGroupCodigoFijoContable.controls['nombre20'].setValue(response[20].nombre);
+                this.formGroupCodigoFijoContable.controls['valorPorcentaje20'].setValue(response[20].valorPorcentaje);
+                this.formGroupCodigoFijoContable.controls['valorSeleccion20'].setValue(response[20].valorSeleccion);
+                this.formGroupCodigoFijoContable.controls['valorRadio20'].setValue(response[20].valorRadio);
+
+                //control 22
+                this.formGroupCodigoFijoContable.controls['id21'].setValue(response[21].id);
+                this.formGroupCodigoFijoContable.controls['numeroControl21'].setValue(response[21].numeroControl);
+                this.formGroupCodigoFijoContable.controls['codigoCuenta21'].setValue(response[21].codigoCuenta);
+                this.formGroupCodigoFijoContable.controls['nombre21'].setValue(response[21].nombre);
+                this.formGroupCodigoFijoContable.controls['valorPorcentaje21'].setValue(response[21].valorPorcentaje);
+                this.formGroupCodigoFijoContable.controls['valorSeleccion21'].setValue(response[21].valorSeleccion);
+                this.formGroupCodigoFijoContable.controls['valorRadio21'].setValue(response[21].valorRadio);
+
+                //control 23
+                this.formGroupCodigoFijoContable.controls['id22'].setValue(response[22].id);
+                this.formGroupCodigoFijoContable.controls['numeroControl22'].setValue(response[22].numeroControl);
+                this.formGroupCodigoFijoContable.controls['codigoCuenta22'].setValue(response[22].codigoCuenta);
+                this.formGroupCodigoFijoContable.controls['nombre22'].setValue(response[22].nombre);
+                this.formGroupCodigoFijoContable.controls['valorPorcentaje22'].setValue(response[22].valorPorcentaje);
+                this.formGroupCodigoFijoContable.controls['valorSeleccion22'].setValue(response[22].valorSeleccion);
+                this.formGroupCodigoFijoContable.controls['valorRadio22'].setValue(response[22].valorRadio);
+
+                //control 24
+                this.formGroupCodigoFijoContable.controls['id23'].setValue(response[23].id);
+                this.formGroupCodigoFijoContable.controls['numeroControl23'].setValue(response[23].numeroControl);
+                this.formGroupCodigoFijoContable.controls['codigoCuenta23'].setValue(response[23].codigoCuenta);
+                this.formGroupCodigoFijoContable.controls['nombre23'].setValue(response[23].nombre);
+                this.formGroupCodigoFijoContable.controls['valorPorcentaje23'].setValue(response[23].valorPorcentaje);
+                this.formGroupCodigoFijoContable.controls['valorSeleccion23'].setValue(response[23].valorSeleccion);
+                this.formGroupCodigoFijoContable.controls['valorRadio23'].setValue(response[23].valorRadio);
+
+                //control 25
+                this.formGroupCodigoFijoContable.controls['id24'].setValue(response[24].id);
+                this.formGroupCodigoFijoContable.controls['numeroControl24'].setValue(response[24].numeroControl);
+                this.formGroupCodigoFijoContable.controls['codigoCuenta24'].setValue(response[24].codigoCuenta);
+                this.formGroupCodigoFijoContable.controls['nombre24'].setValue(response[24].nombre);
+                this.formGroupCodigoFijoContable.controls['valorPorcentaje24'].setValue(response[24].valorPorcentaje);
+                this.formGroupCodigoFijoContable.controls['valorSeleccion24'].setValue(response[24].valorSeleccion);
+                this.formGroupCodigoFijoContable.controls['valorRadio24'].setValue(response[24].valorRadio);
             }
         );
 
@@ -247,7 +360,111 @@ export class ConfiguracionCodigoFijoContableComponent implements OnInit {
             nombre11: [],
             valorPorcentaje11: [],
             valorSeleccion11: [],
-            valorRadio11: []
+            valorRadio11: [],
+
+            id12: [],
+            numeroControl12: [],
+            codigoCuenta12: [],
+            nombre12: [],
+            valorPorcentaje12: [],
+            valorSeleccion12: [],
+            valorRadio12: [],
+
+            id13: [],
+            numeroControl13: [],
+            codigoCuenta13: [],
+            nombre13: [],
+            valorPorcentaje13: [],
+            valorSeleccion13: [],
+            valorRadio13: [],
+
+            id14: [],
+            numeroControl14: [],
+            codigoCuenta14: [],
+            nombre14: [],
+            valorPorcentaje14: [],
+            valorSeleccion14: [],
+            valorRadio14: [],
+
+            id15: [],
+            numeroControl15: [],
+            codigoCuenta15: [],
+            nombre15: [],
+            valorPorcentaje15: [],
+            valorSeleccion15: [],
+            valorRadio15: [],
+
+            id16: [],
+            numeroControl16: [],
+            codigoCuenta16: [],
+            nombre16: [],
+            valorPorcentaje16: [],
+            valorSeleccion16: [],
+            valorRadio16: [],
+
+            id17: [],
+            numeroControl17: [],
+            codigoCuenta17: [],
+            nombre17: [],
+            valorPorcentaje17: [],
+            valorSeleccion17: [],
+            valorRadio17: [],
+
+            id18: [],
+            numeroControl18: [],
+            codigoCuenta18: [],
+            nombre18: [],
+            valorPorcentaje18: [],
+            valorSeleccion18: [],
+            valorRadio18: [],
+
+            id19: [],
+            numeroControl19: [],
+            codigoCuenta19: [],
+            nombre19: [],
+            valorPorcentaje19: [],
+            valorSeleccion19: [],
+            valorRadio19: [],
+
+            id20: [],
+            numeroControl20: [],
+            codigoCuenta20: [],
+            nombre20: [],
+            valorPorcentaje20: [],
+            valorSeleccion20: [],
+            valorRadio20: [],
+
+            id21: [],
+            numeroControl21: [],
+            codigoCuenta21: [],
+            nombre21: [],
+            valorPorcentaje21: [],
+            valorSeleccion21: [],
+            valorRadio21: [],
+
+            id22: [],
+            numeroControl22: [],
+            codigoCuenta22: [],
+            nombre22: [],
+            valorPorcentaje22: [],
+            valorSeleccion22: [],
+            valorRadio22: [],
+
+            id23: [],
+            numeroControl23: [],
+            codigoCuenta23: [],
+            nombre23: [],
+            valorPorcentaje23: [],
+            valorSeleccion23: [],
+            valorRadio23: [],
+
+            id24: [],
+            numeroControl24: [],
+            codigoCuenta24: [],
+            nombre24: [],
+            valorPorcentaje24: [],
+            valorSeleccion24: [],
+            valorRadio24: []
 
         });
     }
@@ -389,13 +606,142 @@ export class ConfiguracionCodigoFijoContableComponent implements OnInit {
         aux = Object.assign({}, this.configuracionCodigo);
         this.listaConfiguracionCodigo.push(aux);
 
+        this.configuracionCodigo.id = this.formGroupCodigoFijoContable.controls['id12'].value;
+        this.configuracionCodigo.numeroControl = this.formGroupCodigoFijoContable.controls['numeroControl12'].value;
+        this.configuracionCodigo.codigoCuenta = this.formGroupCodigoFijoContable.controls['codigoCuenta12'].value;
+        this.configuracionCodigo.nombre = this.formGroupCodigoFijoContable.controls['nombre12'].value;
+        this.configuracionCodigo.valorPorcentaje = this.formGroupCodigoFijoContable.controls['valorPorcentaje12'].value;
+        this.configuracionCodigo.valorSeleccion = this.formGroupCodigoFijoContable.controls['valorSeleccion12'].value;
+        this.configuracionCodigo.valorRadio = this.formGroupCodigoFijoContable.controls['valorRadio12'].value;
+        aux = Object.assign({}, this.configuracionCodigo);
+        this.listaConfiguracionCodigo.push(aux);
+
+        this.configuracionCodigo.id = this.formGroupCodigoFijoContable.controls['id13'].value;
+        this.configuracionCodigo.numeroControl = this.formGroupCodigoFijoContable.controls['numeroControl13'].value;
+        this.configuracionCodigo.codigoCuenta = this.formGroupCodigoFijoContable.controls['codigoCuenta13'].value;
+        this.configuracionCodigo.nombre = this.formGroupCodigoFijoContable.controls['nombre13'].value;
+        this.configuracionCodigo.valorPorcentaje = this.formGroupCodigoFijoContable.controls['valorPorcentaje13'].value;
+        this.configuracionCodigo.valorSeleccion = this.formGroupCodigoFijoContable.controls['valorSeleccion13'].value;
+        this.configuracionCodigo.valorRadio = this.formGroupCodigoFijoContable.controls['valorRadio13'].value;
+        aux = Object.assign({}, this.configuracionCodigo);
+        this.listaConfiguracionCodigo.push(aux);
+
+        this.configuracionCodigo.id = this.formGroupCodigoFijoContable.controls['id14'].value;
+        this.configuracionCodigo.numeroControl = this.formGroupCodigoFijoContable.controls['numeroControl14'].value;
+        this.configuracionCodigo.codigoCuenta = this.formGroupCodigoFijoContable.controls['codigoCuenta14'].value;
+        this.configuracionCodigo.nombre = this.formGroupCodigoFijoContable.controls['nombre14'].value;
+        this.configuracionCodigo.valorPorcentaje = this.formGroupCodigoFijoContable.controls['valorPorcentaje14'].value;
+        this.configuracionCodigo.valorSeleccion = this.formGroupCodigoFijoContable.controls['valorSeleccion14'].value;
+        this.configuracionCodigo.valorRadio = this.formGroupCodigoFijoContable.controls['valorRadio14'].value;
+        aux = Object.assign({}, this.configuracionCodigo);
+        this.listaConfiguracionCodigo.push(aux);
+
+        this.configuracionCodigo.id = this.formGroupCodigoFijoContable.controls['id15'].value;
+        this.configuracionCodigo.numeroControl = this.formGroupCodigoFijoContable.controls['numeroControl15'].value;
+        this.configuracionCodigo.codigoCuenta = this.formGroupCodigoFijoContable.controls['codigoCuenta15'].value;
+        this.configuracionCodigo.nombre = this.formGroupCodigoFijoContable.controls['nombre15'].value;
+        this.configuracionCodigo.valorPorcentaje = this.formGroupCodigoFijoContable.controls['valorPorcentaje15'].value;
+        this.configuracionCodigo.valorSeleccion = this.formGroupCodigoFijoContable.controls['valorSeleccion15'].value;
+        this.configuracionCodigo.valorRadio = this.formGroupCodigoFijoContable.controls['valorRadio15'].value;
+        aux = Object.assign({}, this.configuracionCodigo);
+        this.listaConfiguracionCodigo.push(aux);
+
+        this.configuracionCodigo.id = this.formGroupCodigoFijoContable.controls['id16'].value;
+        this.configuracionCodigo.numeroControl = this.formGroupCodigoFijoContable.controls['numeroControl16'].value;
+        this.configuracionCodigo.codigoCuenta = this.formGroupCodigoFijoContable.controls['codigoCuenta16'].value;
+        this.configuracionCodigo.nombre = this.formGroupCodigoFijoContable.controls['nombre16'].value;
+        this.configuracionCodigo.valorPorcentaje = this.formGroupCodigoFijoContable.controls['valorPorcentaje16'].value;
+        this.configuracionCodigo.valorSeleccion = this.formGroupCodigoFijoContable.controls['valorSeleccion16'].value;
+        this.configuracionCodigo.valorRadio = this.formGroupCodigoFijoContable.controls['valorRadio16'].value;
+        aux = Object.assign({}, this.configuracionCodigo);
+        this.listaConfiguracionCodigo.push(aux);
+
+        this.configuracionCodigo.id = this.formGroupCodigoFijoContable.controls['id17'].value;
+        this.configuracionCodigo.numeroControl = this.formGroupCodigoFijoContable.controls['numeroControl17'].value;
+        this.configuracionCodigo.codigoCuenta = this.formGroupCodigoFijoContable.controls['codigoCuenta17'].value;
+        this.configuracionCodigo.nombre = this.formGroupCodigoFijoContable.controls['nombre17'].value;
+        this.configuracionCodigo.valorPorcentaje = this.formGroupCodigoFijoContable.controls['valorPorcentaje17'].value;
+        this.configuracionCodigo.valorSeleccion = this.formGroupCodigoFijoContable.controls['valorSeleccion17'].value;
+        this.configuracionCodigo.valorRadio = this.formGroupCodigoFijoContable.controls['valorRadio17'].value;
+        aux = Object.assign({}, this.configuracionCodigo);
+        this.listaConfiguracionCodigo.push(aux);
+
+        this.configuracionCodigo.id = this.formGroupCodigoFijoContable.controls['id18'].value;
+        this.configuracionCodigo.numeroControl = this.formGroupCodigoFijoContable.controls['numeroControl18'].value;
+        this.configuracionCodigo.codigoCuenta = this.formGroupCodigoFijoContable.controls['codigoCuenta18'].value;
+        this.configuracionCodigo.nombre = this.formGroupCodigoFijoContable.controls['nombre18'].value;
+        this.configuracionCodigo.valorPorcentaje = this.formGroupCodigoFijoContable.controls['valorPorcentaje18'].value;
+        this.configuracionCodigo.valorSeleccion = this.formGroupCodigoFijoContable.controls['valorSeleccion18'].value;
+        this.configuracionCodigo.valorRadio = this.formGroupCodigoFijoContable.controls['valorRadio18'].value;
+        aux = Object.assign({}, this.configuracionCodigo);
+        this.listaConfiguracionCodigo.push(aux);
+
+        this.configuracionCodigo.id = this.formGroupCodigoFijoContable.controls['id19'].value;
+        this.configuracionCodigo.numeroControl = this.formGroupCodigoFijoContable.controls['numeroControl19'].value;
+        this.configuracionCodigo.codigoCuenta = this.formGroupCodigoFijoContable.controls['codigoCuenta19'].value;
+        this.configuracionCodigo.nombre = this.formGroupCodigoFijoContable.controls['nombre19'].value;
+        this.configuracionCodigo.valorPorcentaje = this.formGroupCodigoFijoContable.controls['valorPorcentaje19'].value;
+        this.configuracionCodigo.valorSeleccion = this.formGroupCodigoFijoContable.controls['valorSeleccion19'].value;
+        this.configuracionCodigo.valorRadio = this.formGroupCodigoFijoContable.controls['valorRadio19'].value;
+        aux = Object.assign({}, this.configuracionCodigo);
+        this.listaConfiguracionCodigo.push(aux);
+
+        this.configuracionCodigo.id = this.formGroupCodigoFijoContable.controls['id20'].value;
+        this.configuracionCodigo.numeroControl = this.formGroupCodigoFijoContable.controls['numeroControl20'].value;
+        this.configuracionCodigo.codigoCuenta = this.formGroupCodigoFijoContable.controls['codigoCuenta20'].value;
+        this.configuracionCodigo.nombre = this.formGroupCodigoFijoContable.controls['nombre20'].value;
+        this.configuracionCodigo.valorPorcentaje = this.formGroupCodigoFijoContable.controls['valorPorcentaje20'].value;
+        this.configuracionCodigo.valorSeleccion = this.formGroupCodigoFijoContable.controls['valorSeleccion20'].value;
+        this.configuracionCodigo.valorRadio = this.formGroupCodigoFijoContable.controls['valorRadio20'].value;
+        aux = Object.assign({}, this.configuracionCodigo);
+        this.listaConfiguracionCodigo.push(aux);
+
+        this.configuracionCodigo.id = this.formGroupCodigoFijoContable.controls['id21'].value;
+        this.configuracionCodigo.numeroControl = this.formGroupCodigoFijoContable.controls['numeroControl21'].value;
+        this.configuracionCodigo.codigoCuenta = this.formGroupCodigoFijoContable.controls['codigoCuenta21'].value;
+        this.configuracionCodigo.nombre = this.formGroupCodigoFijoContable.controls['nombre21'].value;
+        this.configuracionCodigo.valorPorcentaje = this.formGroupCodigoFijoContable.controls['valorPorcentaje21'].value;
+        this.configuracionCodigo.valorSeleccion = this.formGroupCodigoFijoContable.controls['valorSeleccion21'].value;
+        this.configuracionCodigo.valorRadio = this.formGroupCodigoFijoContable.controls['valorRadio21'].value;
+        aux = Object.assign({}, this.configuracionCodigo);
+        this.listaConfiguracionCodigo.push(aux);
+
+        this.configuracionCodigo.id = this.formGroupCodigoFijoContable.controls['id22'].value;
+        this.configuracionCodigo.numeroControl = this.formGroupCodigoFijoContable.controls['numeroControl22'].value;
+        this.configuracionCodigo.codigoCuenta = this.formGroupCodigoFijoContable.controls['codigoCuenta22'].value;
+        this.configuracionCodigo.nombre = this.formGroupCodigoFijoContable.controls['nombre22'].value;
+        this.configuracionCodigo.valorPorcentaje = this.formGroupCodigoFijoContable.controls['valorPorcentaje22'].value;
+        this.configuracionCodigo.valorSeleccion = this.formGroupCodigoFijoContable.controls['valorSeleccion22'].value;
+        this.configuracionCodigo.valorRadio = this.formGroupCodigoFijoContable.controls['valorRadio22'].value;
+        aux = Object.assign({}, this.configuracionCodigo);
+        this.listaConfiguracionCodigo.push(aux);
+
+        this.configuracionCodigo.id = this.formGroupCodigoFijoContable.controls['id23'].value;
+        this.configuracionCodigo.numeroControl = this.formGroupCodigoFijoContable.controls['numeroControl23'].value;
+        this.configuracionCodigo.codigoCuenta = this.formGroupCodigoFijoContable.controls['codigoCuenta23'].value;
+        this.configuracionCodigo.nombre = this.formGroupCodigoFijoContable.controls['nombre23'].value;
+        this.configuracionCodigo.valorPorcentaje = this.formGroupCodigoFijoContable.controls['valorPorcentaje23'].value;
+        this.configuracionCodigo.valorSeleccion = this.formGroupCodigoFijoContable.controls['valorSeleccion23'].value;
+        this.configuracionCodigo.valorRadio = this.formGroupCodigoFijoContable.controls['valorRadio23'].value;
+        aux = Object.assign({}, this.configuracionCodigo);
+        this.listaConfiguracionCodigo.push(aux);
+
+        this.configuracionCodigo.id = this.formGroupCodigoFijoContable.controls['id24'].value;
+        this.configuracionCodigo.numeroControl = this.formGroupCodigoFijoContable.controls['numeroControl24'].value;
+        this.configuracionCodigo.codigoCuenta = this.formGroupCodigoFijoContable.controls['codigoCuenta24'].value;
+        this.configuracionCodigo.nombre = this.formGroupCodigoFijoContable.controls['nombre24'].value;
+        this.configuracionCodigo.valorPorcentaje = this.formGroupCodigoFijoContable.controls['valorPorcentaje24'].value;
+        this.configuracionCodigo.valorSeleccion = this.formGroupCodigoFijoContable.controls['valorSeleccion24'].value;
+        this.configuracionCodigo.valorRadio = this.formGroupCodigoFijoContable.controls['valorRadio24'].value;
+        aux = Object.assign({}, this.configuracionCodigo);
+        this.listaConfiguracionCodigo.push(aux);
+
         this.configuracionCodigoFijoContableService.guardarConfiguracionCodigo(this.listaConfiguracionCodigo).subscribe(
             (response) => {
                 console.log(response);
             }
         );
     }
-
 
     asignarPlanCuenta(cuenta: number, numeroControl: string, nombreControl: string, codigoCuenta: string): void {
 
