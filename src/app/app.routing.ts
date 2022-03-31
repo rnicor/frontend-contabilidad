@@ -79,6 +79,18 @@ export const appRoutes: Route[] = [
         ]
     },
     {
+        path       : 'libros-segun-sfv',
+        canActivate: [AuthGuard],
+        component  : LayoutComponent,
+        resolve    : {
+            initialData: InitialDataResolver,
+        },
+
+        children   : [
+            {path: 'importacion-libro-compras', loadChildren: () => import('app/modules/libro-segun-sfv/importacion-libro-compras/importacion-libro-compras.module').then(m => m.ImportacionLibroComprasModule)},
+        ]
+    },
+    {
         path       : 'parametros',
         canActivate: [AuthGuard],
         component  : LayoutComponent,

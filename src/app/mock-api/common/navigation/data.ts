@@ -20,6 +20,21 @@ export const adminNavigation: FuseNavigationItem[] = [
     },
     {
         id      : 'apps',
+        title   : 'Libros, segun SFV',
+        subtitle: '(desde 01/01/2016)',
+        type    : 'group',
+        children: [
+            {
+                id   : 'apps.libros-segun-sfv',
+                title: 'Importacion de libro de compras desde las sucursales)',
+                type    : 'basic',
+                icon    : 'heroicons_outline:share',
+                link : '/libros-segun-sfv/importacion-libro-compras'
+            }
+        ]
+    },
+    {
+        id      : 'apps',
         title   : 'Parametros',
         subtitle: 'Módulo de parametricas',
         type    : 'group',
