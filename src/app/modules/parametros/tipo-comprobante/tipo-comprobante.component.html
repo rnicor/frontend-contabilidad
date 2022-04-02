@@ -10,7 +10,7 @@
         </div>
         <!-- Title -->
         <div>
-            <div class="text-4xl font-extrabold tracking-tight leading-none">Lineas</div>
+            <div class="text-4xl font-extrabold tracking-tight leading-none">Tipo comprobantes</div>
             <div class="ml-0.5 font-medium text-secondary">
                 <ng-container *ngIf="tipoComprobanteCount > 0">
                     {{tipoComprobanteCount}}
@@ -80,7 +80,7 @@
                         </mat-paginator>
                         <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b">
                             <!-- pdf -->
-                            <button
+                            <!--<button
                                 class="ml-2"
                                 mat-button
                                 [color]="'warn'"
@@ -88,7 +88,7 @@
                                 <mat-icon svgIcon="mat_outline:picture_as_pdf"></mat-icon>
                                 <span class="ml-2 mr-1">Reporte PDF</span>
                             </button>
-                            <!-- excel -->
+                            &lt;!&ndash; excel &ndash;&gt;
                             <button
                                 class="ml-2"
                                 mat-button
@@ -96,13 +96,13 @@
                                 (click)="reporteEXCEL()">
                                 <mat-icon svgIcon="heroicons_outline:document-report"></mat-icon>
                                 <span class="ml-2 mr-1">Reporte EXCEL</span>
-                            </button>
+                            </button>-->
                         </div>
                     </div>
                 </ng-container>
                 <!-- No lineas -->
                 <ng-template #noContacts>
-                    <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">No hay lineas registradas!</div>
+                    <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">No hay tipo comprobantes registrados!</div>
                 </ng-template>
             </div>
         </div>
