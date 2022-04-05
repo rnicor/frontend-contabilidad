@@ -101,5 +101,18 @@ export const appRoutes: Route[] = [
         children   : [
             {path: 'tipo-comprobante', loadChildren: () => import('app/modules/parametros/tipo-comprobante/tipo-comprobante.module').then(m => m.TipoComprobanteModule)},
         ]
+    },
+
+    {
+        path:'empresa',
+        canActivate: [AuthGuard],
+        component  : LayoutComponent,
+        resolve    : {
+            initialData: InitialDataResolver,
+        },
+
+        children   : [
+            {path: 'gestion', loadChildren: () => import('app/modules/contabilidad/gestion/gestion.module').then(m => m.GestionModule)},
+        ]
     }
 ];

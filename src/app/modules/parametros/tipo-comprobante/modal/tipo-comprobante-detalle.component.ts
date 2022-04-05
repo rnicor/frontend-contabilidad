@@ -7,18 +7,18 @@ import {TipoComprobante} from '../type/tipo-comprobante.types';
 import {TipoComprobanteService} from '../service/tipo-comprobante.service';
 
 
-
 @Component({
     selector: 'tipo-comprobante-detalle',
     templateUrl: './tipo-comprobante-detalle.component.html',
     styles: []
 })
 
-export class TipoComprobanteDetalleComponent{
+export class TipoComprobanteDetalleComponent {
     @Input() action: string;
     @Input() tipoComprobante: TipoComprobante;
     @Output() tipoComprobanteEvento: EventEmitter<any> = new EventEmitter();
     formGroup: FormGroup;
+
     constructor(
         private _snackBar: MatSnackBar,
         private tipoComprobanteService: TipoComprobanteService,
@@ -33,12 +33,14 @@ export class TipoComprobanteDetalleComponent{
         }
         this.buildForm();
     }
+
     buildForm(): void {
         this.formGroup = new FormGroup({
             id: new FormControl(this.tipoComprobante.id),
             nombre: new FormControl(this.tipoComprobante.nombre, [Validators.required, Validators.max(500)]),
         });
     }
+
     save(): void {
         if (this.formGroup.valid) {
             if (!this.tipoComprobante.id) {
@@ -66,10 +68,12 @@ export class TipoComprobanteDetalleComponent{
             this.formGroup.markAllAsTouched();
         }
     }
+
     close(): void {
         this.dialogRef.close();
     }
-    get f(): any{
+
+    get f(): any {
         return this.formGroup.controls;
     }
 

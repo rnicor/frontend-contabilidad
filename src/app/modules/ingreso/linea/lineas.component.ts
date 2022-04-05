@@ -101,7 +101,7 @@ export class LineasComponent implements OnInit {
         });
     }
 
-    reportePDF(): void {
+    reportePDF(): void {/*
         this.lineaService.reportePDF().subscribe(
             (data) => {
                 const file = new Blob([data], { type: 'application/pdf' });
@@ -111,7 +111,7 @@ export class LineasComponent implements OnInit {
             (err) => {
                 this._snackBar.open(err.error.message, 'Error!!!', appSnackWarm);
             }
-        );
+        );*/
     }
 
     reporteEXCEL(): void {
@@ -138,7 +138,7 @@ export class LineasComponent implements OnInit {
             this.paginator._intl.previousPageLabel = 'Página anterior';
             this.paginator._intl.nextPageLabel = 'Página siguiente';
             this.paginator._intl.firstPageLabel = 'Primera página';
-            this.paginator._intl.getRangeLabel = ( page: number, pageSize: number, length: number) => {
+            this.paginator._intl.getRangeLabel =(page: number, pageSize: number, length: number) => {
                 const start = page * pageSize + 1;
                 const end = (page + 1) * pageSize;
                 return `${start} - ${end} de ${length}`;

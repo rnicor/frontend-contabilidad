@@ -67,6 +67,7 @@ export class PlanCuentasComponent implements OnInit, AfterViewInit {
         this.isLoading = true;
         this.planCuentaService.inicio().subscribe(
             (response) => {
+                console.log(response);
                 this.dominioCuentaPrincipal = response.cuentaPrincipal;
                 this.dominioNivelCuenta = response.nivelCuenta;
                 this.dominioTipoMoneda = response.tipoMonedaContabilidad;
@@ -76,6 +77,7 @@ export class PlanCuentasComponent implements OnInit, AfterViewInit {
                 this.isLoading = false;
             }
         );
+
     }
 
     ngAfterViewInit(): void {
@@ -143,6 +145,8 @@ export class PlanCuentasComponent implements OnInit, AfterViewInit {
                 this.getPlanCuenta();
             }
         });
+        console.log(this.dominioTipoMoneda);
+
     }
 
     eliminar(planCuenta: PlanCuenta): void {
@@ -190,6 +194,7 @@ export class PlanCuentasComponent implements OnInit, AfterViewInit {
                 this.configPaginator();
                 this.planCuentaCount = response.length;
                 this.isLoading = false;
+                console.log(this.dataSourcePlanCuentaFachada.data);
             },
             (err) =>{
                 this.isLoading = false;
