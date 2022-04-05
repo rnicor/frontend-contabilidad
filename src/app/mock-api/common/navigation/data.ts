@@ -62,6 +62,22 @@ export const adminNavigation: FuseNavigationItem[] = [
                 link : '/parametros/plan-cuentas'
             }
         ]
+    },
+    {
+        id      : 'apps',
+        title   : 'Gestion',
+        subtitle: 'Gestiones registradas',
+        type    : 'group',
+        icon    : 'heroicons_outline:archive',
+        children: [
+            {
+                id   : 'apps.parametros.gestion',
+                title: 'Gestiones',
+                type : 'basic',
+                icon: 'heroicons_outline:document-text',
+                link : '/empresa/gestion'
+            }
+        ]
     }
 ];
 export const encargadoNavigation: FuseNavigationItem[] = [];
