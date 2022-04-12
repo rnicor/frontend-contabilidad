@@ -4,7 +4,7 @@ import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 
 import {environment} from '../../../../../environments/environment';
-import {DatosFacturaCompra} from '../type/datos-factura-compra';
+import {DatosFacturaCompraExcel} from '../type/datos-factura-compra-excel';
 
 
 @Injectable({
@@ -22,7 +22,8 @@ export class ImportacionLibroComprasService {
         this.url = environment.apiEndpoint + 'api/libroCompra';
     }
 
-    guardar(registroCompraFormatoExcel: DatosFacturaCompra[]): Observable<void> {
+    guardar(registroCompraFormatoExcel: DatosFacturaCompraExcel[]): Observable<void> {
+        console.log(registroCompraFormatoExcel);
         return this.http.post<any>(`${this.url}`, registroCompraFormatoExcel, this.httpOptions).pipe(
             catchError(e => throwError(e))
         );
