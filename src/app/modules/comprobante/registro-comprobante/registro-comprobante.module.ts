@@ -4,7 +4,7 @@ import {MAT_DATE_FORMATS, MatRippleModule} from '@angular/material/core';
 import {CommonModule, registerLocaleData} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {Route, RouterModule} from '@angular/router';
+import {Route, RouterModule, Routes} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -23,24 +23,26 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {ImportacionLibroComprasComponent} from './importacion-libro-compras.component';
+import {RegistroComprobanteComponent} from './registro-comprobante.component';
+import {ComprobanteComponent} from './comprobante/comprobante.component';
 
 registerLocaleData(localeES, 'es');
 
-const importacionLibroComprasRoutes: Route[] = [
+const registroComprobanteRoutes: Route[] = [
     {
         path: '',
-        component: ImportacionLibroComprasComponent
+        component: RegistroComprobanteComponent
     }
 ];
 
 @NgModule({
     declarations: [
-        ImportacionLibroComprasComponent
+        RegistroComprobanteComponent,
+        ComprobanteComponent
     ],
     imports: [
         CommonModule,
-        RouterModule.forChild(importacionLibroComprasRoutes),
+        RouterModule.forChild(registroComprobanteRoutes),
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,

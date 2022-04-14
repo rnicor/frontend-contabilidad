@@ -91,6 +91,18 @@ export const appRoutes: Route[] = [
         ]
     },
     {
+        path       : 'comprobante',
+        canActivate: [AuthGuard],
+        component  : LayoutComponent,
+        resolve    : {
+            initialData: InitialDataResolver,
+        },
+
+        children   : [
+            {path: 'registro-comprobante', loadChildren: () => import('app/modules/comprobante/registro-comprobante/registro-comprobante.module').then(m => m.RegistroComprobanteModule)},
+        ]
+    },
+    {
         path       : 'parametros',
         canActivate: [AuthGuard],
         component  : LayoutComponent,

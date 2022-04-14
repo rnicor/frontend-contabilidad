@@ -1,1 +1,308 @@
-<p>comprobante works!</p>
+<div *ngIf="inicio" class="relative flex flex-col flex-auto items-center px-6 sm:px-12">
+    <div class="w-full max-w-3xl">
+        <div class="flex flex-auto items-end -mt-16">
+            <div class="relative flex items-center justify-center w-32 h-32 rounded-full overflow-hidden ring-4 ring-bg-card">
+                <div class="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
+                <div class="flex items-center justify-center w-full h-full rounded overflow-hidden uppercase text-8xl font-bold leading-none bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                </div>
+                <div class="flex items-center justify-center w-full h-full rounded overflow-hidden uppercase text-8xl font-bold leading-none bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                    {{'...'}}
+                </div>
+            </div>
+        </div>
+        <form [formGroup]="datosComprobanteForm">
+            <div class="w-full">
+                <div class="text-xl">REGISTRO COMPROBANTE</div>
+            </div>
+            <div class="w-full">
+                <div class="text-secondary">Datos Comprobante</div>
+            </div>
+            <div class="grid sm:grid-cols-10 gap-6 w-full mt-8">
+                <div class="sm:col-span-3" *ngIf="inicio !== null">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Documento contable:</mat-label>
+                        <mat-select [formControlName]="'tipoFormulario'">
+                            <mat-option [value]="null">--Seleccione--</mat-option>
+                            <mat-option *ngFor="let s of inicio.tipoComprobante" [value]="s.id">{{s.nombre}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.tipoFormulario.touched && f.tipoFormulario.invalid">
+                        <mat-error *ngIf="f.tipoFormulario.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-3">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Fecha de Comprobante: </mat-label>
+                        <input matInput [matDatepicker]="picker01" [formControlName]="'fechaComprobante'">
+                        <mat-datepicker-toggle matprefix [for]="picker01"></mat-datepicker-toggle>
+                        <mat-datepicker #picker01></mat-datepicker>
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.fechaComprobante.touched && f.fechaComprobante.invalid">
+                        <mat-error *ngIf="f.fechaComprobante.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-3">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Nro. Comprobante</mat-label>
+                        <input
+                            [formControlName]="'numeroComprobante'"
+                            matInput>
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.numeroComprobante.touched && f.numeroComprobante.invalid">
+                        <mat-error *ngIf="f.numeroComprobante.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full">
+                <div class="text-secondary">Datos Factura</div>
+            </div>
+            <div class="grid sm:grid-cols-10 gap-6 w-full mt-8">
+                <div class="sm:col-span-3" *ngIf="inicio !== null">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Sucursal:</mat-label>
+                        <mat-select [formControlName]="'sucursalId'">
+                            <mat-option [value]="null">--Seleccione--</mat-option>
+                            <mat-option *ngFor="let s of inicio.sucursal" [value]="s.id">{{s.nombre}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.sucursalId.touched && f.sucursalId.invalid">
+                        <mat-error *ngIf="f.sucursalId.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-3">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Fec. Factura: </mat-label>
+                        <input matInput [matDatepicker]="picker02" [formControlName]="'fechaFactura'">
+                        <mat-datepicker-toggle matprefix [for]="picker02"></mat-datepicker-toggle>
+                        <mat-datepicker #picker02></mat-datepicker>
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.fechaFactura.touched && f.fechaFactura.invalid">
+                        <mat-error *ngIf="f.fechaFactura.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label><span class="text-warn"></span>Nit Proveedor</mat-label>
+                        <input [formControlName]="'nit'" matInput placeholder="Nit Proveedor">
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.nit.touched && f.nit.invalid">
+                        <mat-error *ngIf="f.nit.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                        <mat-error *ngIf="f.nit.hasError('maxlength')">
+                            El campo debe tener como nombre 50 caracteres
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-5">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label><span class="text-warn"></span>Nombre/ Razon Social</mat-label>
+                        <input [formControlName]="'razonSocial'" matInput placeholder="Nombre/Razon Social">
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.razonSocial.touched && f.razonSocial.invalid">
+                        <mat-error *ngIf="f.razonSocial.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                        <mat-error *ngIf="f.razonSocial.hasError('maxlength')">
+                            El campo debe tener como nombre 50 caracteres
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label><span class="text-warn"></span>Nro. Factura</mat-label>
+                        <input [formControlName]="'numeroFactura'" matInput placeholder="Numero de Factura">
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.numeroFactura.touched && f.numeroFactura.invalid">
+                        <mat-error *ngIf="f.numeroFactura.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                        <mat-error *ngIf="f.numeroFactura.hasError('maxlength')">
+                            El campo debe tener como nombre 50 caracteres
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label><span class="text-warn"></span>Nro. DUI</mat-label>
+                        <input [formControlName]="'numeroDui'" matInput placeholder="Numero de DUI">
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.numeroDui.touched && f.numeroDui.invalid">
+                        <mat-error *ngIf="f.numeroDui.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                        <mat-error *ngIf="f.numeroDui.hasError('maxlength')">
+                            El campo debe tener como nombre 50 caracteres
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label><span class="text-warn"></span>Nro. Autorización</mat-label>
+                        <input [formControlName]="'codigoAutorizacion'" matInput placeholder="Nro. Autorización">
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.codigoAutorizacion.touched && f.codigoAutorizacion.invalid">
+                        <mat-error *ngIf="f.codigoAutorizacion.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                        <mat-error *ngIf="f.codigoAutorizacion.hasError('maxlength')">
+                            El campo debe tener como nombre 50 caracteres
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label><span class="text-warn"></span>Imp. Total</mat-label>
+                        <input [formControlName]="'importeTotalCompra'" matInput placeholder="Imp. Total">
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.importeTotalCompra.touched && f.importeTotalCompra.invalid">
+                        <mat-error *ngIf="f.importeTotalCompra.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                        <mat-error *ngIf="f.importeTotalCompra.hasError('maxlength')">
+                            El campo debe tener como nombre 50 caracteres
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label><span class="text-warn"></span>Imp. Sin Credito Fiscal</mat-label>
+                        <input [formControlName]="'importeSinCf'" matInput placeholder="Importe Sin Credito Fiscal">
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.importeSinCf.touched && f.importeSinCf.invalid">
+                        <mat-error *ngIf="f.importeSinCf.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                        <mat-error *ngIf="f.importeSinCf.hasError('maxlength')">
+                            El campo debe tener como nombre 50 caracteres
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label><span class="text-warn"></span>Subtotal</mat-label>
+                        <input [formControlName]="'subtotal'" matInput placeholder="Subtotal">
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.subtotal.touched && f.subtotal.invalid">
+                        <mat-error *ngIf="f.subtotal.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                        <mat-error *ngIf="f.subtotal.hasError('maxlength')">
+                            El campo debe tener como nombre 50 caracteres
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label><span class="text-warn"></span>Descuento</mat-label>
+                        <input [formControlName]="'descuentoBonificacionRebajaIva'" matInput placeholder="Descuento">
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.descuentoBonificacionRebajaIva.touched && f.descuentoBonificacionRebajaIva.invalid">
+                        <mat-error *ngIf="f.descuentoBonificacionRebajaIva.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                        <mat-error *ngIf="f.descuentoBonificacionRebajaIva.hasError('maxlength')">
+                            El campo debe tener como nombre 50 caracteres
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label><span class="text-warn"></span>Imp. Credito Fiscal</mat-label>
+                        <input [formControlName]="'creditoFiscal'" matInput placeholder="Importe Credito Fiscal">
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.creditoFiscal.touched && f.creditoFiscal.invalid">
+                        <mat-error *ngIf="f.creditoFiscal.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                        <mat-error *ngIf="f.creditoFiscal.hasError('maxlength')">
+                            El campo debe tener como nombre 50 caracteres
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label><span class="text-warn"></span>Credito Fiscal</mat-label>
+                        <input [formControlName]="'creditoFiscal'" matInput placeholder="Credito Fiscal">
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.creditoFiscal.touched && f.creditoFiscal.invalid">
+                        <mat-error *ngIf="f.creditoFiscal.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                        <mat-error *ngIf="f.creditoFiscal.hasError('maxlength')">
+                            El campo debe tener como nombre 50 caracteres
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label><span class="text-warn"></span>Codigo Control</mat-label>
+                        <input [formControlName]="'codigoControl'" matInput placeholder="Codigo Control">
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.codigoControl.touched && f.codigoControl.invalid">
+                        <mat-error *ngIf="f.codigoControl.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                        <mat-error *ngIf="f.codigoControl.hasError('maxlength')">
+                            El campo debe tener como nombre 50 caracteres
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-3" *ngIf="inicio !== null">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Tipo Compra:</mat-label>
+                        <mat-select [formControlName]="'tipoCompra'">
+                            <mat-option [value]="null">--Seleccione--</mat-option>
+                            <mat-option *ngFor="let s of inicio.tipoCompra" [value]="s.codigo">{{s.nombre}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="messages" *ngIf="f.tipoCompra.touched && f.tipoCompra.invalid">
+                        <mat-error *ngIf="f.tipoCompra.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-3" *ngIf="inicio !== null">
+                    <mat-checkbox class="fuse-mat-no-subscript w-full"
+                                  [formControlName]="'sinDerCredFiscal'">
+                        {{'Sin Cred. Fiscal'}}
+                    </mat-checkbox>
+                    <div class="messages" *ngIf="f.sinDerCredFiscal.touched && f.sinDerCredFiscal.invalid">
+                        <mat-error *ngIf="f.sinDerCredFiscal.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="sm:col-span-3" *ngIf="inicio !== null">
+                    <mat-checkbox class="fuse-mat-no-subscript w-full"
+                                  [formControlName]="'gasolina'">
+                        {{'Gasolina 30%'}}
+                    </mat-checkbox>
+                    <div class="messages" *ngIf="f.gasolina.touched && f.gasolina.invalid">
+                        <mat-error *ngIf="f.gasolina.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="col-span-2 ...">
+    <div class="row flex space-x-2 justify-center">
+        <div>
+            <button type="button" class="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out" (click)="guardarDatosFormulario()">GUARDAR</button>
+            <button type="button" class="inline-block px-6 py-2 border-2 border-gray-800 text-gray-800 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out" (click)="editarDatosFormulario()">>EDITAR</button>
+        </div>
+    </div>
+</div>
