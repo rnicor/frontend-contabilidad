@@ -67,6 +67,7 @@
                     <div class="overflow-x-auto mx-6">
                         <table mat-table [dataSource]="dataSourceRegistroCompraFormatoExcel" matSort class="w-full table-fixed bg-transparent">
 
+
                             <ng-container matColumnDef="numero">
                                 <th mat-header-cell *matHeaderCellDef> No </th>
                                 <!--<td mat-cell *matCellDef="let element; let i = index">{{ dataSource.filteredData.indexOf(element) + 1 }}</td>-->
@@ -76,7 +77,7 @@
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Nit Proveedor </th>
                                 <td mat-cell *matCellDef="let item"> {{item.nit}} </td>
                             </ng-container>
-                            ['numero', 'nit', 'razonSocial', 'codigoAutorizacion', 'numeroFactura', 'numeroDui', 'fechaFactura', 'actions']
+
                             <ng-container matColumnDef="razonSocial">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Razon Social </th>
                                 <td mat-cell *matCellDef="let item"> {{item.razonSocial}} </td>
@@ -92,49 +93,9 @@
                                 <td mat-cell *matCellDef="let item"> {{item.numeroFactura}} </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="numeroDui">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Numero dui </th>
-                                <td mat-cell *matCellDef="let item"> {{item.numeroDui}} </td>
-                            </ng-container>
-
                             <ng-container matColumnDef="importeTotalCompra">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe total compra </th>
                                 <td mat-cell *matCellDef="let item"> {{item.importeTotalCompra}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="importeIcei">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe icei </th>
-                                <td mat-cell *matCellDef="let item"> {{item.importeIcei}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="importeIehd">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe iehd </th>
-                                <td mat-cell *matCellDef="let item"> {{item.importeIehd}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="importeIpj">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe ipj </th>
-                                <td mat-cell *matCellDef="let item"> {{item.importeIpj}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="tasa">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tasa </th>
-                                <td mat-cell *matCellDef="let item"> {{item.tasa}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="otroNscf">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Otro Nscf </th>
-                                <td mat-cell *matCellDef="let item"> {{item.otroNscf}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="importeExentos">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe exentos </th>
-                                <td mat-cell *matCellDef="let item"> {{item.importeExentos}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="importeComprasGravadasTasaCero">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe compras gravadas tasa cero </th>
-                                <td mat-cell *matCellDef="let item"> {{item.importeComprasGravadasTasaCero}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="subtotal">
@@ -142,29 +103,19 @@
                                 <td mat-cell *matCellDef="let item"> {{item.subtotal}} </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="descuentoBonificacionRebajaIva">
+                            <!--<ng-container matColumnDef="descuentoBonificacionRebajaIva">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> descuentoBonificacionRebajaIva </th>
                                 <td mat-cell *matCellDef="let item"> {{item.descuentoBonificacionRebajaIva}} </td>
-                            </ng-container>
+                            </ng-container>-->
 
-                            <ng-container matColumnDef="importeGiftCard">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> importeGiftCard </th>
-                                <td mat-cell *matCellDef="let item"> {{item.importeGiftCard}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="importeBaseCf">
+                            <!--<ng-container matColumnDef="importeBaseCf">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> importeBaseCf </th>
                                 <td mat-cell *matCellDef="let item"> {{item.importeBaseCf}} </td>
-                            </ng-container>
+                            </ng-container>-->
 
                             <ng-container matColumnDef="creditoFiscal">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> creditoFiscal </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> C F </th>
                                 <td mat-cell *matCellDef="let item"> {{item.creditoFiscal}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="tipoCompra">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> tipoCompra </th>
-                                <td mat-cell *matCellDef="let item"> {{item.tipoCompra}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="codigoControl">
@@ -180,8 +131,7 @@
                             <ng-container matColumnDef="actions">
                                 <th mat-header-cell *matHeaderCellDef> Acciones </th>
                                 <td mat-cell *matCellDef="let item; let i = index">
-                                    <!--<button mat-raised-button (click)="openDialog(item, i)"><mat-icon svgIcon="heroicons_outline:pencil"></mat-icon> Editar</button>
-                                    <button mat-raised-button color="warn" (click)="eliminar(item)"><mat-icon svgIcon="heroicons_outline:trash"></mat-icon> Eliminar</button>-->
+                                    <button mat-raised-button color="warn" (click)="eliminarItem(item)"><mat-icon svgIcon="heroicons_outline:trash"></mat-icon> Eliminar</button>
                                 </td>
                             </ng-container>
                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
