@@ -29,7 +29,7 @@ export const adminNavigation: FuseNavigationItem[] = [
                 title: 'Importacion de libro de compras desde las sucursales)',
                 type    : 'basic',
                 icon    : 'heroicons_outline:share',
-                link : 's'
+                link : '/libros-segun-sfv/importacion-libro-compras'
             }
         ]
     },
