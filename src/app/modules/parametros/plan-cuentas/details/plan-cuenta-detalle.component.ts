@@ -39,7 +39,6 @@ export class PlanCuentaDetalleComponent {
     colorNumeroRubro: boolean;
     colorNumeroCuentaCompuesta: boolean;
     colorNumeroSubCuenta: boolean;
-            
 
     constructor(
         private _snackBar: MatSnackBar,
@@ -50,7 +49,6 @@ export class PlanCuentaDetalleComponent {
         public dialogRef: MatDialogRef<PlanCuentaDetalleComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
-
         //iniciar la variable externa
         this.planCuenta = this.planCuenta ? this.planCuenta : this.planCuenta = {
             id: null,
@@ -66,6 +64,7 @@ export class PlanCuentaDetalleComponent {
         this.buildForm();
 
         if (data) {
+            console.log(this.dominioTipoMoneda);
             if (data.planCuenta) {
                 this.validarGrupoCuenta = true;
                 this.validarNivelCuenta = true;
@@ -105,7 +104,7 @@ export class PlanCuentaDetalleComponent {
 
                 switch(this.planCuenta.nivelCuenta) {
                     case "G":
-                        
+
                     break;
                     case "SG":
                         this.formGroupCuenta.controls['numeroSubGrupo'].setValue(this.planCuenta.codigo.toString().substring(1,2));
@@ -132,6 +131,8 @@ export class PlanCuentaDetalleComponent {
             this.dominioCuentaPrincipal = data.dominioCuentaPrincipal;
             this.dominioNivelCuenta = data.dominioNivelCuenta;
             this.dominioTipoMoneda = data.dominioTipoMoneda;
+            console.log(this.dominioTipoMoneda);
+
         }
 
     }
@@ -163,11 +164,13 @@ export class PlanCuentaDetalleComponent {
         this.colorNumeroRubro = false;
         this.colorNumeroCuentaCompuesta = false;
         this.colorNumeroSubCuenta = false;
+        console.log(this.dominioTipoMoneda);
+
     }
 
 
     save(): void {
-        
+
         this.formGroupCuenta.controls['codigo'].enable();
         if (this.formGroupCuenta.valid) {
             if (!this.planCuenta.id) {
@@ -196,7 +199,7 @@ export class PlanCuentaDetalleComponent {
         } else {
             this.formGroupCuenta.markAllAsTouched();
         }
-        
+
     }
 
     close(): void {
@@ -278,7 +281,7 @@ export class PlanCuentaDetalleComponent {
 
 
         this.formGroupCuenta.controls['nombre'].setValue('');
-        
+
         let radioNivelCuenta: MatRadioButton = changeNivelCuenta.source;
         if (radioNivelCuenta.value === 'G') {
             this.formGroupCuenta.controls['numeroGrupo'].disable();
@@ -388,7 +391,7 @@ export class PlanCuentaDetalleComponent {
     }
 
     onChangeTipoMoneda(radioChange: MatRadioChange): void {
-        
+
     }
 
 

@@ -29,7 +29,22 @@ export const adminNavigation: FuseNavigationItem[] = [
                 title: 'Importacion de libro de compras desde las sucursales)',
                 type    : 'basic',
                 icon    : 'heroicons_outline:share',
-                link : '/libros-segun-sfv/importacion-libro-compras'
+                link : 's'
+            }
+        ]
+    },
+    {
+        id      : 'apps',
+        title   : 'Registro de comprobantes',
+        subtitle: 'Registro de comprobantes contables',
+        type    : 'group',
+        children: [
+            {
+                id   : 'apps.comprobantes',
+                title: 'Registro de comprobantes contables',
+                type    : 'basic',
+                icon    : 'heroicons_outline:clipboard-check',
+                link : '/comprobante/registro-comprobante'
             }
         ]
     },
@@ -60,6 +75,22 @@ export const adminNavigation: FuseNavigationItem[] = [
                 type : 'basic',
                 icon: 'heroicons_outline:document-text',
                 link : '/parametros/plan-cuentas'
+            }
+        ]
+    },
+    {
+        id      : 'apps',
+        title   : 'Gestion',
+        subtitle: 'Gestiones registradas',
+        type    : 'group',
+        icon    : 'heroicons_outline:archive',
+        children: [
+            {
+                id   : 'apps.parametros.gestion',
+                title: 'Gestiones',
+                type : 'basic',
+                icon: 'heroicons_outline:document-text',
+                link : '/empresa/gestion'
             }
         ]
     }

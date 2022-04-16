@@ -91,6 +91,18 @@ export const appRoutes: Route[] = [
         ]
     },
     {
+        path       : 'comprobante',
+        canActivate: [AuthGuard],
+        component  : LayoutComponent,
+        resolve    : {
+            initialData: InitialDataResolver,
+        },
+
+        children   : [
+            {path: 'registro-comprobante', loadChildren: () => import('app/modules/comprobante/registro-comprobante/registro-comprobante.module').then(m => m.RegistroComprobanteModule)},
+        ]
+    },
+    {
         path       : 'parametros',
         canActivate: [AuthGuard],
         component  : LayoutComponent,
@@ -102,6 +114,20 @@ export const appRoutes: Route[] = [
             {path: 'tipo-comprobante', loadChildren: () => import('app/modules/parametros/tipo-comprobante/tipo-comprobante.module').then(m => m.TipoComprobanteModule)},
             {path: 'plan-cuentas', loadChildren: () => import('app/modules/parametros/plan-cuentas/plan-cuentas.module').then(m => m.PlanCuentasModule)},
             {path: 'configuracion-codigo-fijo-contable', loadChildren: () => import('app/modules/parametros/configuracion-codigo-fijo-contable/configuracion-codigo-fijo-contable.module').then(m => m.ConfiguracionCodigoFijoContableModule)},
+        ]
+    },
+
+    {
+        path:'empresa',
+        canActivate: [AuthGuard],
+        component  : LayoutComponent,
+        resolve    : {
+            initialData: InitialDataResolver,
+        },
+
+        children   : [
+            {path: 'gestion', loadChildren: () => import('app/modules/parametros/gestion/gestion.module').then(m => m.GestionModule)},
+           // {path: 'gestion', loadChildren: () => import('app/modules/contabilidad/gestion/gestion.module').then(m => m.GestionModule)},
         ]
     }
 ];

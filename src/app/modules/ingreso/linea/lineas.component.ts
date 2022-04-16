@@ -8,9 +8,9 @@ import {LineaDetalleComponent} from './details/linea-detalle.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FuseConfirmationService} from '../../../../@fuse/services/confirmation';
 import {appSnackPrimary, appSnackWarm} from '../../../core/snack/app.snack';
-import {Linea} from './linea.types';
+import {Excel, Linea} from './linea.types';
 import * as FileSaver from 'file-saver';
-
+import * as XLSX from 'xlsx';
 @Component({
     selector     : 'lineas',
     templateUrl  : './lineas.component.html',
@@ -19,10 +19,12 @@ import * as FileSaver from 'file-saver';
 export class LineasComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    isLoading: boolean = false;
-    displayedColumns: string[] = ['nro', 'nombre', 'actions'];
-    dataSource = new MatTableDataSource<Linea>([]);
+    displayedColumns: string[] = ['nro', 'enero', 'febrero', 'marzo',  'abril',  'mayo',  'junio',  'julio',  'agosto',  'septiembre',  'octubre',   'noviembre',   'diciembre', 'actions'];
+    dataSource = new MatTableDataSource<Excel>([]);
     lineasCount: number = 0;
+
+
+    excel: Excel[] = [];
 
     constructor(
         public dialog: MatDialog,
@@ -32,24 +34,23 @@ export class LineasComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.getLineas();
+        //this.getLineas();
     }
 
-    getLineas(): void {
-        this.isLoading = true;
-        this.lineaService.listar().subscribe(
-            (response) => {
-                this.dataSource.data = response;
-                this.configPaginator();
-                this.lineasCount = response.length;
-                this.isLoading = false;
-            },
-            (err) => {
-                this.isLoading = false;
-                this._snackBar.open(err.error.message, 'Error!!!', appSnackWarm);
-            }
-        );
-    }
+    // getLineas(): void {
+    //     this.lineaService.listar().subscribe(
+    //         (response) => {
+    //             this.dataSource.data = response;
+    //             this.configPaginator();
+    //             this.lineasCount = response.length;
+    //             this.isLoading = false;
+    //         },
+    //         (err) => {
+    //             this.isLoading = false;
+    //             this._snackBar.open(err.error.message, 'Error!!!', appSnackWarm);
+    //         }
+    //     );
+    // }
 
     openDialog(linea: Linea): void {
         const dialogConfig = new MatDialogConfig();
@@ -62,46 +63,46 @@ export class LineasComponent implements OnInit {
         const dialogRef = this.dialog.open(LineaDetalleComponent, dialogConfig);
         dialogRef.afterClosed().subscribe((data) => {
             if (data) {
-                this.getLineas();
+                //this.getLineas();
             }
         });
     }
 
     eliminar(linea: Linea): void {
-        const confirmation = this._fuseConfirmationService.open({
-            title: 'Eliminar linea',
-            message: '¿Esta seguro(a) de eliminar la linea: ' + linea.nombre + ' ?',
-            actions: {
-                confirm: {
-                    label: 'Eliminar'
-                },
-                cancel: {
-                    label: 'Cancelar'
-                }
-            },
-            icon: {
-                color: 'warning'
-            }
-        });
-        confirmation.afterClosed().subscribe((result) => {
-            this.isLoading = true;
-            if (result === 'confirmed') {
-                this.lineaService.eliminar(linea.id).subscribe(
-                    (response) => {
-                        this.getLineas();
-                        this._snackBar.open(response.mensaje, 'Exito!!!', appSnackPrimary);
-                    },
-                    (err) => {
-                        this.isLoading = false;
-                        this._snackBar.open(err.error.message, 'Error!!!', appSnackWarm);
-                    });
-            } else {
-                this.isLoading = false;
-            }
-        });
+        // const confirmation = this._fuseConfirmationService.open({
+        //     title: 'Eliminar linea',
+        //     message: '¿Esta seguro(a) de eliminar la linea: ' + linea.nombre + ' ?',
+        //     actions: {
+        //         confirm: {
+        //             label: 'Eliminar'
+        //         },
+        //         cancel: {
+        //             label: 'Cancelar'
+        //         }
+        //     },
+        //     icon: {
+        //         color: 'warning'
+        //     }
+        // });
+        // confirmation.afterClosed().subscribe((result) => {
+        //     this.isLoading = true;
+        //     if (result === 'confirmed') {
+        //         this.lineaService.eliminar(linea.id).subscribe(
+        //             (response) => {
+        //                 this.getLineas();
+        //                 this._snackBar.open(response.mensaje, 'Exito!!!', appSnackPrimary);
+        //             },
+        //             (err) => {
+        //                 this.isLoading = false;
+        //                 this._snackBar.open(err.error.message, 'Error!!!', appSnackWarm);
+        //             });
+        //     } else {
+        //         this.isLoading = false;
+        //     }
+        // });
     }
 
-    reportePDF(): void {
+    reportePDF(): void {/*
         this.lineaService.reportePDF().subscribe(
             (data) => {
                 const file = new Blob([data], { type: 'application/pdf' });
@@ -111,7 +112,7 @@ export class LineasComponent implements OnInit {
             (err) => {
                 this._snackBar.open(err.error.message, 'Error!!!', appSnackWarm);
             }
-        );
+        );*/
     }
 
     reporteEXCEL(): void {
@@ -124,6 +125,35 @@ export class LineasComponent implements OnInit {
             }
         );
     }
+
+    onFileChange(evt: any) {
+        this.dataSource.data = [];
+        const target : DataTransfer =  <DataTransfer>(evt.target);
+        if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+        const reader: FileReader = new FileReader();
+        reader.onload = (e: any) => {
+          const bstr: string = e.target.result;
+
+          const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+          const workbookSheets = wb.SheetNames;
+          const wsname : string = wb.SheetNames[0];
+          const dataExcel: any[] = XLSX.utils.sheet_to_json(wb.Sheets[wsname], {
+            dateNF: "DD-MM-YYYY",
+          });
+          console.log('data excel',dataExcel);
+          this.dataSource.data = dataExcel;
+          this.configPaginator();
+          this.lineasCount = dataExcel.length;
+        };
+    
+        reader.readAsBinaryString(target.files[0]);
+    
+      }
+
+      save(): void {
+    
+    }
+ 
 
     filtrar(event: Event): void {
         const filtro = (event.target as HTMLInputElement).value;
@@ -138,7 +168,7 @@ export class LineasComponent implements OnInit {
             this.paginator._intl.previousPageLabel = 'Página anterior';
             this.paginator._intl.nextPageLabel = 'Página siguiente';
             this.paginator._intl.firstPageLabel = 'Primera página';
-            this.paginator._intl.getRangeLabel = ( page: number, pageSize: number, length: number) => {
+            this.paginator._intl.getRangeLabel =(page: number, pageSize: number, length: number) => {
                 const start = page * pageSize + 1;
                 const end = (page + 1) * pageSize;
                 return `${start} - ${end} de ${length}`;
