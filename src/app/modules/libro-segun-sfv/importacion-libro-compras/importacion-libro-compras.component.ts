@@ -83,29 +83,20 @@ export class ImportacionLibroComprasComponent implements OnInit {
                         return initial;*/
                         let datos = xlsx.utils.sheet_to_json(sheet);
 
-                        console.log(datos);
-
                         const jDatos = [];
 
                         for (let i = 0; i < datos.length; i++) {
 
                             const dato: DatosFacturaCompraExcel = datos[i];
-                            console.log('dato', dato.fechaFactura);
                             jDatos.push({
                                 codigoControl: dato.codigoControl,
                                 fechaFactura:
                                     new Date((parseInt(dato.fechaFactura + 1) - (25567 + 2)) * 86400 * 1000).toLocaleString()
                             });
                         }
-                        console.log('jDatos', jDatos);
                         this.dataSourceRegistroCompraFormatoExcel.data = jDatos;
                         this.registrosCount = this.dataSourceRegistroCompraFormatoExcel.data.length;
-                        //console.log(this.dataSourceRegistroCompraFormatoExcel.data);
                     }, {});
-
-                    /*this.dataSourceRegistroCompraFormatoExcel.data = jsonData[Object.keys(jsonData)[0]];
-                    this.registrosCount = this.dataSourceRegistroCompraFormatoExcel.data.length;
-                    console.log(this.dataSourceRegistroCompraFormatoExcel.data);*/
 
                 };
                 reader.readAsBinaryString(event.target.files[0]);
@@ -118,9 +109,6 @@ export class ImportacionLibroComprasComponent implements OnInit {
 
 
     guardarOActualizar(): void {
-        /*console.log(this.dataSourceRegistroCompraFormatoExcel.data);
-        var date = new Date(1546108200 * 1000);
-        console.log(date.toLocaleString());*/
         this.importacionLibroComprasService.guardar(this.dataSourceRegistroCompraFormatoExcel.data).subscribe(
             (response) => {
                 this._snackBar.open('Se guardo el excel con exito', 'Exito!!!', appSnackPrimary);
@@ -129,10 +117,7 @@ export class ImportacionLibroComprasComponent implements OnInit {
     }
 
     eliminarItem(datosFacturaCompraExcel: DatosFacturaCompraExcel): void {
-        console.log('item', datosFacturaCompraExcel);
             //eliminar de la vista.
-
-
     }
 
 

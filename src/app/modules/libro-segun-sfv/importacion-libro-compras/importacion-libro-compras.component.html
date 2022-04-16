@@ -57,12 +57,6 @@
                     <input type="file" (change)="cargarExcel($event)">
                 </mat-dialog-actions>
 
-                <br />
-                <mat-dialog-actions>
-                    <input type="file" (change)="excelToJson($event)">
-                </mat-dialog-actions>
-
-
                 <ng-container *ngIf="dataSourceRegistroCompraFormatoExcel && dataSourceRegistroCompraFormatoExcel.data.length; else noDatos">
                     <div class="overflow-x-auto mx-6">
                         <table mat-table [dataSource]="dataSourceRegistroCompraFormatoExcel" matSort class="w-full table-fixed bg-transparent">
