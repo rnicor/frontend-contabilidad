@@ -6,6 +6,10 @@ import {ComprobanteComponent} from './comprobante/comprobante.component';
 import {appSnackWarm} from '../../../core/snack/app.snack';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Dominio} from '../../../core/user/dominio.types';
+import {TipoComprobante} from '../../parametros/tipo-comprobante/type/tipo-comprobante.types';
+import {RegistroComprobante} from './model/registro-comprobante.model';
 
 @Component({
   selector: 'app-registro-comprobante',
@@ -17,15 +21,124 @@ export class RegistroComprobanteComponent implements OnInit {
     inicio: InicioDatosFacturaCom;
     datosFactura: DatosFacturaCompra;
     isLoading: boolean = false;
+    tipoMoneda: Dominio[];
+    tipoComprobante: TipoComprobante[];
+    validarPeticion: boolean;
+
+    formRegistroComprobante: FormGroup;
+    registroComprobante: RegistroComprobante;
+
     constructor(
         private registroComprobanteService: RegistroComprobanteService,
+        private formBuilder: FormBuilder,
         private _snackBar: MatSnackBar,
         public dialog: MatDialog
-    ) {}
+    ) {
+        this.buildForm();
+    }
 
     ngOnInit(): void {
         this.obtenerDatosIniciales();
+
+
+
+        this.registroComprobanteService.inicio().subscribe(
+            (response) => {
+                console.log('Obtener datos');
+                console.log('response', response);
+                this.formRegistroComprobante.controls['nroComprobante'].setValue(response.nroComprobante);
+                this.formRegistroComprobante.controls['nroRecibo'].setValue(response.nroRecibo);
+                this.formRegistroComprobante.controls['fecha'].setValue(response.fecha);
+
+                this.tipoComprobante = response.tipoComprobanteDTO;
+                this.tipoMoneda = response.tipoMoneda;
+            }
+        );
+
     }
+
+    private buildForm(): void{
+        /*
+    private Long tipoComprobanteId;
+        *
+        */
+
+
+        this.formRegistroComprobante = this.formBuilder.group({
+            tipoComprobanteId: ['', [Validators.required]],
+            fecha: [''],
+            tipoMoneda: ['',[Validators.required]],
+            valorCambio: ['', [Validators.required]],
+            pagadoA: ['', [Validators.required]],
+            valorNitCi: ['', [Validators.required]],
+            nroRecibo: [''],
+            nroComprobante: [''],
+            glosa: ['', [Validators.required]],
+            totalDebeBoliviano: [''],
+            totalHaberBoliviano: [''],
+            totalHaberDolar: [''],
+            totalDebeDolar: [''],
+            diferenciaDebeBoliviano: [''],
+            diferenciaHaberBoliviano: [''],
+            diferenciaDebeDolar: [''],
+            diferenciaHaberDolar: ['']
+
+        });
+    }
+
+    public guardarOActualizar(): void{
+
+        this.validarPeticion = true;
+        if (this.formRegistroComprobante.valid){
+
+            this.registroComprobanteService.guardarRegistroComprobante(this.formRegistroComprobante.value).subscribe(
+                (response) => {
+                    this.registroComprobante = response;
+                    console.log('this.registroComprobante', this.registroComprobante);
+                }
+            );
+
+
+
+            this.validarPeticion = false;
+        }else{
+            this.formRegistroComprobante.markAllAsTouched();
+            this._snackBar.open('Revisar los campos ingresados', 'Error!!!', appSnackWarm);
+            this.validarPeticion = false;
+        }
+
+
+        console.log('this.formRegistroComprobante.value', this.formRegistroComprobante.value);
+    }
+
+    get getTipoComprobanteId(){
+        return this.formRegistroComprobante.get('tipoComprobanteId');
+    }
+
+    get getTipoMoneda(){
+        return this.formRegistroComprobante.get('tipoMoneda');
+    }
+
+    get getValorCambio(){
+        return this.formRegistroComprobante.get('valorCambio');
+    }
+
+    get getPagadoA(){
+        return this.formRegistroComprobante.get('pagadoA');
+    }
+
+    get getValorNitCi(){
+        return this.formRegistroComprobante.get('valorNitCi');
+    }
+
+
+    get getGlosa(){
+        return this.formRegistroComprobante.get('glosa');
+    }
+
+
+
+
     obtenerDatosIniciales(): void {
         this.isLoading = true;
         this.registroComprobanteService.obtenerDatosIniciales().subscribe(
@@ -68,4 +181,6 @@ export class RegistroComprobanteComponent implements OnInit {
             //this.formGroupCodigoFijoContable.controls[nombreControl].setValue(data.nombre.toString());
         });
     }
+
+
 }
