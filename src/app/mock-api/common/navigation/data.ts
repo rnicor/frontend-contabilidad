@@ -80,6 +80,29 @@ export const adminNavigation: FuseNavigationItem[] = [
     },
     {
         id      : 'apps',
+        title   : 'tipo cambio',
+        subtitle: 'Módulo Tipo De cambios',
+        type    : 'group',
+        icon    : 'heroicons_outline:archive',
+        children: [
+            {
+                id   : 'apps.tipo-cambio.ufv',
+                title: 'Ufv',
+                type : 'basic',
+                icon: 'heroicons_outline:document-text',
+                link : '/tipo-cambio/ufv'
+            },
+            {
+                id   : 'apps.tipo-cambio.dolar',
+                title: 'Dolares',
+                type : 'basic',
+                icon: 'heroicons_outline:document-text',
+                link : '/tipo-cambio/dolar'
+            }
+        ]
+    },  
+    {
+        id      : 'apps',
         title   : 'Gestion',
         subtitle: 'Gestiones registradas',
         type    : 'group',
