@@ -58,7 +58,8 @@ export class RegistroComprobanteComponent implements OnInit {
         dialogConfig.autoFocus = true;
         dialogConfig.data = {
             inicio: this.inicio,
-            datosFactura: this.datosFactura
+            datosFactura: this.datosFactura,
+            tipoComprobante: 'COMPRA'
             //codCuenta: cuenta,
         };
         dialogConfig.width = '50%';
