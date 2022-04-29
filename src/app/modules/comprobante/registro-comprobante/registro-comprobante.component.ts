@@ -1,4 +1,12 @@
-import {ChangeDetectorRef, Component, OnInit, Renderer2, ViewChild, ViewContainerRef} from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    OnInit,
+    Renderer2,
+    ViewChild,
+    ViewContainerRef
+} from '@angular/core';
 import {InicioDatosFacturaCom} from './model/inicio-datos-factura-com.model';
 import {DatosFacturaCompra} from './model/datos-factura-compra.model';
 import {RegistroComprobanteService} from './service/registro-comprobante.service';
@@ -10,13 +18,20 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Dominio} from '../../../core/user/dominio.types';
 import {TipoComprobante} from '../../parametros/tipo-comprobante/type/tipo-comprobante.types';
 import {RegistroComprobante} from './model/registro-comprobante.model';
+import {MatTableDataSource} from '@angular/material/table';
+import {RegistroComprobanteDetalle} from './model/registro-comprobante-detalle.model';
+import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-registro-comprobante',
   templateUrl: './registro-comprobante.component.html',
   styleUrls: ['./registro-comprobante.component.scss']
 })
-export class RegistroComprobanteComponent implements OnInit {
+export class RegistroComprobanteComponent implements OnInit, AfterViewInit {
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+
     @ViewChild('comprobante', {static: false}) comprobante: ComprobanteComponent;
     inicio: InicioDatosFacturaCom;
     datosFactura: DatosFacturaCompra;
@@ -27,6 +42,11 @@ export class RegistroComprobanteComponent implements OnInit {
 
     formRegistroComprobante: FormGroup;
     registroComprobante: RegistroComprobante;
+
+    //Tabla de ComprobanteDetalle
+    dataSourceComprobanteDetalle = new MatTableDataSource<RegistroComprobanteDetalle>();
+    displayedColumns: string[] = ['nro', 'codigoPlanCuenta', 'nombrePlanCuenta', 'referencia', 'cc', 'debeBoliviano', 'haberBoliviano', 'debeDolar', 'haberDolar', 'banco', 'nroCheque', 'iva', 'actions'];
+    listaTotalComprobanteDetalle: RegistroComprobanteDetalle[];
 
     constructor(
         private registroComprobanteService: RegistroComprobanteService,
@@ -44,17 +64,19 @@ export class RegistroComprobanteComponent implements OnInit {
 
         this.registroComprobanteService.inicio().subscribe(
             (response) => {
-                console.log('Obtener datos');
-                console.log('response', response);
                 this.formRegistroComprobante.controls['nroComprobante'].setValue(response.nroComprobante);
                 this.formRegistroComprobante.controls['nroRecibo'].setValue(response.nroRecibo);
                 this.formRegistroComprobante.controls['fecha'].setValue(response.fecha);
-
                 this.tipoComprobante = response.tipoComprobanteDTO;
                 this.tipoMoneda = response.tipoMoneda;
             }
         );
 
+    }
+
+    ngAfterViewInit(): void {
+        this.dataSourceComprobanteDetalle.sort = this.sort;
+        this.dataSourceComprobanteDetalle.paginator = this.paginator;
     }
 
     private buildForm(): void{
@@ -94,7 +116,6 @@ export class RegistroComprobanteComponent implements OnInit {
             this.registroComprobanteService.guardarRegistroComprobante(this.formRegistroComprobante.value).subscribe(
                 (response) => {
                     this.registroComprobante = response;
-                    console.log('this.registroComprobante', this.registroComprobante);
                 }
             );
 
@@ -108,7 +129,6 @@ export class RegistroComprobanteComponent implements OnInit {
         }
 
 
-        console.log('this.formRegistroComprobante.value', this.formRegistroComprobante.value);
     }
 
     get getTipoComprobanteId(){

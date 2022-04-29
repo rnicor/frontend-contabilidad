@@ -15,7 +15,7 @@
 
 
     <mat-dialog-content [formGroup]="formRegistroComprobante">
-        <div class="flex-auto p-0 sm:p-5">
+
             <div class="flex flex-auto space-x-3">
                 <!--Combo documento contable-->
                 <mat-form-field class="flex-auto gt-xs:pr-5 w-1/8" appearance="outline">
@@ -118,49 +118,106 @@
                 </mat-form-field>
 
             </div>
-        </div>
+
     </mat-dialog-content>
 
     <div class="flex-auto p-5 sm:p-1">
         <div class="flex-auto pb-2">
-            <!--<table mat-table [dataSource]="dataSourceRegistroComprobanteDetalle" matSort
+
+            <table mat-table [dataSource]="dataSourceComprobanteDetalle" matSort
                    class="w-full mat-elevation-z8 products-table table-auto">
 
                 <ng-container matColumnDef="nro">
-                    <th mat-header-cell *matHeaderCellDef> Nro</th>
+                    <th mat-header-cell *matHeaderCellDef> Codigo</th>
                     <td mat-cell *matCellDef="let element; let i = index">{{(i + 1) + (paginator.pageIndex * paginator.pageSize)}}</td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
-
-                <ng-container matColumnDef="linea">
-                    <th mat-header-cell *matHeaderCellDef> Linea</th>
+                <ng-container matColumnDef="codigoPlanCuenta">
+                    <th mat-header-cell *matHeaderCellDef> Codigo</th>
                     <td mat-cell *matCellDef="let item"> {{item.linea}} </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
-                <ng-container matColumnDef="codigoProducto">
-                    <th mat-header-cell *matHeaderCellDef> Codigo</th>
-                    <td mat-cell *matCellDef="let item"> {{item.codigoProducto}} </td>
+                <ng-container matColumnDef="nombrePlanCuenta">
+                    <th mat-header-cell *matHeaderCellDef>Nombre cuenta</th>
+                    <td mat-cell *matCellDef="let item"> {{item.nombrePlanCuenta}} </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
-                <ng-container matColumnDef="descripcionProducto">
-                    <th mat-header-cell *matHeaderCellDef> Descripcion</th>
-                    <td mat-cell *matCellDef="let item"> {{item.descripcionProducto}} </td>
-                    <td mat-footer-cell *matFooterCellDef><p>Nro unidades:</p>
-                        <p>Monto total:</p></td>
-                </ng-container>
-
-                <ng-container matColumnDef="cantidad">
-                    <th mat-header-cell *matHeaderCellDef> Cantidad</th>
-                    <td mat-cell *matCellDef="let item; let i index">
-                        {{item.cantidadExistente}}
+                <ng-container matColumnDef="referencia">
+                    <th mat-header-cell *matHeaderCellDef>Referencia</th>
+                    <td mat-cell *matCellDef="let item">
+                        {{item.referencia}}
                     </td>
-                    <td mat-footer-cell *matFooterCellDef><p>{{sumarCantidadTotal() | number:'.0-4'}}</p>
-                        <p>{{sumarPrecioTotal() | number: '.0-4'}}</p></td>
+                    <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
+                <ng-container matColumnDef="cc">
+                    <th mat-header-cell *matHeaderCellDef>C.C.</th>
+                    <td mat-cell *matCellDef="let item">
+                        {{item.cc}}
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="debeBoliviano">
+                    <th mat-header-cell *matHeaderCellDef>Debe (Bs)</th>
+                    <td mat-cell *matCellDef="let item">
+                        {{item.debeBoliviano}}
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="haberBoliviano">
+                    <th mat-header-cell *matHeaderCellDef>Haber (Bs)</th>
+                    <td mat-cell *matCellDef="let item">
+                        {{item.haberBoliviano}}
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="debeDolar">
+                    <th mat-header-cell *matHeaderCellDef>Debe (US$)</th>
+                    <td mat-cell *matCellDef="let item">
+                        {{item.debeDolar}}
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="haberDolar">
+                    <th mat-header-cell *matHeaderCellDef>Haber(US$)</th>
+                    <td mat-cell *matCellDef="let item">
+                        {{item.haberDolar}}
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="banco">
+                    <th mat-header-cell *matHeaderCellDef>Bco.</th>
+                    <td mat-cell *matCellDef="let item">
+                        {{item.banco}}
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="nroCheque">
+                    <th mat-header-cell *matHeaderCellDef>Nro Cheque</th>
+                    <td mat-cell *matCellDef="let item">
+                        {{item.nroCheque}}
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="iva">
+                    <th mat-header-cell *matHeaderCellDef>IVA</th>
+                    <td mat-cell *matCellDef="let item">
+                        {{item.iva}}
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+<!--
                 <ng-container matColumnDef="conteoFisico">
                     <th mat-header-cell *matHeaderCellDef> Conteo fisico</th>
                     <td mat-cell *matCellDef="let item; let fila index">
@@ -171,6 +228,7 @@
                     <td mat-footer-cell *matFooterCellDef><p>{{sumarCantidadTotalConteoFisico() | number:'.0-4'}}</p>
                         <p>{{sumarPrecioTotalInventario() | number: '.0-4'}}</p></td>
                 </ng-container>
+
 
                 <ng-container matColumnDef="diferencia">
                     <th mat-header-cell *matHeaderCellDef> Diferencia</th>
@@ -198,11 +256,12 @@
                     </td>
                     <td mat-footer-cell *matFooterCellDef>{{sumarPrecioTotalDiferencia() | number:'.0-4'}}</td>
                 </ng-container>
+                -->
 
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef> Acciones</th>
                     <td mat-cell *matCellDef="let item;">
-                        <button mat-raised-button color="warn" (click)="eliminarInventarioDetalle(item)">
+                        <button mat-raised-button color="warn">
                             <mat-icon svgIcon="heroicons_outline:trash"></mat-icon>
                         </button>
                     </td>
@@ -211,7 +270,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-50"></tr>
                 <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
-            </table>-->
+            </table>
             <mat-paginator [pageSize]="20" [pageSizeOptions]="[5, 10, 25, 50, 100]"></mat-paginator>
 
         </div>
@@ -220,7 +279,6 @@
     <mat-dialog-content [formGroup]="formRegistroComprobante">
         <div class="flex-auto p-0 sm:p-5">
             <div class="flex flex-auto space-x-3">
-                <div class="flex flex-auto space-x-3">
 
                     <!-- Total debe boliviano -->
                     <mat-form-field class="flex-auto gt-xs:pr-5 w-1/8" appearance="outline">
@@ -270,7 +328,6 @@
                         <input formControlName="diferenciaHaberDolar" matInput type="text">
                     </mat-form-field>
 
-                </div>
 
             </div>
 
@@ -286,7 +343,7 @@
                 </mat-label>
             </div>
         </div>
-
     </mat-dialog-content>
+
 
 </div>
