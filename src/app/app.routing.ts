@@ -116,7 +116,21 @@ export const appRoutes: Route[] = [
             {path: 'configuracion-codigo-fijo-contable', loadChildren: () => import('app/modules/parametros/configuracion-codigo-fijo-contable/configuracion-codigo-fijo-contable.module').then(m => m.ConfiguracionCodigoFijoContableModule)},
         ]
     },
+        // tipo de cambio routes
+    {
+        path       : 'tipo-cambio',
+        canActivate: [AuthGuard],
+        component  : LayoutComponent,
+        resolve    : {
+            initialData: InitialDataResolver,
+        },
 
+        children   : [
+            {path: 'ufv', loadChildren: () => import('app/modules/tipo-cambio/ufv/ufv.module').then(m => m.UfvModule)},
+            {path: 'dolar', loadChildren: () => import('app/modules/tipo-cambio/dolar/dolar.module').then(m => m.DolarModule)},
+            
+        ]
+    },
     {
         path:'empresa',
         canActivate: [AuthGuard],
