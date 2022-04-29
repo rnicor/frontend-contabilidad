@@ -1,11 +1,12 @@
-import { ArchivoUsuario } from './../../modules/admin/usuario/type/usuario.types';
+import {ArchivoUsuario} from './../../modules/admin/usuario/type/usuario.types';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../user/user.types';
 import {Rol} from '../user/rol.types';
 import {environment} from '../../../environments/environment';
-import { Sucursal } from 'app/modules/admin/sucursal/type/sucursal.types';
+import {Sucursal} from 'app/modules/admin/sucursal/type/sucursal.types';
+import {Gestion} from '../user/gestion.types';
 
 
 @Injectable({
@@ -14,7 +15,11 @@ import { Sucursal } from 'app/modules/admin/sucursal/type/sucursal.types';
 export class AuthService {
     private _usuario: User;
     private _token: string;
-    constructor(private http: HttpClient) {}
+    private _gestion: Gestion;
+    private _gestions: string;
+
+    constructor(private http: HttpClient) {
+    }
 
     public get usuario(): User {
         if (this._usuario) {
@@ -24,7 +29,40 @@ export class AuthService {
             return this._usuario;
         }
         return null;
+    }
+
+    public get gestion(): Gestion {
+        console.log('ingresando a seesion gestion');
+        if (this._gestion) {
+            console.log('siii existe gestiones');
+            return this._gestion;
+        } else if (!this._gestion) {
+            // this._gestion = JSON.parse(sessionStorage.getItem('gestion')) as Gestion;
+            this._gestion = JSON.parse(sessionStorage.getItem('gestion')) as Gestion;
+            console.log('Else gestiones');
+            console.log(this._gestion);
+            return this._gestion;
         }
+        return null;
+    }
+
+
+    public get gestions(): string {
+        if (this._gestions) {
+            return this._gestions;
+        } else if (!this._gestions && sessionStorage.getItem('gestion')) {
+            this._gestions = sessionStorage.getItem('gestion');
+            return this._gestions;
+        }
+        return null;
+    }
+
+    public setGestion(gestion:string): void {
+        sessionStorage.setItem('gestion',gestion);
+        // sessionStorage.setItem('gestion',JSON.stringify(gestion));
+        this._gestions=gestion;
+    }
+
     public get rol(): Rol {
         if (this._usuario && this._usuario.rol) {
             return this._usuario.rol;
@@ -36,6 +74,7 @@ export class AuthService {
         }
         return null;
     }
+
     public get sucursal(): Sucursal {
         if (this._usuario && this._usuario.sucursal) {
             return this._usuario.sucursal;
@@ -47,6 +86,7 @@ export class AuthService {
         }
         return null;
     }
+
     public get archivo(): ArchivoUsuario {
         if (this._usuario && this._usuario.archivo) {
             return this._usuario.archivo;
@@ -58,6 +98,7 @@ export class AuthService {
         }
         return null;
     }
+
     public get token(): string {
         if (this._token) {
             return this._token;
@@ -67,27 +108,32 @@ export class AuthService {
         }
         return null;
     }
+
     login(usuario: any): Observable<any> {
         const urlEndPoint = environment.apiEndpoint + 'oauth/token';
         const credenciales = btoa('angularapp' + ':' + '12345');
 
-        const httpHeaders = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded', Authorization : 'Basic ' + credenciales});
+        const httpHeaders = new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: 'Basic ' + credenciales
+        });
         const params = new URLSearchParams();
         params.set('grant_type', 'password');
         params.set('username', usuario.username);
         params.set('password', usuario.password);
         return this.http.post(urlEndPoint, params.toString(), {headers: httpHeaders});
     }
+
     guardarUsuario(accesToken: string): void {
         const payload = this.obtenerDatosToken(accesToken);
         this._usuario = {
-            nombre : null,
-            primerApellido : null,
-            segundoApellido : null,
-            cargo : null,
-            rol : null,
-            sucursal : null,
-            archivo : null
+            nombre: null,
+            primerApellido: null,
+            segundoApellido: null,
+            cargo: null,
+            rol: null,
+            sucursal: null,
+            archivo: null
         };
         this._usuario.nombre = payload.nombre;
         this._usuario.primerApellido = payload.primer_apellido;
@@ -98,16 +144,19 @@ export class AuthService {
         this._usuario.archivo = payload.archivo;
         sessionStorage.setItem('velacuss_usuario', JSON.stringify(this._usuario));
     }
+
     obtenerDatosToken(accessToken: string): any {
         if (accessToken) {
             return JSON.parse(decodeURIComponent(escape(atob(accessToken.split('.')[1]))));
         }
         return null;
     }
+
     guardarToken(accesToken: string): void {
         this._token = accesToken;
         sessionStorage.setItem('velacuss_token', accesToken);
     }
+
     isAuthenticated(): boolean {
         const payload = this.obtenerDatosToken(this.token);
         if (payload && payload.user_name && payload.user_name.length > 0) {
@@ -115,18 +164,23 @@ export class AuthService {
         }
         return false;
     }
+
     hasRole(role: string): boolean {
         if (this.usuario.rol) {
-            if(this.usuario.rol.sigla === role) {
+            if (this.usuario.rol.sigla === role) {
                 return true;
             }
         }
         return false;
     }
+
     logout(): void {
         this._token = null;
         this._usuario = null;
         sessionStorage.removeItem('velacuss_token');
         sessionStorage.removeItem('velacuss_usuario');
+        sessionStorage.removeItem('gestion');
     }
+
+
 }
