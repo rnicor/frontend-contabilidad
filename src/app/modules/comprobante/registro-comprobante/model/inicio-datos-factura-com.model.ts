@@ -11,3 +11,4 @@ export interface InicioDatosFacturaCom {
     codigoCuenta: Dominio[];
     tipoCompra: Dominio[];
 }
+

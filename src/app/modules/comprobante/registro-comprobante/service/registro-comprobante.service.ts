@@ -5,6 +5,8 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {InicioDatosFacturaCom} from '../model/inicio-datos-factura-com.model';
 import {DatosFacturaCompra} from '../model/datos-factura-compra.model';
+import {RegistroComprobanteInicio} from '../model/registro-comprobante-inicio.model';
+import {RegistroComprobante} from '../model/registro-comprobante.model';
 
 
 @Injectable({
@@ -19,6 +21,13 @@ export class RegistroComprobanteService {
     ) {
         this.httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
         this.url = environment.apiEndpoint + 'api/registro-comprobante';
+    }
+
+    inicio(): Observable<RegistroComprobanteInicio> {
+        return this.http.get(`${this.url}/inicio-formulario`, this.httpOptions).pipe(
+            map(response => response as RegistroComprobanteInicio),
+            catchError(e => throwError(e))
+        );
     }
 
     obtenerDatosIniciales(): Observable<InicioDatosFacturaCom>{
@@ -40,6 +49,12 @@ export class RegistroComprobanteService {
     }
     eliminar(id: number): Observable<any> {
         return this.http.delete<any>(`${this.url}/eliminar/${id}`, this.httpOptions).pipe(
+            catchError(e => throwError(e))
+        );
+    }
+
+    guardarRegistroComprobante(registroComprobante: RegistroComprobante): Observable<any> {
+        return this.http.post<any>(`${this.url}/registroComprobante`, registroComprobante, this.httpOptions).pipe(
             catchError(e => throwError(e))
         );
     }

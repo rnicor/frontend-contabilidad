@@ -22,11 +22,13 @@ export class ImportacionLibroComprasComponent implements OnInit {
 
     //ejemplos
     dataSource = new MatTableDataSource<Excel>([]);
-    resultadoExcel: string;
-    products: any;
+    /*resultadoExcel: string;
+    products: any;*/
     count: number = 0;
-
     flag: boolean = true;
+    isLoading: boolean = false;
+
+
 
     constructor(
         private importacionLibroComprasService: ImportacionLibroComprasService,
@@ -107,7 +109,6 @@ export class ImportacionLibroComprasComponent implements OnInit {
         }
     }
 
-
     guardarOActualizar(): void {
         this.importacionLibroComprasService.guardar(this.dataSourceRegistroCompraFormatoExcel.data).subscribe(
             (response) => {
@@ -116,8 +117,13 @@ export class ImportacionLibroComprasComponent implements OnInit {
         );
     }
 
-    eliminarItem(datosFacturaCompraExcel: DatosFacturaCompraExcel): void {
-            //eliminar de la vista.
+    eliminarItem(item: DatosFacturaCompraExcel): void {
+        this.isLoading = true;
+        this.listaRegistroCompraFormatoExcel = this.dataSourceRegistroCompraFormatoExcel.data;
+        const indice = this.listaRegistroCompraFormatoExcel.findIndex(resultado => resultado.numeroFactura === item.numeroFactura);
+        this.listaRegistroCompraFormatoExcel.splice(indice, 1);
+        this.dataSourceRegistroCompraFormatoExcel.data = this.listaRegistroCompraFormatoExcel;
+        this.isLoading = false;
     }
 
 
