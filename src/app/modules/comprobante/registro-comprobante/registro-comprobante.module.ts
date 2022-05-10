@@ -25,6 +25,10 @@ import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {RegistroComprobanteComponent} from './registro-comprobante.component';
 import {ComprobanteComponent} from './comprobante/comprobante.component';
+import { FormularioCompraComponent } from './formulario-compra/formulario-compra.component';
+import { FormularioBoletoAereoComponent } from './formulario-boleto-aereo/formulario-boleto-aereo.component';
+import { FormularioImportacionComponent } from './formulario-importacion/formulario-importacion.component';
+import { FormularioRetencionComponent } from './formulario-retencion/formulario-retencion.component';
 
 registerLocaleData(localeES, 'es');
 
@@ -38,7 +42,11 @@ const registroComprobanteRoutes: Route[] = [
 @NgModule({
     declarations: [
         RegistroComprobanteComponent,
-        ComprobanteComponent
+        ComprobanteComponent,
+        FormularioCompraComponent,
+        FormularioBoletoAereoComponent,
+        FormularioImportacionComponent,
+        FormularioRetencionComponent
     ],
     imports: [
         CommonModule,
