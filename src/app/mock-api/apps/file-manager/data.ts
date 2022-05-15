@@ -171,7 +171,7 @@ export const items = [
     {
         id         : 'bd2817c7-6751-40dc-b252-b6b5634c0689',
         folderId   : null,
-        name       : 'Shopping list',
+        name       : 'Shopping registro-venta',
         createdBy  : 'Brian Hughes',
         createdAt  : 'March 26, 2021',
         modifiedAt : 'March 26, 2021',

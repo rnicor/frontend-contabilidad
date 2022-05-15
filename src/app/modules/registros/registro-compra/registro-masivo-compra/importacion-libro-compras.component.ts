@@ -3,7 +3,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {Excel} from './type/excel.type';
 import {DatosFacturaCompraExcel} from './type/datos-factura-compra-excel';
 import {ImportacionLibroComprasService} from './service/importacion-libro-compras.service';
-import {appSnackPrimary, appSnackWarm} from '../../../core/snack/app.snack';
+import {appSnackPrimary, appSnackWarm} from '../../../../core/snack/app.snack';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({

@@ -19,18 +19,45 @@ export const adminNavigation: FuseNavigationItem[] = [
         ]
     },
     {
-        id      : 'apps',
-        title   : 'Libros, segun SFV',
-        subtitle: '(desde 01/01/2016)',
+        id      : 'apps.ventas',
+        title   : 'Ventas',
         type    : 'group',
         children: [
             {
-                id   : 'apps.libros-segun-sfv',
-                title: 'Importacion de libro de compras desde las sucursales)',
+                id   : 'apps.registros.venta.simple',
+                title: 'Registro de ventas',
                 type    : 'basic',
-                icon    : 'heroicons_outline:share',
-                link : '/libros-segun-sfv/importacion-libro-compras'
-            }
+                icon    : 'heroicons_outline:document-text',
+                link : '/registros/ventas/simple'
+            },
+            {
+                id   : 'apps.registros.venta.masivo',
+                title: 'Registro masivo',
+                type    : 'basic',
+                icon    : 'heroicons_outline:document-text',
+                link : '/registros/ventas/masivo'
+            },
+        ]
+    },
+    {
+        id      : 'apps.compras',
+        title   : 'Compras',
+        type    : 'group',
+        children: [
+            {
+                id   : 'apps.registros.compra.simple',
+                title: 'Registro de compras',
+                type    : 'basic',
+                icon    : 'heroicons_outline:shopping-cart',
+                link : '/registros-compra/simple'
+            },
+            {
+                id   : 'apps.registros.compra.masivo',
+                title: 'Registro masivo',
+                type    : 'basic',
+                icon    : 'heroicons_outline:shopping-cart',
+                link : '/registros-compra/masivo'
+            },
         ]
     },
     {
@@ -100,7 +127,7 @@ export const adminNavigation: FuseNavigationItem[] = [
                 link : '/tipo-cambio/dolar'
             }
         ]
-    },  
+    },
     {
         id      : 'apps',
         title   : 'Gestion',

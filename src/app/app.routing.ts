@@ -79,15 +79,14 @@ export const appRoutes: Route[] = [
         ]
     },
     {
-        path       : 'libros-segun-sfv',
+        path       : 'registros',
         canActivate: [AuthGuard],
         component  : LayoutComponent,
         resolve    : {
             initialData: InitialDataResolver,
         },
-
         children   : [
-            {path: 'importacion-libro-compras', loadChildren: () => import('app/modules/libro-segun-sfv/importacion-libro-compras/importacion-libro-compras.module').then(m => m.ImportacionLibroComprasModule)},
+            {path: 'ventas', loadChildren: () => import('app/modules/registros/registro-venta/registro-venta.module').then(m => m.RegistroVentaModule)},
         ]
     },
     {
@@ -128,7 +127,7 @@ export const appRoutes: Route[] = [
         children   : [
             {path: 'ufv', loadChildren: () => import('app/modules/tipo-cambio/ufv/ufv.module').then(m => m.UfvModule)},
             {path: 'dolar', loadChildren: () => import('app/modules/tipo-cambio/dolar/dolar.module').then(m => m.DolarModule)},
-            
+
         ]
     },
     {
