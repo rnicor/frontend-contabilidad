@@ -87,6 +87,7 @@ export const appRoutes: Route[] = [
         },
         children   : [
             {path: 'ventas', loadChildren: () => import('app/modules/registros/registro-venta/registro-venta.module').then(m => m.RegistroVentaModule)},
+            {path: 'compras', loadChildren: () => import('app/modules/registros/registro-compra/registro-compra.module').then(m => m.RegistroCompraModule)},
         ]
     },
     {

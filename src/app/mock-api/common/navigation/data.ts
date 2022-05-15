@@ -49,14 +49,14 @@ export const adminNavigation: FuseNavigationItem[] = [
                 title: 'Registro de compras',
                 type    : 'basic',
                 icon    : 'heroicons_outline:shopping-cart',
-                link : '/registros-compra/simple'
+                link : '/registros/compras/simple'
             },
             {
                 id   : 'apps.registros.compra.masivo',
                 title: 'Registro masivo',
                 type    : 'basic',
                 icon    : 'heroicons_outline:shopping-cart',
-                link : '/registros-compra/masivo'
+                link : '/registros/compras/masivo'
             },
         ]
     },
