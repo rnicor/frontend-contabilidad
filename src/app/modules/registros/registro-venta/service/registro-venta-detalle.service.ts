@@ -30,6 +30,17 @@ export class RegistroVentaDetalleService {
         );
     }
 
+    guardarExcel(registroVentaId: number, registroVentaDetalleExcel: RegistroVentaDetalle[]): Observable<void> {
+
+        console.log('datos =>>',registroVentaDetalleExcel);
+        console.log('datos id =>>',registroVentaId);
+
+        
+        return this.http.post<any>(`${this.url}/list/${registroVentaId}`, registroVentaDetalleExcel, this.httpOptions).pipe(
+            catchError(e => throwError(e))
+        );
+    }
+
     obtener(registroVentaId: number): Observable<RegistroVentaDetalle> {
         return this.http.get<any>(`${this.url}/${registroVentaId}`, this.httpOptions).pipe(
             map(response => response as RegistroVentaDetalle),

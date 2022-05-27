@@ -50,4 +50,15 @@ export class RegistroCompraDetalleService {
             catchError(e => throwError(e))
         );
     }
+    guardarExcel(registroVentaId: number, registroVentaDetalleExcel: RegistroCompraDetalle[]): Observable<void> {
+
+        console.log('datos =>>',registroVentaDetalleExcel);
+        console.log('datos id =>>',registroVentaId);
+
+        
+        return this.http.post<any>(`${this.url}/list/${registroVentaId}`, registroVentaDetalleExcel, this.httpOptions).pipe(
+            catchError(e => throwError(e))
+        );
+    }
+
 }

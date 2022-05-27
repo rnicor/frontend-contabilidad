@@ -3,7 +3,7 @@ export interface RegistroVentaDetalle{
     tipoComprobante: string;
     nro: number;
     especificacion: number;
-    fechaFactura: string;
+    fechaFactura?: string;
     numeroFactura: number;
     codigoAutorizacion: string;
     nitCiCliente: string;

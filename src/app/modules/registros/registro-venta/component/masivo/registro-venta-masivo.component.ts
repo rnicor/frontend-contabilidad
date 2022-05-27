@@ -14,6 +14,7 @@ import {RegistroVentaInicio} from '../../type/registro-venta-inicio.types';
 import {RegistroVenta} from '../../type/registro-venta.types';
 import {RegistroVentaDetalle} from '../../type/registro-venta-detalle.types';
 import {RegistroVentaDetalleService} from '../../service/registro-venta-detalle.service';
+import * as XLSX from 'xlsx';
 
 @Component({
     selector: 'app-registro-venta-masivo',
@@ -88,6 +89,11 @@ export class RegistroVentaMasivoComponent implements OnInit, AfterViewInit {
             this.formRegistroVenta.markAllAsTouched();
             return;
         }
+        //  validar no repetidos
+        //for data  for 
+       console.log( this.dataSourceRegistroVentaDetalle.data);
+
+
         this.disabledForm = true;
         this.mapFormularioToRegistro();
         this.registroVentaService.guardar(this.registroVenta).subscribe(
@@ -156,4 +162,94 @@ export class RegistroVentaMasivoComponent implements OnInit, AfterViewInit {
             };
         });
     }
+
+    cargarExcel(event: any): void {
+        try {
+            const ventas = [];
+            this.dataSourceRegistroVentaDetalle.data = [];
+            const target : DataTransfer =  <DataTransfer>(event.target);
+            if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+            const reader: FileReader = new FileReader();
+            reader.onload = (e: any) => {
+            const bstr: string = e.target.result;
+            const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary',
+            cellDates: true,
+            cellNF: false,
+            cellText: false,});
+            const workbookSheets = wb.SheetNames;
+            const wsname : string = wb.SheetNames[0];
+            const dataExcel: any[] = XLSX.utils.sheet_to_json(wb.Sheets[wsname], {
+                header: 0, raw: false, dateNF: 'yyyy-mm-dd'
+              });
+            console.log('data excel',dataExcel);
+            for (const temfila of dataExcel) {
+                if (temfila["CODIGO DE AUTORIZACION"] != undefined ){
+                    const cuenta = {
+                        codigoAutorizacion: temfila["CODIGO DE AUTORIZACION"],
+                        numeroFactura: temfila["N° DE LA FACTURA"],
+                        fechaFactura: temfila["FECHA DE LA FACTURA"],
+                        nitCiCliente: temfila["NIT / CI CLIENTE"],
+                        complemento: 'no hay',
+                        nombreRazonSocial: temfila["NOMBRE O RAZON SOCIAL"],
+                        importeTotalVenta: temfila["IMPORTE TOTAL DE LA VENTA"],
+                        importeIce: temfila["IMPORTE ICE"],
+                        importeIehd: temfila["IMPORTE IEHD"],
+                        importeIpj: temfila["IMPORTE IPJ"],
+                        tasas: temfila["TASAS"],
+                        otrosSujetosIva: temfila["OTROS NO SUJETOS AL IVA"],
+                        exportacionesOperacionesExentas: temfila["EXPORTACIONES Y OPERACIONES EXENTAS"],
+                        ventasGravadasTasaCero: temfila['VENTAS GRAVADAS A TASA CERO'],
+                        subtotal: temfila["SUBTOTAL"],
+                        subtodescuetosBonificacionesRebajasSujetasIvatal: ['DESCUENTOS, BONIFICACIONES Y REBAJAS SUJETAS AL IVA'],
+                        importeGiftCard: 1,
+                        importeBaseDebitoFiscal: temfila["IMPORTE BASE PARA DEBITO FISCAL"],
+                        debitoFiscal: temfila["DEBITO FISCAL"],
+                        estadoVenta: temfila["ESTADO"],
+                        codigoControl: 'no hay',
+                        tipoVenta: temfila["TIPO DE VENTA"],
+                    };
+                    ventas.push(cuenta);
+                }
+            }
+            console.log('data excel trasformada',ventas);
+            this.dataSourceRegistroVentaDetalle.data = ventas;
+            this.configPaginator();
+            this.detalleCount = ventas.length;
+            };
+            reader.readAsBinaryString(target.files[0]);
+        } catch (e) {
+            this._snackBar.open(e.error.message, 'Error!!!', appSnackWarm);
+        }
+    }
+
+    guardarOActualizar(): void {
+       //this.registroVentaDetalle = this.registroForm.getRawValue();
+       this.disabledForm = true;
+        this.registroVenta = this.formRegistroVenta.getRawValue();
+        this.registroVentaService.obtenerVenta(this.registroVenta.gestionId, this.registroVenta.periodo).subscribe(
+            (response) => {
+                if (response) {
+                    this.registroVenta = response;
+                    this.mapRegitroToFormulario();
+                } else {
+                    this._snackBar.open('No se encontraron resultados de la búsqueda', 'Error!!!', appSnackWarm);
+                }
+                this.disabledForm = false;
+                this.buscarActivado = 2;
+            },
+            (err) => {
+                this._snackBar.open(err.error.message, 'Error!!!', appSnackWarm);
+                this.disabledForm = false;
+                this.buscarActivado = 3;
+            });
+
+        this.registroVentaDetalleService.guardarExcel(6, this.dataSourceRegistroVentaDetalle.data).subscribe(
+            (response) => {
+                this._snackBar.open('Se guardo el excel con exito', 'Exito!!!', appSnackPrimary);
+                //this.getdolares();
+            }
+        );
+    }
+
+
 }

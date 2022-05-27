@@ -34,37 +34,30 @@
                     </mat-error>
                 </div>
             </div>
+           <!-- excel export 
+           <p>excel export</p>
+           <mat-dialog-actions>
+           <input type="file" (change)="cargarExcel($event)">
+           </mat-dialog-actions>-->
+
 
             <div class="sm:col-span-2">
-                <br>
-                <button
-                    class="ml-4"
-                    mat-flat-button
-                    [color]="'primary'"
-                    (click)="importarExcel()">
-                    <mat-icon [svgIcon]="'heroicons_solid:file'"></mat-icon>
-                    <span class="ml-2 mr-1">Importar excel</span>
-                </button>
+                <p>excel export</p>
+                <mat-dialog-actions>
+                <input type="file" (change)="cargarExcel($event)">
+                </mat-dialog-actions>
             </div>
+
+            <mat-label>
+                <button class="ml-4" mat-flat-button [color]="'primary'" (click)="guardarOActualizar()">
+                    <mat-icon [svgIcon]="'heroicons_outline:save'"></mat-icon>
+                    Guardar
+                </button>
+            </mat-label>
         </div>
     </form>
 
-    <div *ngIf="buscarActivado===2  || buscarActivado===3" class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b m-3">
-        <div>
-            <div class="text-4xl font-extrabold tracking-tight">Periodo seleccionado {{getGestion(registroVenta.gestionId) }} - {{registroVenta.periodo | nombreDominio: inicio.meses}}</div>
 
-            <button
-                class="ml-4"
-                mat-flat-button
-                [color]="'primary'"
-                (click)="guardar()">
-                <mat-icon [svgIcon]="'heroicons_outline:save'"></mat-icon>
-                <span class="ml-2 mr-1">Guardar</span>
-            </button>
-        </div>
-    </div>
-
-    <div *ngIf="registroVenta && registroVenta.id">
         <!-- Tabla de resultados -->
         <div class="flex-auto p-5 sm:p-1">
 
@@ -89,7 +82,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="codigoAutorizacion">
-                        <th mat-header-cell *matHeaderCellDef>Codigo de Autorización:/th>
+                        <th mat-header-cell *matHeaderCellDef>Codigo de Autorización:</th>
                         <td mat-cell *matCellDef="let item" class="w-20">{{item.codigoAutorizacion}}</td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
@@ -207,7 +200,7 @@
                         <td mat-cell *matCellDef="let item" class="w-20">{{item.tipoVenta}}</td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
-
+     
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns:displayedColumns;" class="hover:bg-gray-200"></tr>
                     <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
@@ -215,7 +208,7 @@
                 <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
             </div>
         </div>
-    </div>
+
 
     <fuse-alert
         class="my-5"

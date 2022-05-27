@@ -13,6 +13,7 @@ import {RegistroCompraInicio} from '../../type/registro-compra-inicio.types';
 import {RegistroCompra} from '../../type/registro-compra.types';
 import {RegistroCompraDetalle} from '../../type/registro-compra-detalle.types';
 import {RegistroCompraDetalleService} from '../../service/registro-compra-detalle.service';
+import * as XLSX from 'xlsx';
 
 @Component({
     selector: 'app-registro-compra-masivo',
@@ -154,5 +155,99 @@ export class RegistroCompraMasivoComponent implements OnInit, AfterViewInit {
                 return `${start} - ${end} de ${length}`;
             };
         });
+    }
+
+
+    cargarExcel(event: any): void {
+        try {
+            const compras  = [];
+            this.dataSourceRegistroCompraDetalle.data = [];
+            const target : DataTransfer =  <DataTransfer>(event.target);
+            if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+            const reader: FileReader = new FileReader();
+            reader.onload = (e: any) => {
+            const bstr: string = e.target.result;
+            const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary',
+            cellDates: true,
+            cellNF: false,
+            cellText: false,});
+            const workbookSheets = wb.SheetNames;
+            const wsname : string = wb.SheetNames[0];
+            const dataExcel: any[] = XLSX.utils.sheet_to_json(wb.Sheets[wsname], {
+                header: 0, raw: false, dateNF: 'yyyy-mm-dd'
+              });
+            console.log('data excel',dataExcel);
+            for (const temfila of dataExcel) {
+                if (temfila["Tipo de Compra"] != undefined ){
+                    const cuenta = {
+                        tipoComprobante: temfila['Tipo de Compra'],                        
+                        nro: temfila['N°'],
+                        especificacion: 'no hay ',
+                        nitProveedor:temfila['NIT Proveedor'],
+                        razonSocial:temfila['Razón Social Proveedor'],
+                        codigoAutorizacion:temfila['Código de Autorización'],
+                        numeroFactura:temfila['Número Factura'],
+                        numeroDui:temfila['Número DUI/DIM'],
+                        fechaFactura:temfila['Fecha de Factura/DUI/DIM'],
+                        importeTotalCompra:temfila['Importe Total Compra'],
+                        importeIce:temfila['Importe ICE'],
+                        importeIehd:temfila['Importe IEHD'],
+                        importeIpj:temfila['Importe IPJ'],
+                        tasas:temfila['Tasas'],
+                        otroNoSujetoIva:temfila['Otro No Sujeto a Crédito Fiscal'],
+                        importesExentos:temfila['Importes Exentos'],
+                        comprasGravadasTasaCero:temfila['Importe Compras Gravadas a Tasa Cero'],
+                        subtotal:temfila['Subtotal'],
+                        descuentosBonificacionesRebajasSujetasIva:temfila['Descuentos, Bonificaciones y Rebajas Sujetas a IVA'],
+                        importeGiftCard:temfila['Importe Gift Card'],
+                        importeBaseCreditoFiscal:temfila['Importe Base Crédito Fiscal'],
+                        creditoFiscal:temfila['Crédito Fiscal'],
+                        estadoCompra:'no hay',
+                        codigoControl:temfila['Código de Control'],
+                        tipoCompra:temfila['Tipo de Compra'],
+
+                
+                    };
+                    compras.push(cuenta);
+                }
+            }
+            console.log('data excel trasformada compras ',compras);
+            this.dataSourceRegistroCompraDetalle.data = compras;
+            this.configPaginator();
+            this.detalleCount = compras.length;
+            };
+            reader.readAsBinaryString(target.files[0]);
+        } catch (e) {
+            this._snackBar.open(e.error.message, 'Error!!!', appSnackWarm);
+        }
+    }
+
+    guardarOActualizar(): void {
+       //this.registroVentaDetalle = this.registroForm.getRawValue();
+       this.disabledForm = true;
+
+        this.registroCompraService.obtenerCompra(this.registroCompra.gestionId, this.registroCompra.periodo).subscribe(
+            (response) => {
+                if (response) {
+                    this.registroCompra = response;
+                    this.mapRegitroToFormulario();
+                } else {
+                    this._snackBar.open('No se encontraron resultados de la búsqueda', 'Error!!!', appSnackWarm);
+                }
+                this.disabledForm = false;
+                this.buscarActivado = 2;
+            },
+            (err) => {
+                this._snackBar.open(err.error.message, 'Error!!!', appSnackWarm);
+                this.disabledForm = false;
+                this.buscarActivado = 3;
+            });
+
+        this.registroCompraDetalleService.guardarExcel(6, this.dataSourceRegistroCompraDetalle.data).subscribe(
+            (response) => {
+                this._snackBar.open('Se guardo el excel con exito', 'Exito!!!', appSnackPrimary);
+                //this.getdolares();
+            }
+        );
     }
 }

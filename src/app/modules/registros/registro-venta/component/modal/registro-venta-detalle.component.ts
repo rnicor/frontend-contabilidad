@@ -88,11 +88,38 @@ export class RegistroVentaDetalleComponent implements OnInit {
             descuetosBonificacionesRebajasSujetasIva:   [this.registroVentaDetalle.descuetosBonificacionesRebajasSujetasIva, [Validators.required]],
             importeGiftCard:                            [this.registroVentaDetalle.importeGiftCard, [Validators.required]],
             importeBaseDebitoFiscal:                    [this.registroVentaDetalle.importeBaseDebitoFiscal, [Validators.required]],
-            debitoFiscal:                               [this.registroVentaDetalle.debitoFiscal, [Validators.required]],
+            debitoFiscal:                               [ { value:this.registroVentaDetalle.debitoFiscal, disabled:true }, [Validators.required]],
             estadoVenta:                                [this.registroVentaDetalle.estadoVenta, [Validators.required]],
             codigoControl:                              [this.registroVentaDetalle.codigoControl, [Validators.required]],
             tipoVenta:                                  [this.registroVentaDetalle.tipoVenta, [Validators.required]],
         });
+
+        this.registroForm.controls['debitoFiscal'].enable();
+        let suma = 9;
+        this.registroForm.valueChanges.subscribe( x => { 
+            
+             suma = x.debitoFiscal + x.importeBaseDebitoFiscal; 
+            console.log(this.registroForm.get("debitoFiscal").value); 
+
+            console.log(suma); 
+            /*if(){
+                
+            }*/
+            this.registroForm.controls.subtotal.setValue(suma);
+          //  this.registroForm.controls['subtotal'].setValue(suma);
+    });
+    this.registroForm.controls.subtotal.setValue(suma);
+
+        /*
+        this.registroForm.controls.subtotal.valueChanges.subscribe(x => {
+            console.log(x.debitoFiscal + x.importeBaseDebitoFiscal);
+      });*/
+        /*this.registroForm.get('subtotal').valueChanges.subscribe(x => {
+            console.log('name has changed:',             x.debitoFiscal + x.importeBaseDebitoFiscal)
+            
+      });*/
+            
+
     }
 
     guardar(): void {
