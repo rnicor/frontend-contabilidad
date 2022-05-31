@@ -41,6 +41,12 @@
                 <input type="file" (change)="cargarExcel($event)">
                 </mat-dialog-actions>
             </div>
+            <mat-label>
+                <button class="ml-4" mat-flat-button [color]="'primary'" (click)="guardarOActualizar()">
+                    <mat-icon [svgIcon]="'heroicons_outline:save'"></mat-icon>
+                    Guardar
+                </button>
+            </mat-label>
         </div>
     </form>
 

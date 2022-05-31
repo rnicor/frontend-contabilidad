@@ -24,8 +24,8 @@ export class RegistroCompraMasivoComponent implements OnInit, AfterViewInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     inicio: RegistroCompraInicio;
-
-    registroCompra: RegistroCompra;
+    formRegistroVenta: FormGroup;
+        registroCompra: RegistroCompra;
 
     total: number;
 
@@ -182,7 +182,7 @@ export class RegistroCompraMasivoComponent implements OnInit, AfterViewInit {
                     const cuenta = {
                         tipoComprobante: temfila['Tipo de Compra'],                        
                         nro: temfila['N°'],
-                        especificacion: 'no hay ',
+                        especificacion: '1',
                         nitProveedor:temfila['NIT Proveedor'],
                         razonSocial:temfila['Razón Social Proveedor'],
                         codigoAutorizacion:temfila['Código de Autorización'],
@@ -202,7 +202,7 @@ export class RegistroCompraMasivoComponent implements OnInit, AfterViewInit {
                         importeGiftCard:temfila['Importe Gift Card'],
                         importeBaseCreditoFiscal:temfila['Importe Base Crédito Fiscal'],
                         creditoFiscal:temfila['Crédito Fiscal'],
-                        estadoCompra:'no hay',
+                        estadoCompra:'1',
                         codigoControl:temfila['Código de Control'],
                         tipoCompra:temfila['Tipo de Compra'],
 
@@ -225,7 +225,7 @@ export class RegistroCompraMasivoComponent implements OnInit, AfterViewInit {
     guardarOActualizar(): void {
        //this.registroVentaDetalle = this.registroForm.getRawValue();
        this.disabledForm = true;
-
+       this.registroCompra = this.formRegistroCompra.getRawValue();
         this.registroCompraService.obtenerCompra(this.registroCompra.gestionId, this.registroCompra.periodo).subscribe(
             (response) => {
                 if (response) {
