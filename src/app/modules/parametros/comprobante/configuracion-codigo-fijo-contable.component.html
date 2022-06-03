@@ -1,0 +1,62 @@
+<div class="flex flex-col flex-auto min-w-0 bg-card dark:bg-transparent">
+    <ng-container>
+
+        <mat-tab-group animationDuration="0ms">
+            <form [formGroup]="formGroupCodigoFijoContable">
+
+                <!-- Primera pestana -->
+                <mat-tab label="Crédito, Débito e IT">
+
+                    <mat-grid-list cols="2" rowHeight="600px">
+                        <mat-grid-tile>
+                            <div class="flex-auto">
+
+                                <div class="text-lg font-extrabold tracking-tight leading-none">
+                                    COMPROBANTE                            
+                                </div>
+
+                                <div>
+                                    Crédito Fiscal
+                                </div>
+
+                             <mat-grid-list cols="7" rowHeight="50px">
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'codigoCuenta0'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <button mat-raised-button
+                                                (click)="asignarPlanCuenta(formGroupCodigoFijoContable.controls['codigoCuenta0'].value, '0', 'nombre0', 'codigoCuenta0')">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                                        </button>
+                                    </mat-grid-tile>
+
+                                    <mat-grid-tile [colspan]="3">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <input [formControlName]="'nombre0'" matInput>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+
+                                 
+                                </mat-grid-list>
+
+                            </div>
+
+                        </mat-grid-tile>
+                      
+
+                    </mat-grid-list>
+
+
+                </mat-tab>
+    
+                
+
+
+            </form>
+        </mat-tab-group>
+      
+    </ng-container>
+
+</div>
