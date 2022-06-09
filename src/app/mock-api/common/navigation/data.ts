@@ -83,6 +83,14 @@ export const adminNavigation: FuseNavigationItem[] = [
         icon    : 'heroicons_outline:archive',
         children: [
             {
+                id   : 'apps.parametros.comprobante',
+                title: 'comprobante',
+                type : 'basic',
+                icon: 'heroicons_outline:document-text',
+                link : '/parametros/comprobante'
+            },
+            
+            {
                 id   : 'apps.parametros.configuracion-codigo-fijo-contable',
                 title: 'Código fijo contable',
                 type : 'basic',
