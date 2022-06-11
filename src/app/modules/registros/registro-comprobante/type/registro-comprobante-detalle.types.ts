@@ -1,9 +1,8 @@
-
-export interface RegistroComprobanteDetalle {
+export interface RegistroComprobanteDetalle{
     id: number;
-    registroComprobanteId: number;
-    codigoPlanCuenta: string;
-    nombrePlanCuenta: string;
+    comprobanteId: number;
+    codigoCuenta: string;
+    nombreCuenta: string;
     referencia: string;
     debeBoliviano: number;
     haberBoliviano: number;
@@ -12,8 +11,4 @@ export interface RegistroComprobanteDetalle {
     banco: string;
     nroCheque: number;
     iva: boolean;
-    fechaRegistro: string;
 }
-
-
-

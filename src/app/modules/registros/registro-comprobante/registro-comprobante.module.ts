@@ -4,7 +4,7 @@ import {MAT_DATE_FORMATS, MatRippleModule} from '@angular/material/core';
 import {CommonModule, registerLocaleData} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {Route, RouterModule, Routes} from '@angular/router';
+import {Route, RouterModule} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -24,15 +24,14 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {RegistroComprobanteComponent} from './registro-comprobante.component';
-import {ComprobanteComponent} from './comprobante/comprobante.component';
-import { FormularioCompraComponent } from './formulario-compra/formulario-compra.component';
-import { FormularioBoletoAereoComponent } from './formulario-boleto-aereo/formulario-boleto-aereo.component';
-import { FormularioImportacionComponent } from './formulario-importacion/formulario-importacion.component';
-import { FormularioRetencionComponent } from './formulario-retencion/formulario-retencion.component';
+import {BuscarComprobanteComponent} from './modal/buscar-comprobante.component';
+import {FuseAlertModule} from '../../../../@fuse/components/alert';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 registerLocaleData(localeES, 'es');
 
-const registroComprobanteRoutes: Route[] = [
+const pedidoRoutes: Route[] = [
     {
         path: '',
         component: RegistroComprobanteComponent
@@ -40,17 +39,13 @@ const registroComprobanteRoutes: Route[] = [
 ];
 
 @NgModule({
-    declarations: [
-        RegistroComprobanteComponent,
-        ComprobanteComponent,
-        FormularioCompraComponent,
-        FormularioBoletoAereoComponent,
-        FormularioImportacionComponent,
-        FormularioRetencionComponent
-    ],
+  declarations: [
+      RegistroComprobanteComponent,
+      BuscarComprobanteComponent
+  ],
     imports: [
         CommonModule,
-        RouterModule.forChild(registroComprobanteRoutes),
+        RouterModule.forChild(pedidoRoutes),
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
@@ -74,28 +69,29 @@ const registroComprobanteRoutes: Route[] = [
         MatFormFieldModule,
         MatDatepickerModule,
         MatMomentDateModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        FuseAlertModule,
+        MatAutocompleteModule,
+        MatProgressSpinnerModule
     ],
     providers: [
         {
             provide: LOCALE_ID, useValue: 'es-ES'
         },
         {
-            provide: MAT_DATE_FORMATS,
+            provide : MAT_DATE_FORMATS,
             useValue: {
-                parse: {
-                    //dateInput: moment.ISO_8601
+                parse  : {
                     dateInput: 'DD/MM/YYYY',
                 },
                 display: {
-                    dateInput: 'DD/MM/YYYY',
-                    monthYearLabel: 'MMM YYYY',
-                    dateA11yLabel: 'LL',
+                    dateInput         : 'DD/MM/YYYY',
+                    monthYearLabel    : 'MMM YYYY',
+                    dateA11yLabel     : 'LL',
                     monthYearA11yLabel: 'MMMM YYYY'
                 }
             }
         }
     ]
 })
-export class RegistroComprobanteModule {
-}
+export class RegistroComprobanteModule { }

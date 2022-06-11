@@ -1,14 +1,13 @@
+import {RegistroComprobanteDetalle} from "./registro-comprobante-detalle.types";
 
 export interface RegistroComprobante {
-
     id: number;
-    usuarioId: number;
     tipoComprobanteId: number;
     fecha: string;
-    tipoMoneda: string;
-    valorCambio: number;
+    tipoCambio: number;
+    moneda: string;
     pagadoA: string;
-    valorNitCi: string;
+    nitCi: string;
     nroRecibo: number;
     nroComprobante: number;
     glosa: string;
@@ -20,9 +19,5 @@ export interface RegistroComprobante {
     diferenciaHaberBoliviano: number;
     diferenciaDebeDolar: number;
     diferenciaHaberDolar: number;
-    fechaRegistro: string;
-
+    detalle: RegistroComprobanteDetalle[];
 }
-
-
-
