@@ -22,6 +22,13 @@ export const adminNavigation: FuseNavigationItem[] = [
                 icon    : 'heroicons_outline:shopping-cart',
                 link : '/registros/ventas/masivo'
             },
+            {
+                id   : 'apps.parametros.configuracion-codigo-fijo-contable.comprobante-ventas.comprobantes-ventas',
+                title: 'Importar y generar asientos',
+                type    : 'basic',
+                icon    : 'heroicons_outline:shopping-cart',
+                link : '/registros/comprobantes-ventas'
+            },
         ]
     },
     {
