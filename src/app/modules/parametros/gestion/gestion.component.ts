@@ -11,8 +11,6 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {appSnackPrimary, appSnackWarm} from '../../../core/snack/app.snack';
 import {MatTableDataSource} from '@angular/material/table';
 import {Gestion} from './gestion.types';
-import {Linea} from '../../ingreso/linea/linea.types';
-import {LineaDetalleComponent} from '../../ingreso/linea/details/linea-detalle.component';
 import {GestionDetalleComponent} from './gestion-detalle/gestion-detalle.component';
 import {Dominio} from '../../../core/user/dominio.types';
 

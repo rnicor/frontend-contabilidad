@@ -4,47 +4,58 @@ export const defaultNavigation: FuseNavigationItem[] = [];
 
 export const adminNavigation: FuseNavigationItem[] = [
     {
-        id      : 'apps',
+        id      : 'apps.ventas',
+        title   : 'Ventas',
+        type    : 'group',
+        children: [
+            {
+                id   : 'apps.registros.venta.simple',
+                title: 'Registro de ventas',
+                type    : 'basic',
+                icon    : 'heroicons_outline:shopping-cart',
+                link : '/registros/ventas/simple'
+            },
+            {
+                id   : 'apps.registros.venta.masivo',
+                title: 'Registro masivo',
+                type    : 'basic',
+                icon    : 'heroicons_outline:shopping-cart',
+                link : '/registros/ventas/masivo'
+            },
+        ]
+    },
+    {
+        id      : 'apps.compras',
         title   : 'Compras',
-        subtitle: 'Módulo de compras',
         type    : 'group',
         children: [
             {
-                id   : 'apps.linea',
-                title: 'Linea',
+                id   : 'apps.registros.compra.simple',
+                title: 'Registro de compras',
                 type    : 'basic',
-                icon    : 'heroicons_outline:share',
-                link : '/ingreso/linea'
+                icon    : 'heroicons_outline:shopping-cart',
+                link : '/registros/compras/simple'
+            },
+            {
+                id   : 'apps.registros.compra.masivo',
+                title: 'Registro masivo',
+                type    : 'basic',
+                icon    : 'heroicons_outline:shopping-cart',
+                link : '/registros/compras/masivo'
             }
         ]
     },
     {
-        id      : 'apps',
-        title   : 'Libros, segun SFV',
-        subtitle: '(desde 01/01/2016)',
+        id      : 'apps.comprobantes',
+        title   : 'Comprobantes',
         type    : 'group',
         children: [
             {
-                id   : 'apps.libros-segun-sfv',
-                title: 'Importacion de libro de compras desde las sucursales)',
-                type    : 'basic',
-                icon    : 'heroicons_outline:share',
-                link : '/libros-segun-sfv/importacion-libro-compras'
-            }
-        ]
-    },
-    {
-        id      : 'apps',
-        title   : 'Registro de comprobantes',
-        subtitle: 'Registro de comprobantes contables',
-        type    : 'group',
-        children: [
-            {
-                id   : 'apps.comprobantes',
-                title: 'Registro de comprobantes contables',
+                id   : 'apps.registros.comprobantes',
+                title: 'Registro de comprobantes',
                 type    : 'basic',
                 icon    : 'heroicons_outline:clipboard-check',
-                link : '/comprobante/registro-comprobante'
+                link : '/registros/comprobantes'
             }
         ]
     },
@@ -55,6 +66,14 @@ export const adminNavigation: FuseNavigationItem[] = [
         type    : 'group',
         icon    : 'heroicons_outline:archive',
         children: [
+            {
+                id   : 'apps.parametros.comprobante',
+                title: 'comprobante',
+                type : 'basic',
+                icon: 'heroicons_outline:document-text',
+                link : '/parametros/comprobante'
+            },
+
             {
                 id   : 'apps.parametros.configuracion-codigo-fijo-contable',
                 title: 'Código fijo contable',
@@ -100,7 +119,7 @@ export const adminNavigation: FuseNavigationItem[] = [
                 link : '/tipo-cambio/dolar'
             }
         ]
-    },  
+    },
     {
         id      : 'apps',
         title   : 'Gestion',

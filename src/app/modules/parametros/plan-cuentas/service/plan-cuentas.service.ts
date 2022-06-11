@@ -5,7 +5,6 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {PlanCuentaInicio} from '../type/plan-cuenta-inicio.types';
 import {PlanCuenta} from '../type/plan-cuenta.types';
-import {Linea} from '../../../ingreso/linea/linea.types';
 import {PlanCuentaFachada} from '../type/plan-cuenta-fachada.types';
 
 

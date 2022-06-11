@@ -83,7 +83,7 @@ export const notes = [
     {
         id       : 'ffd20f3c-2d43-4c6b-8021-278032fc9e92',
         title    : 'Gift Ideas',
-        content  : 'Stephanie\'s birthday is coming and I need to pick a present for her. Take a look at the below list and buy one of them (or all of them)',
+        content  : 'Stephanie\'s birthday is coming and I need to pick a present for her. Take a look at the below registro-venta and buy one of them (or all of them)',
         tasks    : [
             {
                 id       : '330a924f-fb51-48f6-a374-1532b1dd353d',
@@ -115,7 +115,7 @@ export const notes = [
     },
     {
         id       : '71d223bb-abab-4183-8919-cd3600a950b4',
-        title    : 'Shopping list',
+        title    : 'Shopping registro-venta',
         content  : '',
         tasks    : [
             {

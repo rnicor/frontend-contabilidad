@@ -98,16 +98,16 @@ export class ScrumboardMockApi
         // @ List - POST
         // -----------------------------------------------------------------------------------------------------
         this._fuseMockApiService
-            .onPost('api/apps/scrumboard/board/list')
+            .onPost('api/apps/scrumboard/board/registro-venta')
             .reply(({request}) => {
 
-                // Get the list
+                // Get the registro-venta
                 const newList = cloneDeep(request.body.list);
 
                 // Generate a new GUID
                 newList.id = FuseMockApiUtils.guid();
 
-                // Store the new list
+                // Store the new registro-venta
                 this._lists.push(newList);
 
                 return [
@@ -120,24 +120,24 @@ export class ScrumboardMockApi
         // @ List - PATCH
         // -----------------------------------------------------------------------------------------------------
         this._fuseMockApiService
-            .onPatch('api/apps/scrumboard/board/list')
+            .onPatch('api/apps/scrumboard/board/registro-venta')
             .reply(({request}) => {
 
-                // Get the list
+                // Get the registro-venta
                 const list = cloneDeep(request.body.list);
 
-                // Prepare the updated list
+                // Prepare the updated registro-venta
                 let updatedList = null;
 
-                // Find the list and update it
+                // Find the registro-venta and update it
                 this._lists.forEach((item, index, lists) => {
 
                     if ( item.id === list.id )
                     {
-                        // Update the list
+                        // Update the registro-venta
                         lists[index] = assign({}, lists[index], list);
 
-                        // Store the updated list
+                        // Store the updated registro-venta
                         updatedList = lists[index];
                     }
                 });
@@ -164,10 +164,10 @@ export class ScrumboardMockApi
                 // Go through the lists
                 lists.forEach((item) => {
 
-                    // Find the list
+                    // Find the registro-venta
                     const index = this._lists.findIndex(list => item.id === list.id);
 
-                    // Update the list
+                    // Update the registro-venta
                     this._lists[index] = assign({}, this._lists[index], item);
 
                     // Store in the updated lists
@@ -184,17 +184,17 @@ export class ScrumboardMockApi
         // @ List - DELETE
         // -----------------------------------------------------------------------------------------------------
         this._fuseMockApiService
-            .onDelete('api/apps/scrumboard/board/list')
+            .onDelete('api/apps/scrumboard/board/registro-venta')
             .reply(({request}) => {
 
                 // Get the id
                 const id = request.params.get('id');
 
-                // Find the list and delete it
+                // Find the registro-venta and delete it
                 const index = this._lists.findIndex(item => item.id === id);
                 this._lists.splice(index, 1);
 
-                // Filter out the cards that belonged to the list to delete them
+                // Filter out the cards that belonged to the registro-venta to delete them
                 this._cards = this._cards.filter(card => card.listId !== id);
 
                 return [
