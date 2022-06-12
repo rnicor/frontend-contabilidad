@@ -180,6 +180,24 @@
                 <div class="flex items-center justify-between">
                     <a mat-icon-button (click)="add()"><mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:plus-circle'"></mat-icon></a>
                 </div>
+                <div class="grid sm:grid-cols-12 gap-3 w-full mt-1">
+                    <div class="sm:col-span-7">
+                    </div>
+                    <div class="sm:col-span-1 text-center">
+                        <strong>Debe(Bs)</strong>
+                    </div>
+                    <div class="sm:col-span-1 text-center">
+                        <strong>Haber(Bs)</strong>
+                    </div>
+                    <div class="sm:col-span-1 text-center">
+                        <strong>Debe($)</strong>
+                    </div>
+                    <div class="sm:col-span-1 text-center">
+                        <strong>Haber($)</strong>
+                    </div>
+                    <div class="sm:col-span-1 text-center">
+                    </div>
+                </div>
                 <ng-container formArrayName="detalle" *ngFor="let a of detalles.controls; let i=index">
                     <div [formGroupName]="i">
                         <div class="grid sm:grid-cols-12 gap-3 w-full mt-1">
@@ -233,6 +251,62 @@
                         </div>
                     </div>
                 </ng-container>
+            </div>
+
+            <div class="sm:col-span-12">
+                <div class="grid sm:grid-cols-12 gap-3 w-full">
+                    <div class="sm:col-span-7 flex justify-end">
+                        <strong>TOTALES</strong>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <input formControlName="totalDebeBoliviano" matInput type="number">
+                        </mat-form-field>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <input formControlName="totalHaberBoliviano" matInput type="number">
+                        </mat-form-field>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <input formControlName="totalHaberDolar" matInput type="number">
+                        </mat-form-field>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <input formControlName="totalDebeDolar" matInput type="number">
+                        </mat-form-field>
+                    </div>
+                    <div class="sm:col-span-1">
+                    </div>
+
+                    <div class="sm:col-span-7 flex justify-end">
+                        <strong>DIFERENCIAS</strong>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <input formControlName="diferenciaDebeBoliviano" matInput type="number">
+                        </mat-form-field>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <input formControlName="diferenciaHaberBoliviano" matInput type="number">
+                        </mat-form-field>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <input formControlName="diferenciaDebeDolar" matInput type="number">
+                        </mat-form-field>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <input formControlName="diferenciaHaberDolar" matInput type="number">
+                        </mat-form-field>
+                    </div>
+                    <div class="sm:col-span-1">
+                    </div>
+                </div>
             </div>
         </div>
     </form>

@@ -3,8 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../../../environments/environment';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {RegistroComprobante} from "../type/registro-comprobante.types";
-import {RegistroComprobanteInicio} from "../type/registro-comprobante-inicio.types";
+import {RegistroComprobante} from '../type/registro-comprobante.types';
+import {RegistroComprobanteInicio} from '../type/registro-comprobante-inicio.types';
 
 @Injectable({
   providedIn: 'root'

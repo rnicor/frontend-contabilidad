@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {appSnackPrimary, appSnackWarm} from '../../../core/snack/app.snack';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
@@ -6,8 +6,10 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {FuseConfirmationService} from '../../../../@fuse/services/confirmation';
 import {RegistroComprobanteService} from './service/registro-comprobante.service';
 import {AuthService} from '../../../core/auth/auth.service';
-import {RegistroComprobanteInicio} from "./type/registro-comprobante-inicio.types";
-import {RegistroComprobante} from "./type/registro-comprobante.types";
+import {RegistroComprobanteInicio} from './type/registro-comprobante-inicio.types';
+import {RegistroComprobante} from './type/registro-comprobante.types';
+import {debounceTime, distinctUntilChanged, filter, switchMap, tap} from 'rxjs/operators';
+import {of} from "rxjs";
 
 @Component({
     selector: 'app-registro-comprobante',
@@ -71,20 +73,34 @@ export class RegistroComprobanteComponent implements OnInit, AfterViewInit {
             tipoCambio:                 [null, [Validators.required]],
             moneda:                     [null, [Validators.required]],
             pagadoA:                    [null, [Validators.required]],
-            nitCi:                      [null, [Validators.required]],
-            nroRecibo:                  [null],
-            nroComprobante:             [null],
+            nitCi:                      [null],
+            nroRecibo:                  [{value: null, disabled: true}],
+            nroComprobante:             [{value: null, disabled: true}],
             glosa:                      [null, [Validators.required]],
-            totalDebeBoliviano:         [null, [Validators.required]],
-            totalHaberBoliviano:        [null, [Validators.required]],
-            totalHaberDolar:            [null, [Validators.required]],
-            totalDebeDolar:             [null, [Validators.required]],
-            diferenciaDebeBoliviano:    [null, [Validators.required]],
-            diferenciaHaberBoliviano:   [null, [Validators.required]],
-            diferenciaDebeDolar:        [null, [Validators.required]],
-            diferenciaHaberDolar:       [null, [Validators.required]],
+            totalDebeBoliviano:         [{value: null, disabled: true}, [Validators.required]],
+            totalHaberBoliviano:        [{value: null, disabled: true}, [Validators.required]],
+            totalHaberDolar:            [{value: null, disabled: true}, [Validators.required]],
+            totalDebeDolar:             [{value: null, disabled: true}, [Validators.required]],
+            diferenciaDebeBoliviano:    [{value: null, disabled: true}],
+            diferenciaHaberBoliviano:   [{value: null, disabled: true}],
+            diferenciaDebeDolar:        [{value: null, disabled: true}],
+            diferenciaHaberDolar:       [{value: null, disabled: true}],
             detalle:                    this.formBuilder.array([])
         });
+        this.detalles.valueChanges.subscribe((data) => {
+            this.formComprobante.get('totalDebeBoliviano').setValue(data.reduce((a,b) => a + +b.debeBoliviano, 0));
+            this.formComprobante.get('totalHaberBoliviano').setValue(data.reduce((a,b) => a + +b.haberBoliviano, 0));
+            this.formComprobante.get('totalHaberDolar').setValue(data.reduce((a,b) => a + +b.debeDolar, 0));
+            this.formComprobante.get('totalDebeDolar').setValue(data.reduce((a,b) => a + +b.haberDolar, 0));
+        });
+        this.formComprobante.get('glosa').valueChanges.pipe(
+            debounceTime(400),
+            distinctUntilChanged())
+            .subscribe((data) => {
+                for (let i = 0; i <= this.detalles.length-1; i++){
+                    this.detalles.at(i).patchValue({referencia: data});
+                }
+            });
     }
 
     add(): void {
@@ -102,10 +118,10 @@ export class RegistroComprobanteComponent implements OnInit, AfterViewInit {
             codigoCuenta: [null, Validators.required],
             nombreCuenta: [null, Validators.required],
             referencia: [null, Validators.required],
-            debeBoliviano: [null, Validators.required],
-            haberBoliviano: [null, Validators.required],
-            debeDolar: [null, Validators.required],
-            haberDolar: [null, Validators.required],
+            debeBoliviano: [null],
+            haberBoliviano: [null],
+            debeDolar: [null],
+            haberDolar: [null],
             banco: [null],
             nroCheque: [null],
             iva: [null]
@@ -117,13 +133,8 @@ export class RegistroComprobanteComponent implements OnInit, AfterViewInit {
     }
 
     actualizarCuenta(index: number, event: any): void {
-        this.detalles.at(index).patchValue({codigoCuenta: event.value.codigo , nombreCuenta: event.value.nombre});
+        this.detalles.at(index).patchValue({comprobanteId: event.value.id, codigoCuenta: event.value.codigo , nombreCuenta: event.value.nombre});
     }
-
-    /*sumarCantidadTotal(): number {
-        /!*this.cantidadTotal = this.dataSourcePedidoDetalle.data.map(t => t.cantidad).reduce((acc, value) => Number(acc) + Number(value), 0);
-        return this.dataSourcePedidoDetalle.data.map(t => t.cantidad).reduce((acc, value) => Number(acc) + Number(value), 0);*!/
-    }*/
 
     guardar(): void {
         if (!this.validarPedido()) {
@@ -251,10 +262,10 @@ export class RegistroComprobanteComponent implements OnInit, AfterViewInit {
                 codigoCuenta: [e.codigoCuenta, Validators.required],
                 nombreCuenta: [e.nombreCuenta, Validators.required],
                 referencia: [e.referencia, Validators.required],
-                debeBoliviano: [e.debeBoliviano, Validators.required],
-                haberBoliviano: [e.haberBoliviano, Validators.required],
-                debeDolar: [e.debeDolar, Validators.required],
-                haberDolar: [e.haberDolar, Validators.required],
+                debeBoliviano: [e.debeBoliviano],
+                haberBoliviano: [e.haberBoliviano],
+                debeDolar: [e.debeDolar],
+                haberDolar: [e.haberDolar],
                 banco: [e.banco],
                 nroCheque: [e.nroCheque],
                 iva: [e.iva]
@@ -283,6 +294,7 @@ export class RegistroComprobanteComponent implements OnInit, AfterViewInit {
         this.comprobante.detalle = this.formComprobante.controls['detalle'].value;
     }
     private validarPedido(): boolean {
+        console.log(this.formComprobante);
         if(this.formComprobante.invalid) {
             this.formComprobante.markAllAsTouched();
             this._snackBar.open('....Complete los datos requeridos', 'Error!!!', appSnackWarm);
