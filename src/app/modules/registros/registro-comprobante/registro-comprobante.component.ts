@@ -285,7 +285,7 @@ export class RegistroComprobanteComponent implements OnInit, AfterViewInit {
     private validarPedido(): boolean {
         if(this.formComprobante.invalid) {
             this.formComprobante.markAllAsTouched();
-            this._snackBar.open('Complete los datos requeridos', 'Error!!!', appSnackWarm);
+            this._snackBar.open('....Complete los datos requeridos', 'Error!!!', appSnackWarm);
             return false;
         }
         /*const registroPedidoDetalle = this.dataSourcePedidoDetalle.data.find(e => !e.cantidad);

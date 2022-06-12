@@ -130,7 +130,7 @@ export class GestionDetalleComponent implements OnInit, AfterViewInit {
 
     seleccionar(gestion: Gestion): void {
         const confirmation = this._fuseConfirmationService.open({
-            title: 'Eliminar linea',
+            title: 'Seleccionar Gestion',
             message: '¿Esta seguro(a) de seleccionar la gestion: ' + gestion.anio + ' ?',
             actions: {
                 confirm: {
