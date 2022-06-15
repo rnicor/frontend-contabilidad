@@ -2,7 +2,7 @@ import {LOCALE_ID, NgModule} from '@angular/core';
 import {CommonModule, registerLocaleData} from '@angular/common';
 import localeES from '@angular/common/locales/es';
 import {Route, RouterModule} from '@angular/router';
-import {PlanCuentasComponent} from '../plan-cuentas/plan-cuentas.component';
+import {CuentasComponent} from '../cuenta/cuentas.component';
 import {GestionComponent} from './gestion.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';

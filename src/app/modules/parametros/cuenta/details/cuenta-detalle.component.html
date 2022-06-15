@@ -1,7 +1,6 @@
-
 <h1 mat-dialog-title>
-  <span *ngIf="!planCuenta.id">Crear plan cuenta</span>
-  <span *ngIf="planCuenta.id">Editar/Eliminar plan cuenta</span>
+  <span *ngIf="!cuenta.id">Crear plan cuenta</span>
+  <span *ngIf="cuenta.id">Editar/Eliminar plan cuenta</span>
 </h1>
 
 <mat-dialog-content [formGroup]="formGroupCuenta">
@@ -177,8 +176,8 @@
     <button class="mat-raised-button"(click)="close()"><mat-icon svgIcon="heroicons_outline:x"></mat-icon> Cancelar</button>
     <button class="mat-raised-button mat-primary"(click)="save()">
         <mat-icon svgIcon="mat_outline:save"></mat-icon>
-        <span *ngIf="!planCuenta.id">Crear plan cuenta</span>
-        <span *ngIf="planCuenta.id">Editar plan cuenta</span>
+        <span *ngIf="!cuenta.id">Crear plan cuenta</span>
+        <span *ngIf="cuenta.id">Editar plan cuenta</span>
     </button>
 </mat-dialog-actions>
 

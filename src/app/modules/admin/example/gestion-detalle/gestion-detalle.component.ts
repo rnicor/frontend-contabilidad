@@ -159,7 +159,7 @@ export class GestionDetalleComponent implements OnInit, AfterViewInit {
                 console.log(gestion);
                 // console.log('fin');
                 this.dialogRef.close(gestion);
-                this._router.navigate(['/parametros/plan-cuentas']);
+                this._router.navigate(['/parametros/cuenta']);
 
 
             } else {

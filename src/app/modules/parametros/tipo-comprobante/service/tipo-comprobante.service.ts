@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 
@@ -18,7 +18,7 @@ export class TipoComprobanteService{
         private http: HttpClient,
     ) {
         this.httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-        this.url = environment.apiEndpoint + 'api/tipoComprobante';
+        this.url = environment.apiEndpoint + 'api/tipo-comprobante';
     }
 
     listar(): Observable<TipoComprobante[]> {
@@ -28,8 +28,9 @@ export class TipoComprobanteService{
         );
     }
 
-    guardar(tipoComprobante: TipoComprobante): Observable<any> {
+    guardar(tipoComprobante: TipoComprobante): Observable<TipoComprobante> {
         return this.http.post<any>(`${this.url}`, tipoComprobante, this.httpOptions).pipe(
+            map(response => response as TipoComprobante),
             catchError(e => throwError(e))
         );
     }
@@ -42,8 +43,9 @@ export class TipoComprobanteService{
         );
     }
 
-    editar(categoria: TipoComprobante): Observable<any> {
-        return this.http.put(`${this.url}`, categoria, this.httpOptions).pipe(
+    editar(tipoComprobante: TipoComprobante): Observable<TipoComprobante> {
+        return this.http.put(`${this.url}`, tipoComprobante, this.httpOptions).pipe(
+            map(response => response as TipoComprobante),
             catchError(e => throwError(e))
         );
     }
@@ -53,5 +55,4 @@ export class TipoComprobanteService{
             catchError(e => throwError(e))
         );
     }
-
 }

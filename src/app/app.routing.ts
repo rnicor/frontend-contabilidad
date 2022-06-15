@@ -71,9 +71,8 @@ export const appRoutes: Route[] = [
         },
 
         children   : [
-            {path: 'comprobante', loadChildren: () => import('app/modules/parametros/comprobante/configuracion-codigo-fijo-contable.module').then(m => m.ConfiguracionCodigoFijoContableModule)},
             {path: 'tipo-comprobante', loadChildren: () => import('app/modules/parametros/tipo-comprobante/tipo-comprobante.module').then(m => m.TipoComprobanteModule)},
-            {path: 'plan-cuentas', loadChildren: () => import('app/modules/parametros/plan-cuentas/plan-cuentas.module').then(m => m.PlanCuentasModule)},
+            {path: 'cuenta', loadChildren: () => import('app/modules/parametros/cuenta/cuentas.module').then(m => m.CuentasModule)},
             {path: 'configuracion-codigo-fijo-contable', loadChildren: () => import('app/modules/parametros/configuracion-codigo-fijo-contable/configuracion-codigo-fijo-contable.module').then(m => m.ConfiguracionCodigoFijoContableModule)},
         ]
     },

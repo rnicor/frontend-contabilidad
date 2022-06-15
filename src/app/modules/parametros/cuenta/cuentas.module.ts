@@ -1,7 +1,7 @@
 import {LOCALE_ID, NgModule} from '@angular/core';
 import localeES from '@angular/common/locales/es';
 import {MAT_DATE_FORMATS, MatRippleModule} from '@angular/material/core';
-import {CommonModule, DatePipe, registerLocaleData} from '@angular/common';
+import {CommonModule, registerLocaleData} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {Route, RouterModule} from '@angular/router';
@@ -23,35 +23,30 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatCardModule} from '@angular/material/card';
-import {MatGridListModule} from '@angular/material/grid-list';
-
-import {ConfiguracionCodigoFijoContableComponent} from './configuracion-codigo-fijo-contable.component';
-import {PlanCuentaModalComponent} from './modal/plan-cuenta-modal.component';
-
-
-
+import {CuentasComponent} from './cuentas.component';
+import {CuentaDetalleComponent} from './details/cuenta-detalle.component';
 
 registerLocaleData(localeES, 'es');
 
-const configuracionCodigoFijoContableRoutes: Route[] = [
+const planCuentasRoutes: Route[] = [
     {
         path: '',
-        component: ConfiguracionCodigoFijoContableComponent
+        component: CuentasComponent
     }
 ];
 
 @NgModule({
     declarations: [
-        ConfiguracionCodigoFijoContableComponent,PlanCuentaModalComponent
+        CuentasComponent,
+        CuentaDetalleComponent
     ],
     imports: [
         CommonModule,
-        RouterModule.forChild(configuracionCodigoFijoContableRoutes),
+        RouterModule.forChild(planCuentasRoutes),
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
+        ReactiveFormsModule,
         MatButtonModule,
         MatCheckboxModule,
         MatFormFieldModule,
@@ -71,13 +66,9 @@ const configuracionCodigoFijoContableRoutes: Route[] = [
         MatFormFieldModule,
         MatDatepickerModule,
         MatMomentDateModule,
-        MatSnackBarModule,
-        MatTabsModule,
-        MatCardModule,
-        MatGridListModule,
+        MatSnackBarModule
     ],
     providers: [
-        DatePipe,
         {
             provide: LOCALE_ID, useValue: 'es-ES'
         },
@@ -98,5 +89,5 @@ const configuracionCodigoFijoContableRoutes: Route[] = [
         }
     ]
 })
-export class ConfiguracionCodigoFijoContableModule {
+export class CuentasModule {
 }

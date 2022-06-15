@@ -2,23 +2,23 @@ import {Component, EventEmitter, Inject, Input, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {PlanCuenta} from '../type/plan-cuenta.types';
+import {Cuenta} from '../type/cuenta.types';
 import {Dominio} from '../../../../core/user/dominio.types';
 import {AuthService} from '../../../../core/auth/auth.service';
 import {MatRadioButton, MatRadioChange} from '@angular/material/radio';
-import {PlanCuentaService} from '../service/plan-cuentas.service';
+import {CuentaService} from '../service/cuentas.service';
 import {FuseConfirmationService} from '../../../../../@fuse/services/confirmation';
 import {appSnackPrimary, appSnackWarm} from '../../../../core/snack/app.snack';
 
 
 @Component({
-    selector: 'plan-cuenta-detalle',
-    templateUrl: './plan-cuenta-detalle.component.html',
+    selector: 'cuenta-detalle',
+    templateUrl: './cuenta-detalle.component.html',
     styles: []
 })
-export class PlanCuentaDetalleComponent {
+export class CuentaDetalleComponent {
     @Input() action: string;
-    @Input() planCuenta: PlanCuenta;
+    @Input() cuenta: Cuenta;
     @Input() dominioCuentaPrincipal: Dominio[];
     @Input() dominioNivelCuenta: Dominio[];
     @Input() dominioTipoMoneda: Dominio[];
@@ -45,85 +45,78 @@ export class PlanCuentaDetalleComponent {
         private _fuseConfirmationService: FuseConfirmationService,
         private authService: AuthService,
         private formBuilder: FormBuilder,
-        private planCuentaService: PlanCuentaService,
-        public dialogRef: MatDialogRef<PlanCuentaDetalleComponent>,
+        private cuentaService: CuentaService,
+        public dialogRef: MatDialogRef<CuentaDetalleComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
         //iniciar la variable externa
-        this.planCuenta = this.planCuenta ? this.planCuenta : this.planCuenta = {
+        this.cuenta = this.cuenta ? this.cuenta : this.cuenta = {
             id: null,
-            empresaId: null,
+            gestion: null,
             codigo: null,
             nombre: null,
             nivelCuenta: null,
-            tipoMoneda: null,
-            gestion: null,
+            tipoMoneda: null
         };
 
 
         this.buildForm();
 
         if (data) {
-            console.log(this.dominioTipoMoneda);
-            if (data.planCuenta) {
+            if (data.cuenta) {
                 this.validarGrupoCuenta = true;
                 this.validarNivelCuenta = true;
                 this.validarTipoMoneda = true;
 
-                console.log(data.planCuenta);
-                this.planCuenta = data.planCuenta;
-                this.formGroupCuenta.controls['id'].setValue(this.planCuenta.id);
-                this.formGroupCuenta.controls['empresaId'].setValue(this.planCuenta.empresaId);
-                this.formGroupCuenta.controls['nombre'].setValue(this.planCuenta.nombre);
-                this.formGroupCuenta.controls['codigo'].setValue(this.planCuenta.codigo);
-                this.formGroupCuenta.controls['tipoMoneda'].setValue(this.planCuenta.tipoMoneda);
-                this.formGroupCuenta.controls['nivelCuenta'].setValue(this.planCuenta.nivelCuenta);
+                this.cuenta = data.cuenta;
+                this.formGroupCuenta.controls['id'].setValue(this.cuenta.id);
+                this.formGroupCuenta.controls['nombre'].setValue(this.cuenta.nombre);
+                this.formGroupCuenta.controls['codigo'].setValue(this.cuenta.codigo);
+                this.formGroupCuenta.controls['tipoMoneda'].setValue(this.cuenta.tipoMoneda);
+                this.formGroupCuenta.controls['nivelCuenta'].setValue(this.cuenta.nivelCuenta);
+                this.formGroupCuenta.controls['numeroGrupo'].setValue(this.cuenta.codigo.toString().substring(0,1));
 
-                //dividir el codigo del plan cuenta
-                console.log(this.planCuenta.codigo.toString().substring(0,1));
-                this.formGroupCuenta.controls['numeroGrupo'].setValue(this.planCuenta.codigo.toString().substring(0,1));
-                switch(this.planCuenta.codigo.toString().substring(0,1)) {
-                    case "1":
+                switch(this.cuenta.codigo.toString().substring(0,1)) {
+                    case '1':
                         this.formGroupCuenta.controls['cuentaPrincipal'].setValue('A');
                     break;
-                    case "2":
+                    case '2':
                         this.formGroupCuenta.controls['cuentaPrincipal'].setValue('P');
                     break;
-                    case "3":
+                    case '3':
                         this.formGroupCuenta.controls['cuentaPrincipal'].setValue('PA');
                     break;
-                    case "4":
+                    case '4':
                         this.formGroupCuenta.controls['cuentaPrincipal'].setValue('I');
                     break;
-                    case "5":
+                    case '5':
                         this.formGroupCuenta.controls['cuentaPrincipal'].setValue('E');
                     break;
                     default:
                 }
-                console.log(this.planCuenta.nivelCuenta);
 
-                switch(this.planCuenta.nivelCuenta) {
-                    case "G":
+                switch(this.cuenta.nivelCuenta) {
+                    case 'G':
 
                     break;
-                    case "SG":
-                        this.formGroupCuenta.controls['numeroSubGrupo'].setValue(this.planCuenta.codigo.toString().substring(1,2));
+                    case 'SG':
+                        this.formGroupCuenta.controls['numeroSubGrupo'].setValue(this.cuenta.codigo.toString().substring(1,2));
                     break;
-                    case "R":
-                        this.formGroupCuenta.controls['numeroSubGrupo'].setValue(this.planCuenta.codigo.toString().substring(1,2));
-                        this.formGroupCuenta.controls['numeroRubro'].setValue(this.planCuenta.codigo.toString().substring(2,4));
+                    case 'R':
+                        this.formGroupCuenta.controls['numeroSubGrupo'].setValue(this.cuenta.codigo.toString().substring(1,2));
+                        this.formGroupCuenta.controls['numeroRubro'].setValue(this.cuenta.codigo.toString().substring(2,4));
                     break;
-                    case "CC":
-                        this.formGroupCuenta.controls['numeroSubGrupo'].setValue(this.planCuenta.codigo.toString().substring(1,2));
-                        this.formGroupCuenta.controls['numeroRubro'].setValue(this.planCuenta.codigo.toString().substring(2,4));
-                        this.formGroupCuenta.controls['numeroCuentaCompuesta'].setValue(this.planCuenta.codigo.toString().substring(4,6));
+                    case 'CC':
+                        this.formGroupCuenta.controls['numeroSubGrupo'].setValue(this.cuenta.codigo.toString().substring(1,2));
+                        this.formGroupCuenta.controls['numeroRubro'].setValue(this.cuenta.codigo.toString().substring(2,4));
+                        this.formGroupCuenta.controls['numeroCuentaCompuesta'].setValue(this.cuenta.codigo.toString().substring(4,6));
                     break;
-                    case "SC":
+                    case 'SC':
                         this.validarTipoMoneda = false;
-                        this.formGroupCuenta.controls['numeroSubGrupo'].setValue(this.planCuenta.codigo.toString().substring(1,2));
-                        this.formGroupCuenta.controls['numeroRubro'].setValue(this.planCuenta.codigo.toString().substring(2,4));
-                        this.formGroupCuenta.controls['numeroCuentaCompuesta'].setValue(this.planCuenta.codigo.toString().substring(4,6));
-                        this.formGroupCuenta.controls['numeroSubCuenta'].setValue(this.planCuenta.codigo.toString().substring(6,10));
+                        this.formGroupCuenta.controls['numeroSubGrupo'].setValue(this.cuenta.codigo.toString().substring(1,2));
+                        this.formGroupCuenta.controls['numeroRubro'].setValue(this.cuenta.codigo.toString().substring(2,4));
+                        this.formGroupCuenta.controls['numeroCuentaCompuesta'].setValue(this.cuenta.codigo.toString().substring(4,6));
+                        this.formGroupCuenta.controls['numeroSubCuenta'].setValue(this.cuenta.codigo.toString().substring(6,10));
                     break;
                     default:
                 }
@@ -131,17 +124,14 @@ export class PlanCuentaDetalleComponent {
             this.dominioCuentaPrincipal = data.dominioCuentaPrincipal;
             this.dominioNivelCuenta = data.dominioNivelCuenta;
             this.dominioTipoMoneda = data.dominioTipoMoneda;
-            console.log(this.dominioTipoMoneda);
-
         }
-
     }
 
     buildForm(): void {
         this.formGroupCuenta = this.formBuilder.group({
             id: [],
             empresaId: [],
-            codigo: [{value: this.planCuenta.codigo ? this.planCuenta.codigo : 1, disabled: true}, [Validators.required]],
+            codigo: [{value: this.cuenta.codigo ? this.cuenta.codigo : 1, disabled: true}, [Validators.required]],
             nombre: ['', [Validators.required, Validators.max(150)]],
             cuentaPrincipal: ['A'],
             nivelCuenta: ['G'],
@@ -164,8 +154,6 @@ export class PlanCuentaDetalleComponent {
         this.colorNumeroRubro = false;
         this.colorNumeroCuentaCompuesta = false;
         this.colorNumeroSubCuenta = false;
-        console.log(this.dominioTipoMoneda);
-
     }
 
 
@@ -173,12 +161,12 @@ export class PlanCuentaDetalleComponent {
 
         this.formGroupCuenta.controls['codigo'].enable();
         if (this.formGroupCuenta.valid) {
-            if (!this.planCuenta.id) {
+            if (!this.cuenta.id) {
                 //antes de guardar se debe completar el codigo con ceros.
 
-                this.planCuentaService.guardar(this.formGroupCuenta.value).subscribe(
+                this.cuentaService.guardar(this.formGroupCuenta.value).subscribe(
                     (response) => {
-                        this._snackBar.open(response.mensaje, 'Exito!!!', appSnackPrimary);
+                        this._snackBar.open('Se guardo la cuenta', 'Exito!!!', appSnackPrimary);
                         this.dialogRef.close(response);
                     },
                     (err) => {
@@ -186,9 +174,9 @@ export class PlanCuentaDetalleComponent {
                     }
                 );
             } else {
-                this.planCuentaService.editar(this.formGroupCuenta.value).subscribe(
+                this.cuentaService.editar(this.formGroupCuenta.value).subscribe(
                     (response) => {
-                        this._snackBar.open(response.mensaje, 'Exito!!!', appSnackPrimary);
+                        this._snackBar.open('Se modifico la cuenta', 'Exito!!!', appSnackPrimary);
                         this.dialogRef.close(response);
                     },
                     (err) => {
@@ -208,7 +196,7 @@ export class PlanCuentaDetalleComponent {
 
     onChangeCuentaPrincipal(radioChange: MatRadioChange): void {
 
-        let radioCuentaPrincipal: MatRadioButton = radioChange.source;
+        const radioCuentaPrincipal: MatRadioButton = radioChange.source;
 
         if (radioCuentaPrincipal.value === 'A') {
             this.formGroupCuenta.controls['numeroGrupo'].setValue(1);
@@ -282,7 +270,7 @@ export class PlanCuentaDetalleComponent {
 
         this.formGroupCuenta.controls['nombre'].setValue('');
 
-        let radioNivelCuenta: MatRadioButton = changeNivelCuenta.source;
+        const radioNivelCuenta: MatRadioButton = changeNivelCuenta.source;
         if (radioNivelCuenta.value === 'G') {
             this.formGroupCuenta.controls['numeroGrupo'].disable();
             this.formGroupCuenta.controls['numeroSubGrupo'].disable();
@@ -325,7 +313,6 @@ export class PlanCuentaDetalleComponent {
             this.formGroupCuenta.controls['tipoMoneda'].setValue('NI');
         }
         if (radioNivelCuenta.value === 'R') {
-            console.log('Ingresar rubro')
             this.formGroupCuenta.controls['numeroGrupo'].disable();
             this.formGroupCuenta.controls['numeroSubGrupo'].enable();
             this.formGroupCuenta.controls['numeroRubro'].enable();

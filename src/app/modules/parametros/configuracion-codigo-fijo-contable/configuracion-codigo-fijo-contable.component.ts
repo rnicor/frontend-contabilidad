@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ConfiguracionCodigoService} from './service/configuracion-codigo.service';
 import {ConfiguracionCodigo} from './type/configuracion-codigo.types';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {PlanCuentaModalComponent} from './modal/plan-cuenta-modal.component';
+import {PlanCuentaModalComponent} from "./modal/plan-cuenta-modal.component";
 
 @Component({
     selector: 'app-configuracion-codigo-fijo-contable',

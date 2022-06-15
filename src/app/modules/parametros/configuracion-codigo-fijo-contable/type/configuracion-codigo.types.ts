@@ -1,5 +1,3 @@
-import {Option} from '@angular/cli/models/interface';
-
 export interface ConfiguracionCodigo {
     id: number;
     numeroControl: number;

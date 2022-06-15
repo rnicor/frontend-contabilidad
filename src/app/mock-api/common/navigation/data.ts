@@ -89,11 +89,11 @@ export const adminNavigation: FuseNavigationItem[] = [
                 link : '/parametros/tipo-comprobante'
             },
             {
-                id   : 'apps.parametros.plan-cuentas',
+                id   : 'apps.parametros.cuenta',
                 title: 'Plan cuentas',
                 type : 'basic',
                 icon: 'heroicons_outline:document-text',
-                link : '/parametros/plan-cuentas'
+                link : '/parametros/cuenta'
             }
         ]
     },

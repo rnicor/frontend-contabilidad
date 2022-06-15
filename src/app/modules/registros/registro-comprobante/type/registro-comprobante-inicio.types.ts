@@ -1,6 +1,6 @@
 import {Dominio} from '../../../../core/user/dominio.types';
-import {TipoComprobante} from "../../../parametros/tipo-comprobante/type/tipo-comprobante.types";
-import {PlanCuenta} from "../../../parametros/plan-cuentas/type/plan-cuenta.types";
+import {TipoComprobante} from '../../../parametros/tipo-comprobante/type/tipo-comprobante.types';
+import {Cuenta} from '../../../parametros/cuenta/type/cuenta.types';
 
 export interface RegistroComprobanteInicio {
     fecha: string;
@@ -8,5 +8,5 @@ export interface RegistroComprobanteInicio {
     tipoMoneda: Dominio[];
     nroRecibo: number;
     nroComprobante: number;
-    cuentas: PlanCuenta[];
+    cuentas: Cuenta[];
 }

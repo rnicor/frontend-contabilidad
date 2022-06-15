@@ -2,78 +2,62 @@ import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from 
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {PlanCuenta} from './type/plan-cuenta.types';
-import {PlanCuentaFachada} from './type/plan-cuenta-fachada.types';
+import {Cuenta} from './type/cuenta.types';
 import {AuthService} from '../../../core/auth/auth.service';
 import {FormBuilder} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FuseConfirmationService} from '../../../../@fuse/services/confirmation';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {MatRadioButton, MatRadioChange} from '@angular/material/radio';
-import {PlanCuentaDetalleComponent} from './details/plan-cuenta-detalle.component';
+import {CuentaDetalleComponent} from './details/cuenta-detalle.component';
 import {Dominio} from '../../../core/user/dominio.types';
-import {PlanCuentaService} from './service/plan-cuentas.service';
+import {CuentaService} from './service/cuentas.service';
 import {appSnackPrimary, appSnackWarm} from '../../../core/snack/app.snack';
 
-
-
 @Component({
-    selector: 'app-plan-cuentas',
-    templateUrl: './plan-cuentas.component.html',
-    styleUrls: ['./plan-cuentas.component.scss']
+    selector: 'app-cuentas',
+    templateUrl: './cuentas.component.html'
 })
-export class PlanCuentasComponent implements OnInit, AfterViewInit {
+export class CuentasComponent implements OnInit, AfterViewInit {
 
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    isLoading: boolean = false;
+    @Output() change: EventEmitter<MatRadioChange>;
 
-    @Output()
-    change: EventEmitter<MatRadioChange>;
+    isLoading: boolean = false;
 
     dominioCuentaPrincipal: Dominio[];
     dominioNivelCuenta: Dominio[];
     dominioTipoMoneda: Dominio[];
 
-    dataSourcePlanCuentaFachada = new MatTableDataSource<PlanCuentaFachada>([]);
-    dataSourcePlanCuentaFachadaAux = new MatTableDataSource<PlanCuentaFachada>([]);
+    dataSourceCuenta = new MatTableDataSource<Cuenta>([]);
+    dataSourceCuentaAux = new MatTableDataSource<Cuenta>([]);
     displayedColumns: string[] = ['codigo', 'nombreCuenta', 'moneda', 'nivel', 'actions'];
-    //displayedColumns: string[] = ['codigo'];
 
-    //Opciones para realizar busquedas por una determinada columna
     opcionBusqueda: string;
     listaBusqueda: string[] = ['Grupo', 'Sub grupo', 'Rubro', 'Cuenta', 'Sub cuenta', 'Todos'];
 
-    //Variable que permitira reiniciar el FilterPredicate
     defaultFilterPredicate?: (data: any, filter: string) => boolean;
 
-    //variable que enumera el plan de cuentas.
-    planCuentaCount: number = 0;
-
-
+    cuentaCount: number = 0;
     constructor(
-        private planCuentaService: PlanCuentaService,
+        private cuentaService: CuentaService,
         private authService: AuthService,
         private formBuilder: FormBuilder,
         private _snackBar: MatSnackBar,
         private _fuseConfirmationService: FuseConfirmationService,
         public dialog: MatDialog
-    ) {
-    }
+    ) {}
 
     ngOnInit(): void {
-
         this.opcionBusqueda = 'Todos';
         this.isLoading = true;
-        this.planCuentaService.inicio().subscribe(
+        this.cuentaService.inicio().subscribe(
             (response) => {
-                console.log(response);
                 this.dominioCuentaPrincipal = response.cuentaPrincipal;
                 this.dominioNivelCuenta = response.nivelCuenta;
                 this.dominioTipoMoneda = response.tipoMonedaContabilidad;
-                this.dataSourcePlanCuentaFachada.data = response.listaPlanCuentaFachada;
-                this.dataSourcePlanCuentaFachadaAux.data = this.dataSourcePlanCuentaFachada.data;
-                this.planCuentaCount = this.dataSourcePlanCuentaFachada.data.length;
+                this.cuentaCount = this.dataSourceCuenta.data.length;
                 this.isLoading = false;
             }
         );
@@ -85,75 +69,65 @@ export class PlanCuentasComponent implements OnInit, AfterViewInit {
     }
 
     onChange(mrChange: MatRadioChange): void {
-        this.dataSourcePlanCuentaFachada.data = this.dataSourcePlanCuentaFachadaAux.data;
+        this.dataSourceCuenta.data = this.dataSourceCuentaAux.data;
 
-        /* console.log(mrChange.value);
-        console.log(mrButton.name);
-        console.log(mrButton.checked);
-        console.log(mrButton.inputId);*/
+        const mrButton: MatRadioButton = mrChange.source;
 
-        let mrButton: MatRadioButton = mrChange.source;
-
-        //listaBusqueda: string[] = ['Grupo', 'Sub grupo', 'Rubro', 'Cuenta', 'Sub cuenta'];
         if (mrChange.value=== 'Grupo'){
-            this.dataSourcePlanCuentaFachada.filterPredicate = this.defaultFilterPredicate;
-            this.dataSourcePlanCuentaFachada.data = this.dataSourcePlanCuentaFachada.data.filter(item => item.nivelCuenta === 'G');
+            this.dataSourceCuenta.filterPredicate = this.defaultFilterPredicate;
+            this.dataSourceCuenta.data = this.dataSourceCuenta.data.filter(item => item.nivelCuenta === 'G');
 
         }
         if (mrChange.value=== 'Sub grupo'){
-            this.dataSourcePlanCuentaFachada.filterPredicate = this.defaultFilterPredicate;
-            this.dataSourcePlanCuentaFachada.data = this.dataSourcePlanCuentaFachada.data.filter(item => item.nivelCuenta === 'SG');
+            this.dataSourceCuenta.filterPredicate = this.defaultFilterPredicate;
+            this.dataSourceCuenta.data = this.dataSourceCuenta.data.filter(item => item.nivelCuenta === 'SG');
 
         }
         if (mrChange.value=== 'Sub grupo'){
-            this.dataSourcePlanCuentaFachada.filterPredicate = this.defaultFilterPredicate;
-            this.dataSourcePlanCuentaFachada.data = this.dataSourcePlanCuentaFachada.data.filter(item => item.nivelCuenta === 'SG');
+            this.dataSourceCuenta.filterPredicate = this.defaultFilterPredicate;
+            this.dataSourceCuenta.data = this.dataSourceCuenta.data.filter(item => item.nivelCuenta === 'SG');
 
         }
         if (mrChange.value=== 'Rubro'){
-            this.dataSourcePlanCuentaFachada.filterPredicate = this.defaultFilterPredicate;
-            this.dataSourcePlanCuentaFachada.data = this.dataSourcePlanCuentaFachada.data.filter(item => item.nivelCuenta === 'R');
+            this.dataSourceCuenta.filterPredicate = this.defaultFilterPredicate;
+            this.dataSourceCuenta.data = this.dataSourceCuenta.data.filter(item => item.nivelCuenta === 'R');
         }
         if (mrChange.value=== 'Cuenta'){
-            this.dataSourcePlanCuentaFachada.filterPredicate = this.defaultFilterPredicate;
-            this.dataSourcePlanCuentaFachada.data = this.dataSourcePlanCuentaFachada.data.filter(item => item.nivelCuenta === 'CC');
+            this.dataSourceCuenta.filterPredicate = this.defaultFilterPredicate;
+            this.dataSourceCuenta.data = this.dataSourceCuenta.data.filter(item => item.nivelCuenta === 'CC');
         }
         if (mrChange.value=== 'Sub cuenta'){
-            this.dataSourcePlanCuentaFachada.filterPredicate = this.defaultFilterPredicate;
-            this.dataSourcePlanCuentaFachada.data = this.dataSourcePlanCuentaFachada.data.filter(item => item.nivelCuenta === 'SC');
+            this.dataSourceCuenta.filterPredicate = this.defaultFilterPredicate;
+            this.dataSourceCuenta.data = this.dataSourceCuenta.data.filter(item => item.nivelCuenta === 'SC');
         }
         if (mrChange.value=== 'Todos'){
-            this.dataSourcePlanCuentaFachada.filterPredicate = this.defaultFilterPredicate;
+            this.dataSourceCuenta.filterPredicate = this.defaultFilterPredicate;
         }
-
     }
 
-    openDialog(planCuenta: PlanCuenta): void {
+    openDialog(cuenta: Cuenta): void {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
         dialogConfig.width = '30%';
         dialogConfig.data = {
-            planCuenta: planCuenta,
+            cuenta: cuenta,
             dominioCuentaPrincipal: this.dominioCuentaPrincipal,
             dominioNivelCuenta: this.dominioNivelCuenta,
             dominioTipoMoneda: this.dominioTipoMoneda,
         };
-        const dialogRef = this.dialog.open(PlanCuentaDetalleComponent, dialogConfig);
+        const dialogRef = this.dialog.open(CuentaDetalleComponent, dialogConfig);
         dialogRef.afterClosed().subscribe((data) => {
             if (data) {
-                this.getPlanCuenta();
+                this.getCuenta();
             }
         });
-        console.log(this.dominioTipoMoneda);
-
     }
 
-    eliminar(planCuenta: PlanCuenta): void {
-
+    eliminar(cuenta: Cuenta): void {
         const confirmation = this._fuseConfirmationService.open({
-            title: 'Eliminar plan cuenta',
-            message: '¿Esta seguro(a) de eliminar el plan de cuentas: ' + planCuenta.nombre + ' ?',
+            title: 'Eliminar la cuenta',
+            message: '¿Esta seguro(a) de eliminar la cuenta: ' + cuenta.nombre + ' ?',
             actions: {
                 confirm: {
                     label: 'Eliminar'
@@ -170,9 +144,9 @@ export class PlanCuentasComponent implements OnInit, AfterViewInit {
         confirmation.afterClosed().subscribe((result) => {
             this.isLoading = true;
             if (result === 'confirmed') {
-                this.planCuentaService.eliminar(planCuenta.id).subscribe(
+                this.cuentaService.eliminar(cuenta.id).subscribe(
                     (response) => {
-                        this.getPlanCuenta();
+                        this.getCuenta();
                         this._snackBar.open(response.mensaje, 'Exito!!!', appSnackPrimary);
                     },
                     (err) => {
@@ -185,36 +159,33 @@ export class PlanCuentasComponent implements OnInit, AfterViewInit {
         });
     }
 
-    getPlanCuenta(): void {
+    getCuenta(): void {
         this.isLoading = true;
-        this.planCuentaService.listar().subscribe(
+        this.cuentaService.listar().subscribe(
             (response) => {
-                this.dataSourcePlanCuentaFachada.data = response;
-                this.dataSourcePlanCuentaFachadaAux.data = response;
+                this.dataSourceCuenta.data = response;
+                this.dataSourceCuentaAux.data = response;
                 this.configPaginator();
-                this.planCuentaCount = response.length;
+                this.cuentaCount = response.length;
                 this.isLoading = false;
-                console.log(this.dataSourcePlanCuentaFachada.data);
             },
             (err) =>{
                 this.isLoading = false;
                 this._snackBar.open(err.error.message, 'Error!!!', appSnackWarm);
             }
         );
-
-
     }
 
     filtrar(event: Event): void {
         const filtro = (event.target as HTMLInputElement).value;
-        this.dataSourcePlanCuentaFachada.filter = filtro.trim().toLowerCase();
+        this.dataSourceCuenta.filter = filtro.trim().toLowerCase();
     }
 
     configPaginator(): void{
         setTimeout(()=>{
-            this.dataSourcePlanCuentaFachada.paginator = this.paginator;
-            this.dataSourcePlanCuentaFachada.sort = this.sort;
-            this.paginator._intl.itemsPerPageLabel = 'Plan cuenta por página';
+            this.dataSourceCuenta.paginator = this.paginator;
+            this.dataSourceCuenta.sort = this.sort;
+            this.paginator._intl.itemsPerPageLabel = ' cuenta por página';
             this.paginator._intl.previousPageLabel = 'Página anterior';
             this.paginator._intl.nextPageLabel = 'Página siguiente';
             this.paginator._intl.firstPageLabel = 'Primera página';
@@ -226,9 +197,4 @@ export class PlanCuentasComponent implements OnInit, AfterViewInit {
             };
         });
     }
-
-    reportePDF(): void {
-
-    }
-
 }

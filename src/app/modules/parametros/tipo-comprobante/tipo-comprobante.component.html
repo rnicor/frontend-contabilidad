@@ -1,30 +1,19 @@
 <div class="flex flex-col flex-auto w-full">
-
-    <!-- Header -->
     <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
-        <!-- Loader -->
-        <div
-            class="absolute inset-x-0 bottom-0"
-            *ngIf="isLoading">
-            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
-        </div>
-        <!-- Title -->
         <div>
             <div class="text-4xl font-extrabold tracking-tight leading-none">Tipo comprobantes</div>
             <div class="ml-0.5 font-medium text-secondary">
-                <ng-container *ngIf="tipoComprobanteCount > 0">
-                    {{tipoComprobanteCount}}
+                <ng-container *ngIf="tiposCount > 0">
+                    {{tiposCount}}
                 </ng-container>
-                {{tipoComprobanteCount | i18nPlural: {
-                '=0'   : 'Sin registros',
-                '=1'   : 'Tipo comprobante',
+                {{tiposCount | i18nPlural: {
+                '=0'   : 'Sin tipos comprobantes',
+                '=1'   : 'tipo comprobante',
                 'other': 'Tipos comprobantes'
             } }}
             </div>
         </div>
-        <!-- Actions -->
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <!-- Search -->
             <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded min-w-64">
                 <mat-icon
                     class="icon-size-5"
@@ -33,10 +22,9 @@
                 <input
                     matInput
                     [autocomplete]="'off'"
-                    [placeholder]="'Buscar tipo comprobante'"
+                    [placeholder]="'Buscar'"
                     (keyup)="filtrar($event)">
             </mat-form-field>
-            <!-- Add linea button -->
             <button
                 class="ml-4"
                 mat-flat-button
@@ -53,19 +41,19 @@
                 <ng-container *ngIf="dataSource && dataSource.data.length; else noContacts">
                     <div class="overflow-x-auto mx-6">
                         <table mat-table [dataSource]="dataSource" matSort class="w-full table-fixed bg-transparent">
-                            <ng-container matColumnDef="nro">
-                                <th mat-header-cell *matHeaderCellDef> Nro </th>
-                                <td mat-cell *matCellDef="let element; let i = index">{{ dataSource.filteredData.indexOf(element) + 1 }}</td>
+                            <ng-container matColumnDef="numero">
+                                <th mat-header-cell *matHeaderCellDef> Número </th>
+                                <td mat-cell *matCellDef="let element; let i = index">{{element.numero}}</td>
                             </ng-container>
                             <ng-container matColumnDef="nombre">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-                                <td mat-cell *matCellDef="let tipoComprobante"> {{tipoComprobante.nombre}} </td>
+                                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
                             </ng-container>
                             <ng-container matColumnDef="actions">
                                 <th mat-header-cell *matHeaderCellDef> Acciones </th>
-                                <td mat-cell *matCellDef="let tipoComprobante; let i = index">
-                                    <button mat-raised-button (click)="openDialog(tipoComprobante, i)"><mat-icon svgIcon="heroicons_outline:pencil"></mat-icon> Editar</button>
-                                    <button mat-raised-button color="warn" (click)="eliminar(tipoComprobante)"><mat-icon svgIcon="heroicons_outline:trash"></mat-icon> Eliminar</button>
+                                <td mat-cell *matCellDef="let element; let i = index">
+                                    <button mat-raised-button (click)="openDialog(element)"><mat-icon svgIcon="heroicons_outline:pencil"></mat-icon> Editar</button>
+                                    <button mat-raised-button color="warn" (click)="eliminar(element)"><mat-icon svgIcon="heroicons_outline:trash"></mat-icon> Eliminar</button>
                                 </td>
                             </ng-container>
                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -74,35 +62,15 @@
                         <mat-paginator
                             showFirstLastButtons
                             [pageSizeOptions]="[10, 20, 50]"
-                            [length]="tipoComprobanteCount"
+                            [length]="tiposCount"
                             [pageSize]='10'
                         >
                         </mat-paginator>
-                        <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b">
-                            <!-- pdf -->
-                            <!--<button
-                                class="ml-2"
-                                mat-button
-                                [color]="'warn'"
-                                (click)="reportePDF()">
-                                <mat-icon svgIcon="mat_outline:picture_as_pdf"></mat-icon>
-                                <span class="ml-2 mr-1">Reporte PDF</span>
-                            </button>
-                            &lt;!&ndash; excel &ndash;&gt;
-                            <button
-                                class="ml-2"
-                                mat-button
-                                [color]="'accent'"
-                                (click)="reporteEXCEL()">
-                                <mat-icon svgIcon="heroicons_outline:document-report"></mat-icon>
-                                <span class="ml-2 mr-1">Reporte EXCEL</span>
-                            </button>-->
-                        </div>
                     </div>
                 </ng-container>
-                <!-- No lineas -->
+                <!-- No tipos -->
                 <ng-template #noContacts>
-                    <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">No hay tipo comprobantes registrados!</div>
+                    <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">No hay tipos comprobante registrados!</div>
                 </ng-template>
             </div>
         </div>
