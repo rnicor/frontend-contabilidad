@@ -25,6 +25,7 @@ import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {CuentasComponent} from './cuentas.component';
 import {CuentaDetalleComponent} from './details/cuenta-detalle.component';
+import {PipeModule} from "../../../shared/pipes/pipe.module";
 
 registerLocaleData(localeES, 'es');
 
@@ -66,7 +67,8 @@ const planCuentasRoutes: Route[] = [
         MatFormFieldModule,
         MatDatepickerModule,
         MatMomentDateModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        PipeModule
     ],
     providers: [
         {

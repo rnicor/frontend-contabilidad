@@ -10,9 +10,9 @@ import {FuseConfirmationService} from '../../../../@fuse/services/confirmation';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {MatRadioButton, MatRadioChange} from '@angular/material/radio';
 import {CuentaDetalleComponent} from './details/cuenta-detalle.component';
-import {Dominio} from '../../../core/user/dominio.types';
 import {CuentaService} from './service/cuentas.service';
 import {appSnackPrimary, appSnackWarm} from '../../../core/snack/app.snack';
+import {CuentaInicio} from './type/cuenta-inicio.types';
 
 @Component({
     selector: 'app-cuentas',
@@ -22,24 +22,18 @@ export class CuentasComponent implements OnInit, AfterViewInit {
 
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    @Output() change: EventEmitter<MatRadioChange>;
 
-    isLoading: boolean = false;
-
-    dominioCuentaPrincipal: Dominio[];
-    dominioNivelCuenta: Dominio[];
-    dominioTipoMoneda: Dominio[];
+    inicio: CuentaInicio;
 
     dataSourceCuenta = new MatTableDataSource<Cuenta>([]);
     dataSourceCuentaAux = new MatTableDataSource<Cuenta>([]);
     displayedColumns: string[] = ['codigo', 'nombreCuenta', 'moneda', 'nivel', 'actions'];
+    cuentaCount: number = 0;
 
     opcionBusqueda: string;
     listaBusqueda: string[] = ['Grupo', 'Sub grupo', 'Rubro', 'Cuenta', 'Sub cuenta', 'Todos'];
 
     defaultFilterPredicate?: (data: any, filter: string) => boolean;
-
-    cuentaCount: number = 0;
     constructor(
         private cuentaService: CuentaService,
         private authService: AuthService,
@@ -51,14 +45,16 @@ export class CuentasComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         this.opcionBusqueda = 'Todos';
-        this.isLoading = true;
         this.cuentaService.inicio().subscribe(
             (response) => {
-                this.dominioCuentaPrincipal = response.cuentaPrincipal;
-                this.dominioNivelCuenta = response.nivelCuenta;
-                this.dominioTipoMoneda = response.tipoMonedaContabilidad;
-                this.cuentaCount = this.dataSourceCuenta.data.length;
-                this.isLoading = false;
+                this.inicio = response;
+                this.cuentaService.listar().subscribe(
+                    (cuentas) => {
+                        this.dataSourceCuenta.data = cuentas;
+                        this.dataSourceCuentaAux.data = cuentas;
+                        this.cuentaCount = cuentas.length;
+                    }
+                );
             }
         );
 
@@ -109,12 +105,10 @@ export class CuentasComponent implements OnInit, AfterViewInit {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
-        dialogConfig.width = '30%';
+        dialogConfig.width = '50%';
         dialogConfig.data = {
             cuenta: cuenta,
-            dominioCuentaPrincipal: this.dominioCuentaPrincipal,
-            dominioNivelCuenta: this.dominioNivelCuenta,
-            dominioTipoMoneda: this.dominioTipoMoneda,
+            inicio: this.inicio,
         };
         const dialogRef = this.dialog.open(CuentaDetalleComponent, dialogConfig);
         dialogRef.afterClosed().subscribe((data) => {
@@ -142,7 +136,6 @@ export class CuentasComponent implements OnInit, AfterViewInit {
         });
 
         confirmation.afterClosed().subscribe((result) => {
-            this.isLoading = true;
             if (result === 'confirmed') {
                 this.cuentaService.eliminar(cuenta.id).subscribe(
                     (response) => {
@@ -150,27 +143,21 @@ export class CuentasComponent implements OnInit, AfterViewInit {
                         this._snackBar.open(response.mensaje, 'Exito!!!', appSnackPrimary);
                     },
                     (err) => {
-                        this.isLoading = false;
                         this._snackBar.open(err.error.message, 'Error!!!', appSnackWarm);
                     });
-            } else {
-                this.isLoading = false;
             }
         });
     }
 
     getCuenta(): void {
-        this.isLoading = true;
         this.cuentaService.listar().subscribe(
             (response) => {
                 this.dataSourceCuenta.data = response;
                 this.dataSourceCuentaAux.data = response;
                 this.configPaginator();
                 this.cuentaCount = response.length;
-                this.isLoading = false;
             },
             (err) =>{
-                this.isLoading = false;
                 this._snackBar.open(err.error.message, 'Error!!!', appSnackWarm);
             }
         );

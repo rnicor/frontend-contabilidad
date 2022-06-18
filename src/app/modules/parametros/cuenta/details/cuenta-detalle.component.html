@@ -1,44 +1,80 @@
 <h1 mat-dialog-title>
-  <span *ngIf="!cuenta.id">Crear plan cuenta</span>
-  <span *ngIf="cuenta.id">Editar/Eliminar plan cuenta</span>
+  <span *ngIf="!cuenta.id">Crear cuenta</span>
+  <span *ngIf="cuenta.id">Editar cuenta</span>
 </h1>
 
 <mat-dialog-content [formGroup]="formGroupCuenta">
 
     <div class="flex-auto gt-xs:pr-5 w-full">
-        <mat-label> Grupo de cuentas contables principales</mat-label>
+        <mat-label>Grupo de cuentas contables principales</mat-label>
     </div>
     <div class="flex-auto gt-xs:pr-5 w-full">
-        <mat-radio-group name="cuentaPrincipal" [formControlName]="'cuentaPrincipal'" (change)="onChangeCuentaPrincipal($event)" disabled = "{{validarGrupoCuenta}}">
-            <mat-radio-button *ngFor="let opcion of dominioCuentaPrincipal" [value]="opcion.codigo">
+        <mat-radio-group name="cuentaPrincipal" [formControlName]="'cuentaPrincipal'" (change)="onChangeCuentaPrincipal($event)" disabled="{{validarGrupoCuenta}}">
+            <mat-radio-button *ngFor="let opcion of inicio.cuentaPrincipal" [value]="opcion.codigo" class="pl-5">
                 {{opcion.nombre}}
             </mat-radio-button>
         </mat-radio-group>
     </div>
 
-    <div class="flex-auto gt-xs:pr-5 w-full">
+    <div class="flex-auto gt-xs:pr-5  pt-3 w-full">
         <mat-label> Nivel de cuentas</mat-label>
     </div>
     <div class="flex-auto gt-xs:pr-5 w-full">
-    <mat-radio-group name="nivelCuenta" [formControlName]="'nivelCuenta'" (change)="onChangeNivelCuenta($event)" disabled = "{{validarNivelCuenta}}">
-        <mat-radio-button *ngFor="let opcion of dominioNivelCuenta" [value]="opcion.codigo">
+    <mat-radio-group name="nivelCuenta" [formControlName]="'nivelCuenta'" (change)="onChangeNivelCuenta($event)" disabled="{{validarNivelCuenta}}">
+        <mat-radio-button *ngFor="let opcion of inicio.nivelCuenta" [value]="opcion.codigo" class="pl-5">
             {{opcion.nombre}}
         </mat-radio-button>
     </mat-radio-group>
     </div>
 
 
-    <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
-        <div  class="sm:cols-span-2">
-            <mat-form-field class="fuse-mat-no-subscript w-full">
-                <input matInput type="text" maxlength="1" formControlName="numeroGrupo">
-            </mat-form-field>
+    <div class="grid sm:grid-cols-5 gap-6 w-full pt-5">
+
+        <div class="sm:col-span-1">
+            <span [ngClass]="'text-blue-800'" *ngIf="colorNumeroGrupo">Grupo ("9" un dígito)</span>
+            <span *ngIf="!colorNumeroGrupo">Grupo ("9" un dígito)</span>
         </div>
-        <div class="sm:cols-span-2">
-            <mat-label>Grupo ("9" un dígito)</mat-label>
+        <div class="sm:col-span-4"></div>
+
+        <div class="sm:col-span-1"></div>
+        <div class="sm:col-span-1">
+            <span [ngClass]="'text-blue-500'" *ngIf="colorNumeroSubGrupo">Sub Grupo ("9" un dígito)</span>
+            <span *ngIf="!colorNumeroSubGrupo">Sub Grupo ("9" un dígito)</span>
+        </div>
+        <div class="sm:col-span-3"></div>
+
+        <div class="sm:col-span-2"></div>
+        <div class="sm:col-span-1">
+            <span [ngClass]="'text-red-500'" *ngIf="colorNumeroRubro">Rubro ("99" dos dígitos)</span>
+            <span *ngIf="!colorNumeroRubro">Rubro ("99" dos dígitos)</span>
+        </div>
+        <div class="sm:col-span-2"></div>
+
+        <div class="sm:col-span-3"></div>
+        <div class="sm:col-span-1">
+            <span [ngClass]="'text-yellow-500'" *ngIf="colorNumeroCuentaCompuesta">Cuenta compuesta ("99" dos dígitos)</span>
+            <span *ngIf="!colorNumeroCuentaCompuesta">Cuenta compuesta ("99" dos dígitos)</span>
+        </div>
+        <div class="sm:col-span-1"></div>
+
+        <div class="sm:col-span-4"></div>
+        <div class="sm:col-span-1">
+            <span [ngClass]="'text-green-500'" *ngIf="colorNumeroSubCuenta">Sub cuenta ("9999" cuatro dígitos)</span>
+            <span *ngIf="!colorNumeroSubCuenta">Sub cuenta ("9999" cuatro dígitos)</span>
         </div>
 
-        <div  class="sm:cols-span-2">
+        <div  class="sm:cols-span-1">
+            <mat-form-field class="fuse-mat-no-subscript w-full">
+                <div *ngIf="colorNumeroGrupo">
+                    <input matInput type="text" maxlength="1" formControlName="numeroGrupo" (keyup)="armarCodigo($event);" [ngClass]="'bg-blue-200'">
+                </div>
+                <div *ngIf="!colorNumeroGrupo">
+                    <input matInput type="text" maxlength="1" formControlName="numeroGrupo" (keyup)="armarCodigo($event);">
+                </div>
+            </mat-form-field>
+        </div>
+
+        <div  class="sm:cols-span-1">
             <mat-form-field class="fuse-mat-no-subscript w-full">
                 <div *ngIf="colorNumeroSubGrupo">
                     <input matInput type="text" maxlength="1" formControlName="numeroSubGrupo" (keyup)="armarCodigo($event);" [ngClass]="'bg-blue-200'">
@@ -48,83 +84,46 @@
                 </div>
             </mat-form-field>
         </div>
-        <div class="sm:cols-span-2">
-            <div *ngIf="colorNumeroSubGrupo">
-                <mat-label [ngClass]="'text-blue-500'">Sub Grupo ("9" un dígito)</mat-label>
-            </div>
-            <div *ngIf="!colorNumeroSubGrupo">
-                <mat-label>Sub Grupo ("9" un dígito)</mat-label>
-            </div>
-        </div>
 
-        <div  class="sm:cols-span-2">
+        <div  class="sm:cols-span-1">
             <mat-form-field class="fuse-mat-no-subscript w-full">
-
                 <div *ngIf="colorNumeroRubro">
-                    <input matInput type="text" maxlength="2" formControlName="numeroRubro" (keyup)="armarCodigo($event);" [ngClass]="'bg-blue-200'">
+                    <input matInput type="text" maxlength="2" formControlName="numeroRubro" (keyup)="armarCodigo($event);" [ngClass]="'bg-red-200'">
                 </div>
                 <div *ngIf="!colorNumeroRubro">
                     <input matInput type="text" maxlength="2" formControlName="numeroRubro" (keyup)="armarCodigo($event);">
                 </div>
             </mat-form-field>
         </div>
-        <div class="sm:cols-span-2">
-            <div *ngIf="colorNumeroRubro">
-                <mat-label [ngClass]="'text-blue-500'">Rubro ("99" dos dígitos)</mat-label>
-            </div>
-            <div *ngIf="!colorNumeroRubro">
-                <mat-label>Rubro ("99" dos dígitos)</mat-label>
-            </div>
-        </div>
 
-        <div  class="sm:cols-span-2">
+
+        <div  class="sm:cols-span-1">
             <mat-form-field class="fuse-mat-no-subscript w-full">
                 <div *ngIf="colorNumeroCuentaCompuesta">
-                    <input matInput maxlength="2" formControlName="numeroCuentaCompuesta" (keyup)="armarCodigo($event);" [ngClass]="'bg-blue-200'">
+                    <input matInput maxlength="2" formControlName="numeroCuentaCompuesta" (keyup)="armarCodigo($event);" [ngClass]="'bg-yellow-200'">
                 </div>
                 <div *ngIf="!colorNumeroCuentaCompuesta">
                     <input matInput maxlength="2" formControlName="numeroCuentaCompuesta" (keyup)="armarCodigo($event);">
                 </div>
             </mat-form-field>
         </div>
-        <div class="sm:cols-span-2">
-            <div *ngIf="colorNumeroCuentaCompuesta">
-                <mat-label [ngClass]="'text-blue-500'">Cuenta compuesta ("99" dos dígitos)</mat-label>
-            </div>
-            <div *ngIf="!colorNumeroCuentaCompuesta">
-                <mat-label>Cuenta compuesta ("99" dos dígitos)</mat-label>
-            </div>
-        </div>
 
-        <div  class="sm:cols-span-2">
+        <div  class="sm:cols-span-1">
             <mat-form-field class="fuse-mat-no-subscript w-full">
                 <div *ngIf="colorNumeroSubCuenta">
-                    <input matInput type="text" maxlength="4" formControlName="numeroSubCuenta" (keyup)="armarCodigo($event);" [ngClass]="'bg-blue-100'">
+                    <input matInput type="text" maxlength="4" formControlName="numeroSubCuenta" (keyup)="armarCodigo($event);" [ngClass]="'bg-green-200'">
                 </div>
                 <div *ngIf="!colorNumeroSubCuenta">
                     <input matInput type="text" maxlength="4" formControlName="numeroSubCuenta" (keyup)="armarCodigo($event);">
                 </div>
             </mat-form-field>
         </div>
-        <div class="sm:cols-span-2">
-            <div *ngIf="colorNumeroSubCuenta">
-                <mat-label [ngClass]="'text-blue-500'">Sub cuenta ("9999" cuatro dígitos)</mat-label>
-            </div>
-            <div *ngIf="!colorNumeroSubCuenta">
-                <mat-label >Sub cuenta ("9999" cuatro dígitos)</mat-label>
-            </div>
-        </div>
-
     </div>
 
-    <!--Codigo-->
-    <div class="grid sm:grid-cols-2 gap-6 w-full mt-8">
-
-        <div class="sm:cols-span-2">
-            <mat-label>Código</mat-label>
-        </div>
-        <div  class="sm:cols-span-2">
+    <div class="grid sm:grid-cols-6 gap-6 w-full pt-5">
+        <div class="sm:col-span-2">
             <mat-form-field class="fuse-mat-no-subscript w-full">
+                <mat-label>Código</mat-label>
                 <input placeholder="Ingrese código" formControlName="codigo" matInput type="text">
             </mat-form-field>
             <div class="messages " *ngIf="f.codigo.touched && f.codigo.invalid">
@@ -136,39 +135,31 @@
                 </mat-error>
             </div>
         </div>
-
-
-    </div>
-
-    <!--Nombre-->
-    <div class="flex flex-col gt-xs:flex-row">
-        <mat-form-field class="flex-auto gt-xs:pr-5 w-full" appearance="outline">
-            <mat-label>Nombre</mat-label>
-            <input placeholder="Ingrese nombre" formControlName="nombre" matInput type="text">
-        </mat-form-field>
-        <div class="messages " *ngIf="f.nombre.touched && f.nombre.invalid">
-            <mat-error *ngIf="f.nombre.hasError('required')">
-                Este campo es requerido
-            </mat-error>
-            <mat-error *ngIf="f.nombre.hasError('maxlength')">
-                El campo debe tener como maximo 150 caracteres
-            </mat-error>
+        <div class="sm:col-span-4">
+            <mat-form-field class="fuse-mat-no-subscript w-full">
+                <mat-label>Nombre</mat-label>
+                <input placeholder="Ingrese nombre" formControlName="nombre" matInput type="text">
+            </mat-form-field>
+            <div class="messages " *ngIf="f.nombre.touched && f.nombre.invalid">
+                <mat-error *ngIf="f.nombre.hasError('required')">
+                    Este campo es requerido
+                </mat-error>
+                <mat-error *ngIf="f.nombre.hasError('maxlength')">
+                    El campo debe tener como maximo 150 caracteres
+                </mat-error>
+            </div>
+        </div>
+        <div class="sm:col-span-6">
+            <mat-label> Moneda </mat-label>
+            <div class="flex-auto gt-xs:pr-5 w-full">
+                <mat-radio-group name="tipoMoneda" [formControlName]="'tipoMoneda'" disabled = "{{validarTipoMoneda}}">
+                    <mat-radio-button *ngFor="let opcion of inicio.tipoMonedaContabilidad" [value]="opcion.codigo"  class="pl-3">
+                        {{opcion.nombre}}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
         </div>
     </div>
-
-
-
-    <div class="flex-auto gt-xs:pr-5 w-full">
-        <mat-label> Moneda </mat-label>
-    </div>
-    <div class="flex-auto gt-xs:pr-5 w-full">
-        <mat-radio-group name="tipoMoneda" [formControlName]="'tipoMoneda'" (change)="onChangeTipoMoneda($event)" disabled = "{{validarTipoMoneda}}">
-            <mat-radio-button *ngFor="let opcion of dominioTipoMoneda" [value]="opcion.codigo">
-                {{opcion.nombre}}
-            </mat-radio-button>
-        </mat-radio-group>
-    </div>
-
 </mat-dialog-content>
 
 
@@ -176,8 +167,8 @@
     <button class="mat-raised-button"(click)="close()"><mat-icon svgIcon="heroicons_outline:x"></mat-icon> Cancelar</button>
     <button class="mat-raised-button mat-primary"(click)="save()">
         <mat-icon svgIcon="mat_outline:save"></mat-icon>
-        <span *ngIf="!cuenta.id">Crear plan cuenta</span>
-        <span *ngIf="cuenta.id">Editar plan cuenta</span>
+        <span *ngIf="!cuenta.id">Crear cuenta</span>
+        <span *ngIf="cuenta.id">Editar cuenta</span>
     </button>
 </mat-dialog-actions>
 
