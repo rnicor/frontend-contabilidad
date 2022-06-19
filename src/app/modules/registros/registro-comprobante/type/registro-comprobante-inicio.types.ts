@@ -6,6 +6,7 @@ export interface RegistroComprobanteInicio {
     fecha: string;
     tipoComprobante: TipoComprobante[];
     tipoMoneda: Dominio[];
+    mes: Dominio[];
     nroRecibo: number;
     nroComprobante: number;
     cuentas: PlanCuenta[];

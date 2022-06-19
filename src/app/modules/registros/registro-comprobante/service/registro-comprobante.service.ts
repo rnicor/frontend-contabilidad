@@ -5,6 +5,7 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {RegistroComprobante} from '../type/registro-comprobante.types';
 import {RegistroComprobanteInicio} from '../type/registro-comprobante-inicio.types';
+import {Gestion} from '../../../parametros/gestion/gestion.types';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,15 @@ export class RegistroComprobanteService {
             catchError(error => throwError(error))
         );
     }
+
+    listar(): Observable<RegistroComprobante[]> {
+        //console.log('lista');
+        return this.http.get(`${this.url}/listar`, this.httpOptions).pipe(
+            map(response => response as RegistroComprobante[]),
+            catchError(e => throwError(e))
+        );
+    }
+
 
     modificar(comprobante: RegistroComprobante): Observable<RegistroComprobante> {
         return this.http.put(`${this.url}`, comprobante, this.httpOptions).pipe(

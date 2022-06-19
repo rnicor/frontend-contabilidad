@@ -1,10 +1,12 @@
 import {LOCALE_ID, NgModule} from '@angular/core';
-import localeES from '@angular/common/locales/es';
-import {MAT_DATE_FORMATS, MatRippleModule} from '@angular/material/core';
 import {CommonModule, registerLocaleData} from '@angular/common';
+import localeES from '@angular/common/locales/es';
+import {Route, RouterModule} from '@angular/router';
+import {RegistroComprobanteComponent} from '../registro-comprobante.component';
+import {BuscarComprobanteComponent} from '../modal/buscar-comprobante.component';
+import {ListaComprobanteComponent} from '../lista-comprobante.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {Route, RouterModule} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -14,6 +16,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSortModule} from '@angular/material/sort';
+import {MAT_DATE_FORMATS, MatRippleModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -23,31 +26,28 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {RegistroComprobanteComponent} from './registro-comprobante.component';
-import {BuscarComprobanteComponent} from './modal/buscar-comprobante.component';
-import {FuseAlertModule} from '../../../../@fuse/components/alert';
+import {FuseAlertModule} from '../../../../../@fuse/components/alert';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {ListaComprobanteComponent} from './lista-comprobante.component';
 
 registerLocaleData(localeES, 'es');
 
-const pedidoRoutes: Route[] = [
+const listComprobante: Route[] = [
     {
         path: '',
-        component: RegistroComprobanteComponent
+        component: ListaComprobanteComponent
+
     }
 ];
 
 @NgModule({
-  declarations: [
-      RegistroComprobanteComponent,
-      BuscarComprobanteComponent,
+    declarations: [
+        ListaComprobanteComponent
 
-  ],
+    ],
     imports: [
         CommonModule,
-        RouterModule.forChild(pedidoRoutes),
+        RouterModule.forChild(listComprobante),
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
@@ -96,4 +96,4 @@ const pedidoRoutes: Route[] = [
         }
     ]
 })
-export class RegistroComprobanteModule { }
+export class ListaComprobanteModule { }

@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {appSnackPrimary, appSnackWarm} from '../../../core/snack/app.snack';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FuseConfirmationService} from '../../../../@fuse/services/confirmation';
 import {RegistroComprobanteService} from './service/registro-comprobante.service';
@@ -35,6 +35,7 @@ export class RegistroComprobanteComponent implements OnInit, AfterViewInit {
         this.comprobanteService.inicio().subscribe(
             (response) => {
                 this.inicio = response;
+                console.log(this.inicio);
             }
         );
         this.iniciaFormulario();
@@ -311,5 +312,9 @@ export class RegistroComprobanteComponent implements OnInit, AfterViewInit {
             return  false;
         }*/
         return true;
+    }
+
+    close(): void {
+        this.dialog.closeAll();
     }
 }
