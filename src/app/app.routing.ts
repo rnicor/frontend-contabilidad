@@ -50,6 +50,19 @@ export const appRoutes: Route[] = [
         ]
     },
     {
+        path       : 'libros',
+        canActivate: [AuthGuard],
+        component  : LayoutComponent,
+        resolve    : {
+            initialData: InitialDataResolver,
+        },
+        children   : [
+            {path: 'libro-diario', loadChildren: () => import('app/modules/libros/libro-diario/libro-diario.module').then(m => m.LibroDiarioModule)},
+            {path: 'visualizacion-comprobante', loadChildren: () => import('app/modules/libros/visualizacion-comprobante/visualizacion-comprobante.module').then(m => m.VisualizacionCompronbanteModule)},
+
+        ]
+    },
+    {
         path       : 'registros',
         canActivate: [AuthGuard],
         component  : LayoutComponent,

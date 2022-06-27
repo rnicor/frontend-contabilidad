@@ -98,6 +98,44 @@ export const adminNavigation: FuseNavigationItem[] = [
         ]
     },
     {
+        id      : 'apps.libro-diario',
+        title   : 'Libros',
+        type    : 'group',
+        children: [
+            {
+                id   : 'apps.libros.libro-diario',
+                title: 'Registro de libro Diario',
+                type    : 'basic',
+                icon    : 'heroicons_outline:clipboard-check',
+                link : '/libros/libro-diario'
+            },
+
+            {
+                id   : 'apps.libros.visualizacion-comprobante',
+                title: 'visualizacion de comprobantes',
+                type    : 'basic',
+                icon    : 'heroicons_outline:clipboard-check',
+                link : '/libros/visualizacion-comprobante'
+            },
+        ]
+    },
+    {
+        id      : 'apps',
+        title   : 'Parametros',
+        subtitle: 'Módulo de parametricas',
+        type    : 'group',
+        icon    : 'heroicons_outline:archive',
+        children: [
+            {
+                id   : 'apps.parametros.comprobante',
+                title: 'comprobante',
+                type : 'basic',
+                icon: 'heroicons_outline:document-text',
+                link : '/parametros/comprobante'
+            }
+        ]
+    },
+    {
         id      : 'apps',
         title   : 'tipo cambio',
         subtitle: 'Módulo Tipo De cambios',
