@@ -51,11 +51,46 @@ export const adminNavigation: FuseNavigationItem[] = [
         type    : 'group',
         children: [
             {
+                id   : 'apps.registros.tipo',
+                title: 'Registros tipo',
+                type    : 'basic',
+                icon    : 'heroicons_outline:clipboard-check',
+                link : '/registros/tipo'
+            },
+            {
                 id   : 'apps.registros.comprobantes',
                 title: 'Registro de comprobantes',
                 type    : 'basic',
                 icon    : 'heroicons_outline:clipboard-check',
                 link : '/registros/comprobantes'
+            },
+            {
+                id   : 'apps.comprobantes',
+                title: 'Comprobantes',
+                type    : 'basic',
+                icon    : 'heroicons_outline:clipboard-check',
+                link : '/comprobantes'
+            }
+        ]
+    },
+    {
+        id      : 'apps.libros',
+        title   : 'Libros',
+        type    : 'group',
+        children: [
+            {
+                id   : 'apps.libros.libro-diario',
+                title: 'Libro Diario',
+                type    : 'basic',
+                icon    : 'heroicons_outline:clipboard-check',
+                link : '/libros/libro-diario'
+            },
+            {
+                id   : 'apps.libros.libro-mayor',
+                title: 'Libro Mayor',
+                type    : 'basic',
+                icon    : 'heroicons_outline:clipboard-check',
+                link : '/libros/libro-mayor'
             }
         ]
     },
@@ -67,19 +102,18 @@ export const adminNavigation: FuseNavigationItem[] = [
         icon    : 'heroicons_outline:archive',
         children: [
             {
-                id   : 'apps.parametros.comprobante',
-                title: 'comprobante',
-                type : 'basic',
-                icon: 'heroicons_outline:document-text',
-                link : '/parametros/comprobante'
-            },
-
-            {
                 id   : 'apps.parametros.configuracion-codigo-fijo-contable',
                 title: 'Código fijo contable',
                 type : 'basic',
                 icon: 'heroicons_outline:document-text',
                 link : '/parametros/configuracion-codigo-fijo-contable'
+            },
+            {
+                id   : 'apps.parametros.gestion',
+                title: 'Gestiones',
+                type : 'basic',
+                icon: 'heroicons_outline:document-text',
+                link : '/empresa/gestion'
             },
             {
                 id   : 'apps.parametros.tipo-comprobante',
@@ -94,44 +128,6 @@ export const adminNavigation: FuseNavigationItem[] = [
                 type : 'basic',
                 icon: 'heroicons_outline:document-text',
                 link : '/parametros/cuenta'
-            }
-        ]
-    },
-    {
-        id      : 'apps.libro-diario',
-        title   : 'Libros',
-        type    : 'group',
-        children: [
-            {
-                id   : 'apps.libros.libro-diario',
-                title: 'Registro de libro Diario',
-                type    : 'basic',
-                icon    : 'heroicons_outline:clipboard-check',
-                link : '/libros/libro-diario'
-            },
-
-            {
-                id   : 'apps.libros.visualizacion-comprobante',
-                title: 'visualizacion de comprobantes',
-                type    : 'basic',
-                icon    : 'heroicons_outline:clipboard-check',
-                link : '/libros/visualizacion-comprobante'
-            },
-        ]
-    },
-    {
-        id      : 'apps',
-        title   : 'Parametros',
-        subtitle: 'Módulo de parametricas',
-        type    : 'group',
-        icon    : 'heroicons_outline:archive',
-        children: [
-            {
-                id   : 'apps.parametros.comprobante',
-                title: 'comprobante',
-                type : 'basic',
-                icon: 'heroicons_outline:document-text',
-                link : '/parametros/comprobante'
             }
         ]
     },
@@ -155,22 +151,6 @@ export const adminNavigation: FuseNavigationItem[] = [
                 type : 'basic',
                 icon: 'heroicons_outline:document-text',
                 link : '/tipo-cambio/dolar'
-            }
-        ]
-    },
-    {
-        id      : 'apps',
-        title   : 'Gestion',
-        subtitle: 'Gestiones registradas',
-        type    : 'group',
-        icon    : 'heroicons_outline:archive',
-        children: [
-            {
-                id   : 'apps.parametros.gestion',
-                title: 'Gestiones',
-                type : 'basic',
-                icon: 'heroicons_outline:document-text',
-                link : '/empresa/gestion'
             }
         ]
     }
