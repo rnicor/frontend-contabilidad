@@ -34,20 +34,185 @@
                     </mat-error>
                 </div>
             </div>
-           <!-- excel export 
-           <p>excel export</p>
-           <mat-dialog-actions>
-           <input type="file" (change)="cargarExcel($event)">
-           </mat-dialog-actions>-->
 
-
+            <!--[accept]="'image/jpeg, image/png'"-->
             <div class="sm:col-span-2">
-                <p>excel export</p>
-                <mat-dialog-actions>
-                <input type="file" (change)="cargarExcel($event)">
-                </mat-dialog-actions>
+                <div>
+                    <input
+                        id="image-file-input"
+                        class="absolute h-0 w-0 opacity-0 invisible pointer-events-none"
+                        type="file"
+                        [multiple]="false"
+                        (change)="cargarExcel($event)">
+                    <label
+                        class="flex flex-col w-20 h-20 m-2 p-4 shadow rounded-2xl cursor-pointer bg-card"
+                        for="image-file-input"
+                        matRipple>
+                        <div class="aspect-w-9 aspect-h-6">
+                            <div class="flex items-center justify-center">
+                                <div class="relative pt-3">
+                                    <mat-icon
+                                        class="icon-size-14 text-hint"
+                                        [svgIcon]="'iconsmind:file'"></mat-icon>
+                                    <div
+                                        class="absolute left-0 bottom-0 px-1.5 rounded text-sm font-semibold leading-5 text-white"
+                                        [class.bg-green-600]="'XLS' === 'XLS'">
+                                        {{'XLS'}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                </div>
             </div>
+        </div>
+    </form>
+    <div class="flex-auto p-5 sm:p-1">
+        <div class="flex-auto pb-2" *ngIf="dataSourceRegistroVentaDetalle && dataSourceRegistroVentaDetalle.data.length>0">
+            <table mat-table [dataSource]="dataSourceRegistroVentaDetalle" matSort class="w-full mat-elevation-z8 products-table">
+                <ng-container matColumnDef="nro">
+                    <th mat-header-cell *matHeaderCellDef>Nro.</th>
+                    <td mat-cell *matCellDef="let item; let i = index">{{ dataSourceRegistroVentaDetalle.filteredData.indexOf(item) + 1 }}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
 
+                <ng-container matColumnDef="fechaFactura">
+                    <th mat-header-cell *matHeaderCellDef>Fecha de la Factura:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.fechaFactura}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="numeroFactura">
+                    <th mat-header-cell *matHeaderCellDef>N° de la Factura:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.numeroFactura}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="codigoAutorizacion">
+                    <th mat-header-cell *matHeaderCellDef>Codigo de Autorización:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.codigoAutorizacion}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="nitCiCliente">
+                    <th mat-header-cell *matHeaderCellDef>NIT/CI Cliente:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.nitCiCliente}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="complemento">
+                    <th mat-header-cell *matHeaderCellDef>Complemento:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.complemento}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombreRazonSocial">
+                    <th mat-header-cell *matHeaderCellDef>Nombre o Razón Social</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.nombreRazonSocial}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="importeTotalVenta">
+                    <th mat-header-cell *matHeaderCellDef>Importe Total de la Venta:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.importeTotalVenta}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="importeIce">
+                    <th mat-header-cell *matHeaderCellDef>Importe ICE:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.importeIce}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="importeIehd">
+                    <th mat-header-cell *matHeaderCellDef>Importe IEHD:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.importeIehd}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="importeIpj">
+                    <th mat-header-cell *matHeaderCellDef>NImporte IPJ:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.importeIpj}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="tasas">
+                    <th mat-header-cell *matHeaderCellDef>NTasas:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.tasas}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="otrosSujetosIva">
+                    <th mat-header-cell *matHeaderCellDef>Otros No Sujetos al IVA:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.otrosSujetosIva}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="exportacionesOperacionesExentas">
+                    <th mat-header-cell *matHeaderCellDef>Exportaciones y Operaciones Exentas:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.exportacionesOperacionesExentas}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="ventasGravadasTasaCero">
+                    <th mat-header-cell *matHeaderCellDef>NVentas Gravadas a Tasa Cero:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.ventasGravadasTasaCero}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="subtotal">
+                    <th mat-header-cell *matHeaderCellDef>Subtotal:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.subtotal}}</td>
+                    <td mat-footer-cell *matFooterCellDef>{{sumarTotal()}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="descuetosBonificacionesRebajasSujetasIva">
+                    <th mat-header-cell *matHeaderCellDef>Descuentos Bonificaciones y Rebajas Sujetas al IVA:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.descuetosBonificacionesRebajasSujetasIva}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="importeGiftCard">
+                    <th mat-header-cell *matHeaderCellDef>Importe Gift Card:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.importeGiftCard}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="importeBaseDebitoFiscal">
+                    <th mat-header-cell *matHeaderCellDef>Importe Base para Débito Fiscal:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.importeBaseDebitoFiscal}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="debitoFiscal">
+                    <th mat-header-cell *matHeaderCellDef>Débito Fiscal:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.debitoFiscal}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="estadoVenta">
+                    <th mat-header-cell *matHeaderCellDef>Estado:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.estadoVenta}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="codigoControl">
+                    <th mat-header-cell *matHeaderCellDef>Código de Control:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.codigoControl}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="tipoVenta">
+                    <th mat-header-cell *matHeaderCellDef>Tipo Venta:</th>
+                    <td mat-cell *matCellDef="let item" class="w-20">{{item.tipoVenta}}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns:displayedColumns;" class="hover:bg-gray-200"></tr>
+                <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+            </table>
+            <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
             <mat-label>
                 <button class="ml-4" mat-flat-button [color]="'primary'" (click)="guardarOActualizar()">
                     <mat-icon [svgIcon]="'heroicons_outline:save'"></mat-icon>
@@ -55,168 +220,5 @@
                 </button>
             </mat-label>
         </div>
-    </form>
-
-
-        <!-- Tabla de resultados -->
-        <div class="flex-auto p-5 sm:p-1">
-
-            <div class="flex-auto pb-2">
-                <table mat-table [dataSource]="dataSourceRegistroVentaDetalle" matSort class="w-full mat-elevation-z8 products-table">
-                    <ng-container matColumnDef="nro">
-                        <th mat-header-cell *matHeaderCellDef>Nro.</th>
-                        <td mat-cell *matCellDef="let item; let i = index">{{ dataSourceRegistroVentaDetalle.filteredData.indexOf(item) + 1 }}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="fechaFactura">
-                        <th mat-header-cell *matHeaderCellDef>Fecha de la Factura:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.fechaFactura}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="numeroFactura">
-                        <th mat-header-cell *matHeaderCellDef>N° de la Factura:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.numeroFactura}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="codigoAutorizacion">
-                        <th mat-header-cell *matHeaderCellDef>Codigo de Autorización:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.codigoAutorizacion}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="nitCiCliente">
-                        <th mat-header-cell *matHeaderCellDef>NIT/CI Cliente:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.nitCiCliente}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="complemento">
-                        <th mat-header-cell *matHeaderCellDef>Complemento:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.complemento}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="nombreRazonSocial">
-                        <th mat-header-cell *matHeaderCellDef>Nombre o Razón Social</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.nombreRazonSocial}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="importeTotalVenta">
-                        <th mat-header-cell *matHeaderCellDef>Importe Total de la Venta:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.importeTotalVenta}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="importeIce">
-                        <th mat-header-cell *matHeaderCellDef>Importe ICE:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.importeIce}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="importeIehd">
-                        <th mat-header-cell *matHeaderCellDef>Importe IEHD:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.importeIehd}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="importeIpj">
-                        <th mat-header-cell *matHeaderCellDef>NImporte IPJ:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.importeIpj}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="tasas">
-                        <th mat-header-cell *matHeaderCellDef>NTasas:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.tasas}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="otrosSujetosIva">
-                        <th mat-header-cell *matHeaderCellDef>Otros No Sujetos al IVA:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.otrosSujetosIva}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="exportacionesOperacionesExentas">
-                        <th mat-header-cell *matHeaderCellDef>Exportaciones y Operaciones Exentas:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.exportacionesOperacionesExentas}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="ventasGravadasTasaCero">
-                        <th mat-header-cell *matHeaderCellDef>NVentas Gravadas a Tasa Cero:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.ventasGravadasTasaCero}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="subtotal">
-                        <th mat-header-cell *matHeaderCellDef>Subtotal:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.subtotal}}</td>
-                        <td mat-footer-cell *matFooterCellDef>{{sumarTotal()}}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="descuetosBonificacionesRebajasSujetasIva">
-                        <th mat-header-cell *matHeaderCellDef>Descuentos Bonificaciones y Rebajas Sujetas al IVA:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.descuetosBonificacionesRebajasSujetasIva}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="importeGiftCard">
-                        <th mat-header-cell *matHeaderCellDef>Importe Gift Card:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.importeGiftCard}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="importeBaseDebitoFiscal">
-                        <th mat-header-cell *matHeaderCellDef>Importe Base para Débito Fiscal:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.importeBaseDebitoFiscal}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="debitoFiscal">
-                        <th mat-header-cell *matHeaderCellDef>Débito Fiscal:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.debitoFiscal}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="estadoVenta">
-                        <th mat-header-cell *matHeaderCellDef>Estado:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.estadoVenta}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="codigoControl">
-                        <th mat-header-cell *matHeaderCellDef>Código de Control:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.codigoControl}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="tipoVenta">
-                        <th mat-header-cell *matHeaderCellDef>Tipo Venta:</th>
-                        <td mat-cell *matCellDef="let item" class="w-20">{{item.tipoVenta}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-     
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns:displayedColumns;" class="hover:bg-gray-200"></tr>
-                    <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
-                </table>
-                <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
-            </div>
-        </div>
-
-
-    <fuse-alert
-        class="my-5"
-        *ngIf="buscarActivado===2"
-        [appearance]="'outline'"
-        [showIcon]="false"
-        [type]="'error'"
-        [@shake]="true">
-        No tiene ventas registradas
-    </fuse-alert>
+    </div>
 </div>

@@ -23,29 +23,27 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {RegistroComprobanteComponent} from './visualizacion-comprobante.component';
-import {BuscarComprobanteComponent} from './modal/buscar-libro-diario.component';
 import {FuseAlertModule} from '../../../../@fuse/components/alert';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {ComprobantesComponent} from './comprobantes.component';
 
 registerLocaleData(localeES, 'es');
 
-const pedidoRoutes: Route[] = [
+const libroRoutes: Route[] = [
     {
         path: '',
-        component: RegistroComprobanteComponent
+        component: ComprobantesComponent
     }
 ];
 
 @NgModule({
   declarations: [
-      RegistroComprobanteComponent,
-      BuscarComprobanteComponent
+      ComprobantesComponent
   ],
     imports: [
         CommonModule,
-        RouterModule.forChild(pedidoRoutes),
+        RouterModule.forChild(libroRoutes),
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
@@ -94,4 +92,4 @@ const pedidoRoutes: Route[] = [
         }
     ]
 })
-export class VisualizacionCompronbanteModule { }
+export class ComprobantesModule { }

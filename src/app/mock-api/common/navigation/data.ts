@@ -58,18 +58,18 @@ export const adminNavigation: FuseNavigationItem[] = [
                 link : '/registros/tipo'
             },
             {
-                id   : 'apps.registros.comprobantes',
+                id   : 'apps.registros.comprobante',
                 title: 'Registro de comprobantes',
                 type    : 'basic',
                 icon    : 'heroicons_outline:clipboard-check',
-                link : '/registros/comprobantes'
+                link : '/registros/comprobante'
             },
             {
-                id   : 'apps.comprobantes',
+                id   : 'apps.registros.comprobantes',
                 title: 'Comprobantes',
                 type    : 'basic',
                 icon    : 'heroicons_outline:clipboard-check',
-                link : '/comprobantes'
+                link : '/registros/comprobantes'
             }
         ]
     },
@@ -85,7 +85,6 @@ export const adminNavigation: FuseNavigationItem[] = [
                 icon    : 'heroicons_outline:clipboard-check',
                 link : '/libros/libro-diario'
             },
-            
             {
                 id   : 'apps.libros.libro-mayor',
                 title: 'Registro de libro Mayor',

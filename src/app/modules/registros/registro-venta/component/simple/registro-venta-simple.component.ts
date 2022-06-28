@@ -135,6 +135,8 @@ export class RegistroVentaSimpleComponent implements OnInit, AfterViewInit {
                 data.push(registroVenta);
                 this.dataSourceRegistroVentaDetalle.data = data;
                 this.detalleCount = data.length;
+                this.buscarActivado = 2;
+                this.configPaginator();
             }
         });
     }

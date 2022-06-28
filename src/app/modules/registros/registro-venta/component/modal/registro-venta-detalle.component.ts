@@ -74,7 +74,7 @@ export class RegistroVentaDetalleComponent implements OnInit {
             numeroFactura:                              [this.registroVentaDetalle.numeroFactura, [Validators.required]],
             codigoAutorizacion:                         [this.registroVentaDetalle.codigoAutorizacion, [Validators.required]],
             nitCiCliente:                               [this.registroVentaDetalle.nitCiCliente, [Validators.required]],
-            complemento:                                [this.registroVentaDetalle.complemento, [Validators.required]],
+            complemento:                                [this.registroVentaDetalle.complemento],
             nombreRazonSocial:                          [this.registroVentaDetalle.nombreRazonSocial, [Validators.required]],
             importeTotalVenta:                          [this.registroVentaDetalle.importeTotalVenta, [Validators.required]],
             importeIce:                                 [this.registroVentaDetalle.importeIce, [Validators.required]],
@@ -96,30 +96,11 @@ export class RegistroVentaDetalleComponent implements OnInit {
 
         this.registroForm.controls['debitoFiscal'].enable();
         let suma = 9;
-        this.registroForm.valueChanges.subscribe( x => { 
-            
-             suma = x.debitoFiscal + x.importeBaseDebitoFiscal; 
-            console.log(this.registroForm.get("debitoFiscal").value); 
-
-            console.log(suma); 
-            /*if(){
-                
-            }*/
+        this.registroForm.valueChanges.subscribe( (x) => {
+            suma = x.debitoFiscal + x.importeBaseDebitoFiscal;
             this.registroForm.controls.subtotal.setValue(suma);
-          //  this.registroForm.controls['subtotal'].setValue(suma);
-    });
+        });
     this.registroForm.controls.subtotal.setValue(suma);
-
-        /*
-        this.registroForm.controls.subtotal.valueChanges.subscribe(x => {
-            console.log(x.debitoFiscal + x.importeBaseDebitoFiscal);
-      });*/
-        /*this.registroForm.get('subtotal').valueChanges.subscribe(x => {
-            console.log('name has changed:',             x.debitoFiscal + x.importeBaseDebitoFiscal)
-            
-      });*/
-            
-
     }
 
     guardar(): void {

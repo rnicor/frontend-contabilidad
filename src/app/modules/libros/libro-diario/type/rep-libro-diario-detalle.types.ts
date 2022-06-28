@@ -1,6 +1,9 @@
-export interface LibroDiarioDetalle{
+export interface RepLibroDiarioDetalle{
     comprobanteId: number;
     comprobanteDetalleId: number;
+    fecha: string;
+    tipo: number;
+    numeroComprobante: number;
     codigoCuenta: string;
     nombreCuenta: string;
     referencia: string;
@@ -8,7 +11,4 @@ export interface LibroDiarioDetalle{
     haberBoliviano: number;
     debeDolar: number;
     haberDolar: number;
-    tipo: number;
 }
-
-

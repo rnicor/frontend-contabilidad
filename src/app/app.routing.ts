@@ -59,8 +59,6 @@ export const appRoutes: Route[] = [
         children   : [
             {path: 'libro-diario', loadChildren: () => import('app/modules/libros/libro-diario/libro-diario.module').then(m => m.LibroDiarioModule)},
             {path: 'libro-mayor', loadChildren: () => import('app/modules/libros/libro-mayor/libro-mayor.module').then(m => m.LibroMayorModule)},
-            
-            {path: 'visualizacion-comprobante', loadChildren: () => import('app/modules/libros/visualizacion-comprobante/visualizacion-comprobante.module').then(m => m.VisualizacionCompronbanteModule)},
 
         ]
     },
@@ -86,8 +84,9 @@ export const appRoutes: Route[] = [
         children   : [
             {path: 'ventas', loadChildren: () => import('app/modules/registros/registro-venta/registro-venta.module').then(m => m.RegistroVentaModule)},
             {path: 'compras', loadChildren: () => import('app/modules/registros/registro-compra/registro-compra.module').then(m => m.RegistroCompraModule)},
-            {path: 'comprobantes', loadChildren: () => import('app/modules/registros/registro-comprobante/registro-comprobante.module').then(m => m.RegistroComprobanteModule)},
+            {path: 'comprobante', loadChildren: () => import('app/modules/registros/registro-comprobante/registro-comprobante.module').then(m => m.RegistroComprobanteModule)},
             {path: 'tipo', loadChildren: () => import('app/modules/registros/registro-tipo/registro-tipo.module').then(m => m.RegistroTipoModule)},
+            {path: 'comprobantes', loadChildren: () => import('app/modules/registros/comprobantes/comprobantes.module').then(m => m.ComprobantesModule)},
         ]
     },
     {

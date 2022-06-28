@@ -3,14 +3,14 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../../../environments/environment';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {LibriDiarioInicio} from '../type/libro-diario-inicio.types';
-import {RepLibroDiario} from '../type/rep-libro-diario.types';
-import {ReqLibroDiario} from '../type/req-libro-diario.types';
+import {LibriDiarioInicio} from '../../../libros/libro-diario/type/libro-diario-inicio.types';
+import {ReqLibroDiario} from '../../../libros/libro-diario/type/req-libro-diario.types';
+import {RepLibroDiario} from '../../../libros/libro-diario/type/rep-libro-diario.types';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LibroDiarioService {
+export class ComprobantesService {
 
     private httpOptions: {};
     private url: string;
@@ -29,15 +29,8 @@ export class LibroDiarioService {
         );
     }
 
-    obtenerReporteLibroDiarioPorMes(reqLibroDiario: ReqLibroDiario): Observable<RepLibroDiario> {
-        return this.http.post(`${this.url}/mes`, reqLibroDiario, this.httpOptions).pipe(
-            map(response => response as RepLibroDiario),
-            catchError(e => throwError(e))
-        );
-    }
-
-    obtenerReporteLibroDiarioPorFecha(reqLibroDiario: ReqLibroDiario): Observable<RepLibroDiario> {
-        return this.http.post(`${this.url}/fecha`, reqLibroDiario, this.httpOptions).pipe(
+    obtenerReporteLibroDiarioPoComprobante(reqLibroDiario: ReqLibroDiario): Observable<RepLibroDiario> {
+        return this.http.post(`${this.url}/comprobante`, reqLibroDiario, this.httpOptions).pipe(
             map(response => response as RepLibroDiario),
             catchError(e => throwError(e))
         );

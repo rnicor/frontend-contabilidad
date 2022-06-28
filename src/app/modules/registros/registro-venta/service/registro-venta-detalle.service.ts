@@ -5,8 +5,6 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {RegistroVentaDetalle} from '../type/registro-venta-detalle.types';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -23,7 +21,6 @@ export class RegistroVentaDetalleService {
     }
 
     guardar(registroVentaId: number, registroVentaDetalle: RegistroVentaDetalle): Observable<RegistroVentaDetalle> {
-        console.log(registroVentaId);
         return this.http.post<any>(`${this.url}/${registroVentaId}`, registroVentaDetalle, this.httpOptions).pipe(
             map(response => response as RegistroVentaDetalle),
             catchError(error => throwError(error))
@@ -31,11 +28,6 @@ export class RegistroVentaDetalleService {
     }
 
     guardarExcel(registroVentaId: number, registroVentaDetalleExcel: RegistroVentaDetalle[]): Observable<void> {
-
-        console.log('datos =>>',registroVentaDetalleExcel);
-        console.log('datos id =>>',registroVentaId);
-
-        
         return this.http.post<any>(`${this.url}/list/${registroVentaId}`, registroVentaDetalleExcel, this.httpOptions).pipe(
             catchError(e => throwError(e))
         );
