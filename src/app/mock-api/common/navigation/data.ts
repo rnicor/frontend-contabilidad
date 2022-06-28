@@ -85,6 +85,14 @@ export const adminNavigation: FuseNavigationItem[] = [
                 icon    : 'heroicons_outline:clipboard-check',
                 link : '/libros/libro-diario'
             },
+            
+            {
+                id   : 'apps.libros.libro-mayor',
+                title: 'Registro de libro Mayor',
+                type    : 'basic',
+                icon    : 'heroicons_outline:clipboard-check',
+                link : '/libros/libro-mayor'
+            },
             {
                 id   : 'apps.libros.libro-mayor',
                 title: 'Libro Mayor',
@@ -92,6 +100,29 @@ export const adminNavigation: FuseNavigationItem[] = [
                 icon    : 'heroicons_outline:clipboard-check',
                 link : '/libros/libro-mayor'
             }
+        ]
+    },
+
+
+    {
+        id      : 'apps.estados-financieros',
+        title   : 'Estados Finacieros',
+        type    : 'group',
+        children: [
+            {
+                id   : 'apps.estado-financieros.estado-financiero',
+                title: 'estados finacieros',
+                type    : 'basic',
+                icon    : 'heroicons_outline:clipboard-check',
+                link : '/estados-financieros/estado-financiero'
+            },
+            {
+                id   : 'apps.estado-financieros.estado-cuenta',
+                title: 'estado de  cuentas ',
+                type    : 'basic',
+                icon    : 'heroicons_outline:clipboard-check',
+                link : '/estados-financieros/estado-cuenta'
+            },
         ]
     },
     {

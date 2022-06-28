@@ -58,8 +58,22 @@ export const appRoutes: Route[] = [
         },
         children   : [
             {path: 'libro-diario', loadChildren: () => import('app/modules/libros/libro-diario/libro-diario.module').then(m => m.LibroDiarioModule)},
+            {path: 'libro-mayor', loadChildren: () => import('app/modules/libros/libro-mayor/libro-mayor.module').then(m => m.LibroMayorModule)},
+            
             {path: 'visualizacion-comprobante', loadChildren: () => import('app/modules/libros/visualizacion-comprobante/visualizacion-comprobante.module').then(m => m.VisualizacionCompronbanteModule)},
 
+        ]
+    },
+    {
+        path       : 'estados-financieros',
+        canActivate: [AuthGuard],
+        component  : LayoutComponent,
+        resolve    : {
+            initialData: InitialDataResolver,
+        },
+        children   : [
+            {path: 'estado-financiero', loadChildren: () => import('app/modules/estados-financieros/estado-financiero/estado-financiero.module').then(m => m.EstadoFinancieroModule)},
+            {path: 'estado-cuenta', loadChildren: () => import('app/modules/estados-financieros/estado-cuenta/estado-cuenta.module').then(m => m.EstadoCuentaModule)},
         ]
     },
     {
