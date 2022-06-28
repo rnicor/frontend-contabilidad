@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../../../environments/environment';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
@@ -41,5 +41,41 @@ export class LibroDiarioService {
             map(response => response as RepLibroDiario),
             catchError(e => throwError(e))
         );
+    }
+
+    reporteLibroDiarioPdf(reqLibroDiario: ReqLibroDiario): Observable<any> {
+        return this.http.post(`${this.url}/pdf`, reqLibroDiario, {
+            responseType: 'blob',
+            headers: new HttpHeaders({'Content-Type': 'application/json'})
+        }).pipe(
+            catchError((response: HttpErrorResponse) => !!this.isBlobError(response) ? this.parseErrorBlob(response) : throwError(response))
+        );
+    }
+
+    reporteLibroDiarioExcel(reqLibroDiario: ReqLibroDiario): Observable<any> {
+        return this.http.post(`${this.url}/excel`, reqLibroDiario, {
+            responseType: 'blob',
+            headers: new HttpHeaders({'Content-Type': 'application/json'})
+        }).pipe(
+            catchError((response: HttpErrorResponse) => !!this.isBlobError(response) ? this.parseErrorBlob(response) : throwError(response))
+        );
+    }
+
+    isBlobError(err: any): any {
+        return err instanceof HttpErrorResponse && err.error instanceof Blob && err.error.type === 'application/json';
+    }
+    parseErrorBlob(err: HttpErrorResponse): Observable<any> {
+        const reader: FileReader = new FileReader();
+        const obs = new Observable((observer: any) => {
+            reader.onloadend = (e) => {
+                observer.error(new HttpErrorResponse({
+                    ...err,
+                    error: JSON.parse(reader.result as string),
+                }));
+                observer.complete();
+            };
+        });
+        reader.readAsText(err.error);
+        return obs;
     }
 }

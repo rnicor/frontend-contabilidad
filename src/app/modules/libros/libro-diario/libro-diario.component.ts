@@ -9,6 +9,7 @@ import {RepLibroDiarioDetalle} from './type/rep-libro-diario-detalle.types';
 import {RepLibroDiario} from './type/rep-libro-diario.types';
 import {LibroDiarioService} from './service/libro-diario.service';
 import {LibriDiarioInicio} from './type/libro-diario-inicio.types';
+import * as FileSaver from 'file-saver';
 
 @Component({
     selector: 'libro-diario',
@@ -105,15 +106,15 @@ export class LibroDiarioComponent implements OnInit {
             }
         );
     }
-   /* reporteResumenVentasPdf(): void {
+    reporteLibroDiarioMesPdf(): void {
         this.disabledForm = true;
-        if (this.reporteForm.invalid) {
-            this.reporteForm.markAllAsTouched();
+        if (this.reporteMesForm.invalid) {
+            this.reporteMesForm.markAllAsTouched();
             this._snackBar.open('Complete todos datos requeridos', 'Error!!!', appSnackWarm);
             this.disabledForm = false;
             return;
         }
-        this.libroDiarioService.reporteResumenVentasPdf(this.reporteForm.getRawValue()).subscribe(
+        this.libroDiarioService.reporteLibroDiarioPdf(this.reporteMesForm.getRawValue()).subscribe(
             (response) => {
                 const file = new Blob([response], { type: 'application/pdf' });
                 const fileURL = URL.createObjectURL(file);
@@ -126,17 +127,20 @@ export class LibroDiarioComponent implements OnInit {
             }
         );
     }
-    reporteResumenVentasExcel(): void {
+
+    reporteLibroDiarioFechaPdf(): void {
         this.disabledForm = true;
-        if (this.reporteForm.invalid) {
-            this.reporteForm.markAllAsTouched();
+        if (this.reporteFechaForm.invalid) {
+            this.reporteFechaForm.markAllAsTouched();
             this._snackBar.open('Complete todos datos requeridos', 'Error!!!', appSnackWarm);
             this.disabledForm = false;
             return;
         }
-        this.libroDiarioService.reporteResumenVentasExcel(this.reporteForm.getRawValue()).subscribe(
+        this.libroDiarioService.reporteLibroDiarioPdf(this.reporteFechaForm.getRawValue()).subscribe(
             (response) => {
-                FileSaver.saveAs(response, 'reporteResumenVentas.xlsx');
+                const file = new Blob([response], { type: 'application/pdf' });
+                const fileURL = URL.createObjectURL(file);
+                window.open(fileURL);
                 this.disabledForm = false;
             },
             (err) => {
@@ -144,7 +148,46 @@ export class LibroDiarioComponent implements OnInit {
                 this.disabledForm = false;
             }
         );
-    }*/
+    }
+
+    reporteLibroDiarioFechaExcel(): void {
+        this.disabledForm = true;
+        if (this.reporteFechaForm.invalid) {
+            this.reporteFechaForm.markAllAsTouched();
+            this._snackBar.open('Complete todos datos requeridos', 'Error!!!', appSnackWarm);
+            this.disabledForm = false;
+            return;
+        }
+        this.libroDiarioService.reporteLibroDiarioExcel(this.reporteFechaForm.getRawValue()).subscribe(
+            (response) => {
+                FileSaver.saveAs(response, 'reporteLibroDiarioFechaExcel.xlsx');
+                this.disabledForm = false;
+            },
+            (err) => {
+                this._snackBar.open(err.error.message, 'Error!!!', appSnackWarm);
+                this.disabledForm = false;
+            }
+        );
+    }
+    reporteLibroDiarioMesExcel(): void {
+        this.disabledForm = true;
+        if (this.reporteMesForm.invalid) {
+            this.reporteMesForm.markAllAsTouched();
+            this._snackBar.open('Complete todos datos requeridos', 'Error!!!', appSnackWarm);
+            this.disabledForm = false;
+            return;
+        }
+        this.libroDiarioService.reporteLibroDiarioExcel(this.reporteMesForm.getRawValue()).subscribe(
+            (response) => {
+                FileSaver.saveAs(response, 'reporteLibroDiarioMesExcel.xlsx');
+                this.disabledForm = false;
+            },
+            (err) => {
+                this._snackBar.open(err.error.message, 'Error!!!', appSnackWarm);
+                this.disabledForm = false;
+            }
+        );
+    }
     get fm(): any {
         return this.reporteMesForm.controls;
     }
