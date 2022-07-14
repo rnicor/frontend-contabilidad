@@ -1,320 +1,117 @@
-import {AfterViewInit} from '@angular/core';
-import {appSnackPrimary, appSnackWarm} from '../../../core/snack/app.snack';
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {FuseConfirmationService} from '../../../../@fuse/services/confirmation';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { appSnackWarm} from 'app/core/snack/app.snack';
+import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 import {LibroMayorService} from './service/libro-mayor.service';
-import {AuthService} from '../../../core/auth/auth.service';
+import {RepLibroMayorDetalle} from './type/rep-libro-mayor-detalle.types';
+import {RepLibroMayor} from './type/rep-libro-mayor.types';
 import {LibroMayorInicio} from './type/libro-mayor-inicio.types';
-import {LibroDiario} from './type/libro-diario.types';
-import {LibroReporte} from './type/libro-reporte.types';
-
-import {LibroDiarioDetalle} from './type/libro-diario-detalle.types';
-
-import {MesTipo} from './type/mes_tipo.types';
-
-import {debounceTime, distinctUntilChanged, filter, switchMap, tap} from 'rxjs/operators';
-import {of} from "rxjs";
 
 @Component({
-    selector: 'app-libro-mayor',
-    templateUrl: './libro-mayor.component.html',
-    encapsulation: ViewEncapsulation.None
+    selector: 'libro-mayor',
+    templateUrl: './libro-mayor.component.html'
 })
-export class RegistroComprobanteComponent implements OnInit, AfterViewInit {
+
+export class LibroMayorComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    isLoading: boolean = false;
-    displayedColumns: string[] = ['nro', 'fecha', 'monto', 'descripcion', 'actions'];
-    dataSource = new MatTableDataSource<LibroDiarioDetalle>([]);
-    lineasCount: number = 0;
+    displayedColumns: string[] = ['fecha', 'tipo', 'numeroComprobante', 'referencia', 'debeBoliviano', 'haberBoliviano', 'saldoBoliviano', 'debeDolar', 'haberDolar', 'saldoDolar', 'tipoCambio'];
+    dataSource = new MatTableDataSource<RepLibroMayorDetalle>([]);
+    reporteCount: number = 0;
 
-    libroReporte: LibroReporte;
+    reporteFechaForm: FormGroup;
+
+    reporte: RepLibroMayor;
     inicio: LibroMayorInicio;
-    libroDiario: LibroDiario;
-    mesTipo: MesTipo;
-    libroDiarioDetalle: LibroDiarioDetalle;
-
-  
-    formLibrodiario: FormGroup;
-
-
 
     disabledForm: boolean;
-    constructor(
-        private libroMayorService: LibroMayorService,
-        private authService: AuthService,
-        private formBuilder: FormBuilder,
-        private _snackBar: MatSnackBar,
-        private _fuseConfirmationService: FuseConfirmationService,
-        public dialog: MatDialog
-    ) {}
 
+    constructor(
+        private formBuilder: FormBuilder,
+        private libroMayorService: LibroMayorService,
+        private _snackBar: MatSnackBar,
+    ) {}
     ngOnInit(): void {
         this.disabledForm = false;
+        this.iniciarFormulario();
         this.libroMayorService.inicio().subscribe(
             (response) => {
                 this.inicio = response;
+                this.reporteFechaForm.controls['fechaInicial'].setValue(response.fecha);
+                this.reporteFechaForm.controls['fechaFinal'].setValue(response.fecha);
+            }, (err) =>  {
+                this._snackBar.open( err.error.message,'Error!!!', appSnackWarm);
             }
         );
-        this.iniciaFormulario();
     }
-
-    ngAfterViewInit(): void {
-    }
-
-    iniciaFormulario(): void {
-        this.libroDiario = this.libroDiario ? this.libroDiario : this.libroDiario = {
-            id: null,
-            tipoComprobanteId: null,
-            fechaDesde: null,
-            fechaHasta: null,
-            tipoCambio: null,
-            moneda: null,
-            pagadoA: null,
-            nitCi: null,
-            codigoContable:null,
-            proyecto:null,
-            nroRecibo: null,
-            nroComprobante: null,
-            glosa: null,
-            totalDebeBoliviano: null,
-            totalHaberBoliviano: null,
-            totalHaberDolar: null,
-            totalDebeDolar: null,
-            diferenciaDebeBoliviano: null,
-            diferenciaHaberBoliviano: null,
-            diferenciaDebeDolar: null,
-            diferenciaHaberDolar: null,
-            detalle: []
-        };
-        this.mesTipo = this.mesTipo ? this.mesTipo : this.mesTipo = {
-            tipo: null,
-            mes: null,
-            fechaInicio: null,
-            fechaFin: null,
-
-
-            
-        };
-        this.formLibrodiario = this.formBuilder.group({
-            id:                         [null],
-            tipoComprobanteId:          [null, [Validators.required]],
-            fechaDesde: null,
-            fechaHasta: null,
-            tipoCambio:                 [null, [Validators.required]],
-            moneda:                     [null, [Validators.required]],
-            pagadoA:                    [null, [Validators.required]],
-            nitCi:                      [null],
-            proyecto:                   [null],
-            codigoContable:             [null],
-
-            nroRecibo:                  [{value: null, disabled: true}],
-            nroComprobante:             [{value: null, disabled: true}],
-            glosa:                      [null, [Validators.required]],
-            totalDebeBoliviano:         [{value: null, disabled: true}, [Validators.required]],
-            totalHaberBoliviano:        [{value: null, disabled: true}, [Validators.required]],
-            totalHaberDolar:            [{value: null, disabled: true}, [Validators.required]],
-            totalDebeDolar:             [{value: null, disabled: true}, [Validators.required]],
-            diferenciaDebeBoliviano:    [{value: null, disabled: true}],
-            diferenciaHaberBoliviano:   [{value: null, disabled: true}],
-            diferenciaDebeDolar:        [{value: null, disabled: true}],
-            diferenciaHaberDolar:       [{value: null, disabled: true}],
-            detalle:                    this.formBuilder.array([])
-        });
-        this.detalles.valueChanges.subscribe((data) => {
-            this.formLibrodiario.get('totalDebeBoliviano').setValue(data.reduce((a,b) => a + +b.debeBoliviano, 0));
-            this.formLibrodiario.get('totalHaberBoliviano').setValue(data.reduce((a,b) => a + +b.haberBoliviano, 0));
-            this.formLibrodiario.get('totalHaberDolar').setValue(data.reduce((a,b) => a + +b.debeDolar, 0));
-            this.formLibrodiario.get('totalDebeDolar').setValue(data.reduce((a,b) => a + +b.haberDolar, 0));
-        });
-        this.formLibrodiario.get('glosa').valueChanges.pipe(
-            debounceTime(400),
-            distinctUntilChanged())
-            .subscribe((data) => {
-                for (let i = 0; i <= this.detalles.length-1; i++){
-                    this.detalles.at(i).patchValue({referencia: data});
-                }
-            });
-    }
-
-    add(): void {
-        this.detalles.push(this.createDetallesField());
-    }
-
-    deleteDetalle(i): void {
-        this.detalles.removeAt(i);
-    }
-
-    createDetallesField(): any {
-        return this.formBuilder.group({
-            id: [null],
-            comprobanteId: [null, Validators.required],
-            codigoCuenta: [null, Validators.required],
-            nombreCuenta: [null, Validators.required],
-            referencia: [null, Validators.required],
-            debeBoliviano: [null],
-            haberBoliviano: [null],
-            debeDolar: [null],
-            haberDolar: [null],
-            banco: [null],
-            nroCheque: [null],
-            iva: [null]
+    iniciarFormulario(): void {
+        this.reporteFechaForm = this.formBuilder.group({
+            codigo: [null, [Validators.required]],
+            fechaInicio: [null, [Validators.required]],
+            fechaFin: [null, [Validators.required]]
         });
     }
-
-    get detalles(): FormArray {
-        return this.formLibrodiario.get('detalle') as FormArray;
-    }
-
-    actualizarCuenta(index: number, event: any): void {
-        this.detalles.at(index).patchValue({comprobanteId: event.value.id, codigoCuenta: event.value.codigo , nombreCuenta: event.value.nombre});
-    }
-
-
-    buscar(): void {;
-        
+    obtenerReporteLibroDiarioPorFecha(): void {
         this.disabledForm = true;
-        this.libroDiario = this.formLibrodiario.getRawValue();
-        console.log( this.libroDiario);
-        //this.mesTipo.tipo = this.libroDiario.tipoComprobanteId;
-        console.log( this.mesTipo);
-        this.mesTipo.tipo = 0;
-        this.mesTipo.fechaFin = '2022-06-06';
-        this.mesTipo.fechaInicio = '2022-06-06';
-
-        this.mesTipo.mes = 6;
-        console.log( this.mesTipo);
-        this.libroMayorService.buscar(this.mesTipo).subscribe(
+        this.dataSource.data = [];
+        if (this.reporteFechaForm.invalid) {
+            this.reporteFechaForm.markAllAsTouched();
+            this._snackBar.open('Complete todos datos requeridos', 'Error!!!', appSnackWarm);
+            this.disabledForm = false;
+            return;
+        }
+        this.libroMayorService.obtenerLibroMayorPorCodigoPorFecha(this.reporteFechaForm.getRawValue()).subscribe(
             (response) => {
-                console.log('respuesta de backend inicio',    response);
-
-
-                    console.log('respuesta de backend ', response[0].totalDebeBoliviano);
-                    console.log('respuesta de backend ', this.libroDiario);
-
-            
-
-             //this.libroReporte = response;
-             console.log( 'respuesta de backend =>>', this.libroDiario);
-                  this.configPaginator();
-                  this.lineasCount = response[0].length;
-                  this.isLoading = false;
-                },   
+                this.reporte = response;
+                this.dataSource.data = this.reporte.detalle;
+                this.reporteCount = this.reporte.detalle.length;
+                this.configPaginator();
+                this.disabledForm = false;
+            },
             (err) => {
                 this._snackBar.open(err.error.message, 'Error!!!', appSnackWarm);
                 this.disabledForm = false;
-              //  this.buscarActivado = 3;
-            });
-
-
-
+            }
+        );
     }
-    
-    get f(): any {
-        return this.formLibrodiario.controls;
-    }
-    private mapPedidoToFormulario(): void {
-        this.formLibrodiario.controls['id'].setValue(this.libroDiario.id);
-        this.formLibrodiario.controls['tipoComprobanteId'].setValue(this.libroDiario.tipoComprobanteId);
-        this.formLibrodiario.controls['fechaDesde'].setValue(this.libroDiario.fechaDesde);
-        this.formLibrodiario.controls['fechaHasta'].setValue(this.libroDiario.fechaHasta);
 
-        this.formLibrodiario.controls['tipoCambio'].setValue(this.libroDiario.tipoCambio);
-        this.formLibrodiario.controls['moneda'].setValue(this.libroDiario.moneda);
-        this.formLibrodiario.controls['pagadoA'].setValue(this.libroDiario.pagadoA);
-        this.formLibrodiario.controls['nitCi'].setValue(this.libroDiario.nitCi);
-        this.formLibrodiario.controls['nroRecibo'].setValue(this.libroDiario.nroRecibo);
-        this.formLibrodiario.controls['nroComprobante'].setValue(this.libroDiario.nroComprobante);
-        this.formLibrodiario.controls['glosa'].setValue(this.libroDiario.glosa);
-        this.formLibrodiario.controls['totalDebeBoliviano'].setValue(this.libroDiario.totalDebeBoliviano);
-        this.formLibrodiario.controls['totalHaberBoliviano'].setValue(this.libroDiario.totalHaberBoliviano);
-        this.formLibrodiario.controls['totalHaberDolar'].setValue(this.libroDiario.totalHaberDolar);
-        this.formLibrodiario.controls['totalDebeDolar'].setValue(this.libroDiario.totalDebeDolar);
-        this.formLibrodiario.controls['diferenciaDebeBoliviano'].setValue(this.libroDiario.diferenciaDebeBoliviano);
-        this.formLibrodiario.controls['diferenciaHaberBoliviano'].setValue(this.libroDiario.diferenciaHaberBoliviano);
-        this.formLibrodiario.controls['diferenciaDebeDolar'].setValue(this.libroDiario.diferenciaDebeDolar);
-        this.formLibrodiario.controls['diferenciaHaberDolar'].setValue(this.libroDiario.diferenciaHaberDolar);
-        this.libroDiario.detalle.forEach((e, index) => {
-            this.detalles.push(this.formBuilder.group({
-                comprobanteId: [e.comprobanteId, Validators.required],
-                comprobanteDetalleId: [e.comprobanteDetalleId],
-                codigoCuenta: [e.codigoCuenta, Validators.required],
-                nombreCuenta: [e.nombreCuenta, Validators.required],
-                referencia: [e.referencia, Validators.required],
-                debeBoliviano: [e.debeBoliviano],
-                haberBoliviano: [e.haberBoliviano],
-                debeDolar: [e.debeDolar],
-                haberDolar: [e.haberDolar],
-                tipo: [e.tipo],
-                
-                
-            }));
-        });
-    }
-    private mapFormularioToPedido(): void {
-        this.libroDiario.id = this.formLibrodiario.controls['id'].value;
-        this.libroDiario.tipoComprobanteId = this.formLibrodiario.controls['tipoComprobanteId'].value;
-        this.libroDiario.fechaDesde = this.formLibrodiario.controls['fechaDesde'].value;
-        this.libroDiario.fechaHasta = this.formLibrodiario.controls['fechaHaste'].value;
 
-        this.libroDiario.tipoCambio = this.formLibrodiario.controls['tipoCambio'].value;
-        this.libroDiario.moneda = this.formLibrodiario.controls['moneda'].value;
-        this.libroDiario.pagadoA = this.formLibrodiario.controls['pagadoA'].value;
-        this.libroDiario.nitCi = this.formLibrodiario.controls['nitCi'].value;
-        this.libroDiario.nroRecibo = this.formLibrodiario.controls['nroRecibo'].value;
-        this.libroDiario.nroComprobante = this.formLibrodiario.controls['nroComprobante'].value;
-        this.libroDiario.glosa = this.formLibrodiario.controls['glosa'].value;
-        this.libroDiario.totalDebeBoliviano = this.formLibrodiario.controls['totalDebeBoliviano'].value;
-        this.libroDiario.totalHaberBoliviano = this.formLibrodiario.controls['totalHaberBoliviano'].value;
-        this.libroDiario.totalHaberDolar = this.formLibrodiario.controls['totalHaberDolar'].value;
-        this.libroDiario.totalDebeDolar = this.formLibrodiario.controls['totalDebeDolar'].value;
-        this.libroDiario.diferenciaDebeBoliviano = this.formLibrodiario.controls['diferenciaDebeBoliviano'].value;
-        this.libroDiario.diferenciaHaberBoliviano = this.formLibrodiario.controls['diferenciaHaberBoliviano'].value;
-        this.libroDiario.diferenciaDebeDolar = this.formLibrodiario.controls['diferenciaDebeDolar'].value;
-        this.libroDiario.diferenciaHaberDolar = this.formLibrodiario.controls['diferenciaHaberDolar'].value;
-        this.libroDiario.detalle = this.formLibrodiario.controls['detalle'].value;
-    }
-    private validarPedido(): boolean {
-        console.log(this.formLibrodiario);
-        if(this.formLibrodiario.invalid) {
-            this.formLibrodiario.markAllAsTouched();
-            this._snackBar.open('Complete los datos requeridos', 'Error!!!', appSnackWarm);
-            return false;
+    /*reporteLibroDiarioFechaPdf(): void {
+        this.disabledForm = true;
+        if (this.reporteFechaForm.invalid) {
+            this.reporteFechaForm.markAllAsTouched();
+            this._snackBar.open('Complete todos datos requeridos', 'Error!!!', appSnackWarm);
+            this.disabledForm = false;
+            return;
         }
-        /*const registroPedidoDetalle = this.dataSourcePedidoDetalle.data.find(e => !e.cantidad);
-        if (registroPedidoDetalle) {
-            this._snackBar.open('Al ingresar los productos, alguna cantidad aun sigue siendo cero, revise por favor', 'Error!!!', appSnackWarm);
-            return  false;
-        }*/
-        /*const verificarMayor = this.dataSourcePedidoDetalle.data.find(element => (element.cantidad > element.cantidadOrigen || element.cantidadOrigen===0));
-        if (verificarMayor) {
-            this._snackBar.open('Alguna de las cantidades es mayor a la cantidad que tiene la sucursal del comprobante o no tiene stock', 'Error!!!', appSnackWarm);
-            return  false;
-        }*/
-        return true;
+        this.libroMayorService.reporteLibroDiarioPdf(this.reporteFechaForm.getRawValue()).subscribe(
+            (response) => {
+                const file = new Blob([response], { type: 'application/pdf' });
+                const fileURL = URL.createObjectURL(file);
+                window.open(fileURL);
+                this.disabledForm = false;
+            },
+            (err) => {
+                this._snackBar.open(err.error.message, 'Error!!!', appSnackWarm);
+                this.disabledForm = false;
+            }
+        );
+    }*/
+    get f(): any {
+        return this.reporteFechaForm.controls;
     }
-
-    filtrar(event: Event): void {
-        const filtro = (event.target as HTMLInputElement).value;
-        this.dataSource.filter = filtro.trim().toLowerCase();
-    }
-
-    configPaginator(): void {
-        setTimeout(() => {
+    configPaginator(): void{
+        setTimeout(()=>{
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
-            this.paginator._intl.itemsPerPageLabel = 'Lineas por página';
+            this.paginator._intl.itemsPerPageLabel = 'Item por página';
             this.paginator._intl.previousPageLabel = 'Página anterior';
             this.paginator._intl.nextPageLabel = 'Página siguiente';
             this.paginator._intl.firstPageLabel = 'Primera página';
-            this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+            this.paginator._intl.getRangeLabel = ( page: number, pageSize: number, length: number) => {
                 const start = page * pageSize + 1;
                 const end = (page + 1) * pageSize;
                 return `${start} - ${end} de ${length}`;

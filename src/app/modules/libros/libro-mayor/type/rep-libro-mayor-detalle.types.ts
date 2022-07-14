@@ -1,14 +1,15 @@
-export interface LibroDiarioDetalle{
+export interface RepLibroMayorDetalle{
     comprobanteId: number;
     comprobanteDetalleId: number;
-    codigoCuenta: string;
-    nombreCuenta: string;
+    fecha: string;
+    tipo: number;
+    numeroComprobante: number;
     referencia: string;
     debeBoliviano: number;
     haberBoliviano: number;
+    saldoBoliviano: number;
     debeDolar: number;
     haberDolar: number;
-    tipo: number;
+    saldoDolar: number;
+    tipoCambio: number;
 }
-
-

@@ -1,102 +1,159 @@
-<div class="flex flex-col flex-auto min-w-0 bg-card dark:bg-transparent">
-    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-5 px-6 md:px-8 border-b">
-        <div class="text-4xl font-extrabold tracking-tight">Libro Mayor</div>
-    </div>
-    <!-- Botones de operacion -->
-    <form [formGroup]="formLibrodiario" class="mx-5" *ngIf="inicio">
-        <div class="grid sm:grid-cols-12 gap-6 w-full mt-8">
-
-
-            <div class="sm:col-span-2">
-                <mat-form-field class="fuse-mat-no-subscript w-full">
-                    <mat-label>Codigo Contable  </mat-label>
-                    <input formControlName="codigoContable" matInput type="number">
-                </mat-form-field>
-                <div class="messages" *ngIf="f.codigoContable.touched && f.codigoContable.invalid">
-                    <mat-error *ngIf="f.codigoContable.hasError('required')">
-                        Este campo es requerido
-                    </mat-error>
-                </div>
-            </div>
-
-            <div class="sm:col-span-2">
-                <mat-form-field class="fuse-mat-no-subscript w-full">
-                    <mat-label>Proyecto</mat-label>
-                    <input formControlName="proyecto" matInput type="number">
-                </mat-form-field>
-                <div class="messages" *ngIf="f.proyecto.touched && f.proyecto.invalid">
-                    <mat-error *ngIf="f.proyecto.hasError('required')">
-                        Este campo es requerido
-                    </mat-error>
-                </div>
-            </div>
-
-
-            <div class="sm:col-span-2">
-                <mat-form-field class="fuse-mat-no-subscript w-full">
-                    <mat-label>Desde:</mat-label>
-                    <input matInput formControlName="fechaDesde" [matDatepicker]="fechaDatepicker">
-                    <mat-datepicker-toggle matSuffix [for]="fechaDatepicker"></mat-datepicker-toggle>
-                    <mat-datepicker #fechaDatepicker></mat-datepicker>
-                </mat-form-field>
-                <div class="messages" *ngIf="f.fechaDesde.touched && f.fechaDesde.invalid">
-                    <mat-error *ngIf="f.fechaDesde.hasError('required')">
-                        Este campo es requerido
-                    </mat-error>
-                </div>
-            </div>
-
-            <div class="sm:col-span-2">
-                <mat-form-field class="fuse-mat-no-subscript w-full">
-                    <mat-label><span class="text-warn">(*)</span>Hasta: </mat-label>
-                    <input matInput [matDatepicker]="picker" [formControlName]="'fechaHasta'">
-                    <mat-datepicker-toggle matprefix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-                <div class="messages" *ngIf="f.fechaHasta.touched && f.fechaHasta.invalid">
-                    <mat-error *ngIf="f.fechaHasta.hasError('required')">
-                        Este campo es requerido
-                    </mat-error>
-                </div>
-            </div>
-
-
-            <div class="sm:col-span-2">
-                <mat-form-field class="fuse-mat-no-subscript w-full">
-                    <mat-label>Mes</mat-label>
-                    <mat-select formControlName="tipoComprobanteId">
-                        <mat-option *ngFor="let p of inicio.meses" [value]="p.codigo">
-                            {{p.nombre}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <div class="messages" *ngIf="f.tipoComprobanteId.touched && f.tipoComprobanteId.invalid">
-                    <mat-error *ngIf="f.tipoComprobanteId.hasError('required')">
-                        Este campo es requerido
-                    </mat-error>
-                </div>
-            </div>
-            <div class="sm:col-span-2">
-                   <mat-label>
-            <button
-                    class="ml-4"
-                    mat-flat-button
-                    [color]="'primary'"
-                    (click)="buscar()"
-                    [disabled]="disabledForm">
-                <ng-container *ngIf="!disabledForm">
-                    <mat-icon [svgIcon]="'heroicons_outline:save-as'"></mat-icon>
-                    Buscar
-                </ng-container>
-                <mat-progress-spinner
-                    *ngIf="disabledForm"
-                    [diameter]="24"
-                    [mode]="'indeterminate'"></mat-progress-spinner>
-            </button>
-        </mat-label>
-            </div>
-       
-       
+<div class="flex flex-col flex-auto w-full">
+    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+        <div>
+            <div class="text-4xl font-extrabold tracking-tight leading-none">Libro mayor</div>
         </div>
-    </form>
+    </div>
+    <div class="w-full">
+        <div class="grid sm:grid-cols-6 gap-6 w-full mt-8" *ngIf="inicio">
+            <div class="sm:col-span-3">
+                <form [formGroup]="reporteFechaForm" class="mx-5">
+                    <div class="grid sm:grid-cols-6 gap-6 w-full mt-8">
+                        <div class="sm:col-span-2">
+                            <mat-form-field class="fuse-mat-no-subscript w-full">
+                                <mat-label>Código contable</mat-label>
+                                <mat-select formControlName="codigo">
+                                    <mat-option value="" selected></mat-option>
+                                    <ng-container *ngFor="let p of inicio.cuentas">
+                                        <mat-option [value]="p.codigo">
+                                            {{p.codigo}}
+                                        </mat-option>
+                                    </ng-container>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <mat-form-field class="fuse-mat-no-subscript w-full">
+                                <mat-label>Fecha inicio:</mat-label>
+                                <input matInput formControlName="fechaInicio" [matDatepicker]="fechaIngresoDatepicker">
+                                <mat-datepicker-toggle matSuffix [for]="fechaIngresoDatepicker"></mat-datepicker-toggle>
+                                <mat-datepicker #fechaIngresoDatepicker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <mat-form-field class="fuse-mat-no-subscript w-full">
+                                <mat-label>Fecha final:</mat-label>
+                                <input matInput formControlName="fechaFin" [matDatepicker]="fechaFinalDatepicker">
+                                <mat-datepicker-toggle matSuffix [for]="fechaFinalDatepicker"></mat-datepicker-toggle>
+                                <mat-datepicker #fechaFinalDatepicker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="my-5 border-t"></div>
+                    <div class="flex items-center justify-end">
+                        <button
+                            mat-stroked-button
+                            type="button"
+                            [color]="'primary'"
+                            (click)="obtenerReporteLibroDiarioPorFecha()"
+                            [disabled]="disabledForm"
+                        >
+                            <ng-container *ngIf="!disabledForm">
+                                <mat-icon svgIcon="heroicons_solid:search"></mat-icon>
+                                Buscar
+                            </ng-container>
+                            <mat-progress-spinner
+                                *ngIf="disabledForm"
+                                [diameter]="24"
+                                [mode]="'indeterminate'"></mat-progress-spinner>
+                        </button>
+                        <button
+                            class="ml-4"
+                            mat-stroked-button
+                            type="button"
+                            [color]="'warn'"
+                            [disabled]="disabledForm"
+                        >
+                            <ng-container *ngIf="!disabledForm">
+                                <mat-icon svgIcon="mat_outline:picture_as_pdf"></mat-icon>
+                                PDF
+                            </ng-container>
+                            <mat-progress-spinner
+                                *ngIf="disabledForm"
+                                [diameter]="24"
+                                [mode]="'indeterminate'"></mat-progress-spinner>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="flex flex-wrap w-full max-w-screen-xl mx-auto p-6 md:p-8" *ngIf="this.reporte && this.reporte.detalle">
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 w-full">
+                <div class="xl:col-span-3 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden">
+                    <ng-container *ngIf="dataSource && dataSource.data.length;">
+                        <div class="overflow-x-auto mx-6">
+                            <table mat-table [dataSource]="dataSource" matSort class="w-full table-fixed bg-transparent">
+                                <ng-container matColumnDef="fecha">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+                                    <td mat-footer-cell *matFooterCellDef></td>
+                                </ng-container>
+                                <ng-container matColumnDef="tipo">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+                                    <td mat-footer-cell *matFooterCellDef></td>
+                                </ng-container>
+                                <ng-container matColumnDef="numeroComprobante">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.numeroComprobante}} </td>
+                                    <td mat-footer-cell *matFooterCellDef></td>
+                                </ng-container>
+                                <ng-container matColumnDef="referencia">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Referencia </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.referencia}} </td>
+                                    <td mat-footer-cell *matFooterCellDef></td>
+                                </ng-container>
+                                <ng-container matColumnDef="debeBoliviano">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Debe(Bs.) </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.debeBoliviano}} </td>
+                                    <td mat-footer-cell *matFooterCellDef>{{reporte.totalDebeBoliviano}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="haberBoliviano">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Haber(Bs.) </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.haberBoliviano}} </td>
+                                    <td mat-footer-cell *matFooterCellDef>{{reporte.totalHaberBoliviano}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="saldoBoliviano">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Saldo(Bs.) </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.saldoBoliviano}} </td>
+                                    <td mat-footer-cell *matFooterCellDef></td>
+                                </ng-container>
+                                <ng-container matColumnDef="debeDolar">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Debe(US$) </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.debeDolar}} </td>
+                                    <td mat-footer-cell *matFooterCellDef>{{reporte.totalDebeDolar}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="haberDolar">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Haber(US$) </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.haberDolar}} </td>
+                                    <td mat-footer-cell *matFooterCellDef>{{reporte.totalHaberDolar}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="saldoDolar">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Saldo(US$) </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.saldoDolar}} </td>
+                                    <td mat-footer-cell *matFooterCellDef></td>
+                                </ng-container>
+                                <ng-container matColumnDef="tipoCambio">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> T.C. </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.tipoCambio}} </td>
+                                    <td mat-footer-cell *matFooterCellDef></td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+                            </table>
+                            <mat-paginator
+                                showFirstLastButtons
+                                [pageSizeOptions]="[10, 20, 50]"
+                                [length]="reporteCount"
+                                [pageSize]='10'
+                            >
+                            </mat-paginator>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
